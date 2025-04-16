@@ -102,7 +102,7 @@ Typescript: XXXX
 O primeiro caso de uso descreve a ação de um usuário que cria um torneio, sendo assim, ele é o manager do torneio. No segundo caso de uso descreve a ação de um usuário que é entra na aplicação com a intenção de entrar em torneios como jogador. Nos dois casos o usuário pode ser o mesmo, porém com funções diferentes.
 </p>
  
-![Caso de uso 1](https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython/blob/main/docs/assets/Casos_de_Uso/diagramaDeCasoDeUso.png)
+![Caso de uso 1](../assets/Casos_de_Uso/diagramaDeCasoDeUso.png)(https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython/blob/main/docs/assets/Casos_de_Uso/diagramaDeCasoDeUso.png)
  
 ![Caso de uso 2](../assets/Casos_de_uso/caso_de_uso_2.png)
  
