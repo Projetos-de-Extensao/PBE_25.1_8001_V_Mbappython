@@ -2,7 +2,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Produto
 from .serializers import ProdutoSerializer
+import logging
 
+logger = logging.getLogger(__name__)
 
 @api_view(['GET'])
 def getData(request):
@@ -26,3 +28,18 @@ def addProduto(request):
         return Response(serializer.data)
     print("Erro de validação:", serializer.errors)
     return Response(serializer.errors, status=400)
+
+
+@api_view(['DELETE'])
+def deleteProduto(request, id):
+    try:
+        # Tenta obter o produto pelo ID
+        produto = Produto.objects.get(id=id)
+        produto.delete()  # Deleta o produto
+        return Response({"message": "Produto excluído com sucesso!"}, status=200)
+    except Produto.DoesNotExist:
+        # Caso o produto não exista
+        return Response({"message": "Produto não encontrado!"}, status=404)
+    except Exception as e:
+        # Caso ocorra algum erro não esperado
+        return Response({"error": f"Erro ao excluir produto: {str(e)}"}, status=500)

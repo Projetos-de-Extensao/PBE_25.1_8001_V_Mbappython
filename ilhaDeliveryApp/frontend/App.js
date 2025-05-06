@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet, Alert, Switch } from 'react-native';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.0.4:8000/api'; // troque para o IP da sua máquina
+const API_URL = 'http://192.168.0.4:8000/api'; 
 
 export default function App() {
   const [produtos, setProdutos] = useState([]);
@@ -10,16 +10,23 @@ export default function App() {
   const [preco, setPreco] = useState('');
   const [descricao, setDescricao] = useState('');
   const [disponivel, setDisponivel] = useState(true);
+  const [loading, setLoading] = useState(false);
 
+  // Função para buscar os produtos
   const buscarProdutos = async () => {
+    setLoading(true);  // Inicia o carregamento
     try {
       const response = await axios.get(`${API_URL}/verProdutos`);
       setProdutos(response.data);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
+      Alert.alert('Erro ao buscar produtos');
+    } finally {
+      setLoading(false);  // Finaliza o carregamento
     }
   };
 
+  // Função para adicionar produto
   const adicionarProduto = async () => {
     if (!nome || !preco || !descricao) {
       Alert.alert('Preencha todos os campos');
@@ -37,14 +44,30 @@ export default function App() {
       setNome('');
       setPreco('');
       setDescricao('');
-      setDisponivel(true); // Resetando para o valor padrão
-      buscarProdutos(); // atualiza lista após adicionar
+      setDisponivel(true);
+      buscarProdutos(); 
     } catch (error) {
       console.error('Erro ao adicionar produto:', error);
       Alert.alert('Erro ao adicionar produto');
     }
   };
 
+  // Função para excluir o produto
+  const excluirProduto = async (id) => {
+    try {
+      const response = await axios.delete(`${API_URL}/deleteProduto/${id}`);
+      console.log(response.data); // Log da resposta para depuração
+      Alert.alert('Produto excluído com sucesso!');
+      
+      // Atualiza a lista localmente após a exclusão
+      setProdutos(produtos.filter((produto) => produto.id !== id));
+    } catch (error) {
+      // Exibe a resposta completa de erro para depuração
+      console.error('Erro ao excluir produto:', error.response ? error.response.data : error.message);
+      Alert.alert('Erro ao excluir produto', error.response ? error.response.data.message : 'Erro desconhecido');
+    }
+  };
+  
   useEffect(() => {
     buscarProdutos();
   }, []);
@@ -84,20 +107,25 @@ export default function App() {
           </View>
 
           <Button title="Adicionar" onPress={adicionarProduto} />
-
           <Text style={styles.title}>Produtos</Text>
         </>
       }
       data={produtos}
-      keyExtractor={(item, index) => item.id?.toString() || index.toString()}
+      keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
         <View style={styles.produto}>
           <Text style={styles.produtoNome}>{item.nome}</Text>
           <Text>R$ {item.preco}</Text>
           <Text>{item.descricao}</Text>
           <Text>{item.disponivel ? 'Disponível' : 'Indisponível'}</Text>
+          <Button 
+            title="Excluir" 
+            onPress={() => excluirProduto(item.id)} 
+            color="#d9534f" // cor vermelha para excluir
+          />
         </View>
       )}
+      ListFooterComponent={loading ? <Text>Carregando...</Text> : null} 
       contentContainerStyle={styles.container}
     />
   );
