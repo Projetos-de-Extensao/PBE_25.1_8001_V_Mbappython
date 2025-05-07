@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet, Alert, Switch } from 'react-native';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.0.4:8000/api'; 
+const API_URL = 'http://127.0.0.1:8000/api'; 
 
 export default function App() {
   const [produtos, setProdutos] = useState([]);
@@ -12,9 +12,8 @@ export default function App() {
   const [disponivel, setDisponivel] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  // Função para buscar os produtos
   const buscarProdutos = async () => {
-    setLoading(true);  // Inicia o carregamento
+    setLoading(true);  
     try {
       const response = await axios.get(`${API_URL}/verProdutos`);
       setProdutos(response.data);
@@ -22,11 +21,11 @@ export default function App() {
       console.error('Erro ao buscar produtos:', error);
       Alert.alert('Erro ao buscar produtos');
     } finally {
-      setLoading(false);  // Finaliza o carregamento
+      setLoading(false);
     }
   };
 
-  // Função para adicionar produto
+
   const adicionarProduto = async () => {
     if (!nome || !preco || !descricao) {
       Alert.alert('Preencha todos os campos');
@@ -52,17 +51,15 @@ export default function App() {
     }
   };
 
-  // Função para excluir o produto
+
   const excluirProduto = async (id) => {
     try {
       const response = await axios.delete(`${API_URL}/deleteProduto/${id}`);
-      console.log(response.data); // Log da resposta para depuração
+      console.log(response.data);
       Alert.alert('Produto excluído com sucesso!');
       
-      // Atualiza a lista localmente após a exclusão
       setProdutos(produtos.filter((produto) => produto.id !== id));
     } catch (error) {
-      // Exibe a resposta completa de erro para depuração
       console.error('Erro ao excluir produto:', error.response ? error.response.data : error.message);
       Alert.alert('Erro ao excluir produto', error.response ? error.response.data.message : 'Erro desconhecido');
     }

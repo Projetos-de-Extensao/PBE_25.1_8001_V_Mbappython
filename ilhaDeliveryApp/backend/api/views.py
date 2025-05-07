@@ -33,13 +33,10 @@ def addProduto(request):
 @api_view(['DELETE'])
 def deleteProduto(request, id):
     try:
-        # Tenta obter o produto pelo ID
         produto = Produto.objects.get(id=id)
-        produto.delete()  # Deleta o produto
+        produto.delete() 
         return Response({"message": "Produto excluído com sucesso!"}, status=200)
     except Produto.DoesNotExist:
-        # Caso o produto não exista
         return Response({"message": "Produto não encontrado!"}, status=404)
     except Exception as e:
-        # Caso ocorra algum erro não esperado
         return Response({"error": f"Erro ao excluir produto: {str(e)}"}, status=500)
