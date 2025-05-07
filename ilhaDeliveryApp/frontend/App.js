@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8000/api'; 
 
-export default function App() {
+export default function ProdutosScreen() {
   const [produtos, setProdutos] = useState([]);
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
