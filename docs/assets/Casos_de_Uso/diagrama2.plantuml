@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor Cliente
+actor Operador
+actor Administrador
+
+rectangle "App Ilha Delivery" {
+
+  ' Casos do cliente
+  Cliente --> (Criar Pedido)
+  Cliente --> (Visualizar Status do Pedido)
+  Cliente --> (Confirmar Recebimento)
+  Cliente --> (Receber Notificações)
+  Cliente --> (Visualizar Comprovante de Pagamento)
+
+  (Criar Pedido) --> (Adicionar Produto ao Pedido) : <<include>>
+  (Criar Pedido) --> (Selecionar Origem do Produto) : <<include>>
+
+  ' Casos do operador
+  Operador --> (Visualizar Pedidos Pendentes)
+  Operador --> (Atualizar Status do Pedido)
+  Operador --> (Enviar Notificação de Entrega)
+  Operador --> (Anexar Comprovante de Pagamento)
+  Operador --> (Finalizar Pedido)
+
+  (Atualizar Status do Pedido) --> (Enviar Notificação de Status) : <<include>>
+  (Finalizar Pedido) --> (Confirmar Entrega ao Cliente) : <<include>>
+
+  ' Casos do administrador
+  Administrador --> (Gerenciar Usuários)
+  Administrador --> (Acessar Histórico de Pedidos)
+  Administrador --> (Visualizar Estatísticas do Sistema)
+  Administrador --> (Visualizar Todos os Pagamentos)
+}
+
+@enduml
