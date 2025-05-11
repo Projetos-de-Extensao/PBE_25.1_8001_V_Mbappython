@@ -40,3 +40,24 @@
 #         return Response({"message": "Produto não encontrado!"}, status=404)
 #     except Exception as e:
 #         return Response({"error": f"Erro ao excluir produto: {str(e)}"}, status=500)
+
+
+# from rest_framework import generics
+# from rest_framework.decorators import api_view
+# from base.models import Cliente
+# from api.serializers import ClienteSerializer
+# from rest_framework.response import Response
+
+
+# @api_view(['GET'])
+# def getClientes(request):
+#     if not Cliente.objects.exists():
+#         Cliente.objects.create(
+#             nome="Produto Teste",
+#             preco=10.00,
+#             descricao="Produto inserido automaticamente",
+#             disponivel=True
+#         )
+#     cliente = Cliente.objects.all()
+#     serializer = ClienteSerializer(cliente, many=True)
+#     return Response(serializer.data)
