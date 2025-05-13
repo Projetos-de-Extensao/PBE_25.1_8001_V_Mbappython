@@ -11,11 +11,12 @@
 
 from django.urls import path
 from api.viewss.cliente_views import getClientes, addCliente
-from api.viewss.auth_views import LoginView
+from api.viewss.auth_views import LoginView, LogoutView
 
 urlpatterns = [
     path('verClientes', getClientes, name='verProduto'),
     path('addClientes', addCliente, name='addCliente'),
     path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
 ]
 

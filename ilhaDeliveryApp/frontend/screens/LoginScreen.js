@@ -17,7 +17,11 @@ export default function LoginScreen({ navigation }) {
 
       if (response.ok) {
         Alert.alert('Sucesso', data.message);
-        navigation.navigate('Home'); // ou qualquer tela após o login
+        navigation.reset({
+  index: 0,
+  routes: [{ name: 'AppTabs' }],
+});
+// ou qualquer tela após o login
       } else {
         Alert.alert('Erro', data.error || 'Falha ao fazer login');
       }
