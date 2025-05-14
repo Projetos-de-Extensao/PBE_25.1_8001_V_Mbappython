@@ -9,6 +9,7 @@ import GestaoClientes from './screens/gestaoClientes';
 import PerfilScreen from './screens/PerfilScreen';
 import Icon from 'react-native-vector-icons/Feather'; // ou MaterialIcons, Ionicons, etc.
 import CadastroScreen from './screens/CadastroScreen';
+import PedidoScreen from './screens/PedidoScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -60,6 +61,7 @@ function AppTabs() {
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Clientes" component={GestaoClientes} />
+        <Tab.Screen name="Pedidos" component={PedidoScreen} />
         <Tab.Screen name="Perfil" component={PerfilScreen} />
       </Tab.Navigator>
     </View>
