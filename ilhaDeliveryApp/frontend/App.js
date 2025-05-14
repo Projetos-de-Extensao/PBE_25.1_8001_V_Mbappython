@@ -2,32 +2,78 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
 
 // Suas telas
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScren'; // sua tela principal
 import GestaoClientes from './screens/gestaoClientes';
 import PerfilScreen from './screens/PerfilScreen';
+import Icon from 'react-native-vector-icons/Feather'; // ou MaterialIcons, Ionicons, etc.
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 function AppTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Clientes" component={GestaoClientes} />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
-    </Tab.Navigator>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: 20,
+            left: 20,
+            right: 20,
+            backgroundColor: '#99d6ff', // azul claro
+            borderRadius: 30,
+            height: 70,
+            borderTopWidth: 0,
+            elevation: 5,
+            shadowColor: '#000',
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 5 },
+            shadowRadius: 10,
+          },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = 'menu';
+            } else if (route.name === 'Clientes') {
+              iconName = 'user';
+            } else if (route.name === 'Perfil') {
+              iconName = 'settings';
+            }
+
+            return (
+              <Icon
+                name={iconName}
+                size={24}
+                color={focused ? '#fff' : '#2c3e50'}
+              />
+            );
+          },
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Clientes" component={GestaoClientes} />
+        <Tab.Screen name="Perfil" component={PerfilScreen} />
+      </Tab.Navigator>
+    </View>
   );
 }
+
+
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="AppTabs" component={AppTabs} />
       </Stack.Navigator>
     </NavigationContainer>
