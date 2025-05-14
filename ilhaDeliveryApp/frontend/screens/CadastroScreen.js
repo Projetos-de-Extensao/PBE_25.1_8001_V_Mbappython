@@ -13,31 +13,52 @@ export default function CadastroScreen({ navigation }) {
   const [cep, setCep] = useState('');
   const [ilha, setIlha] = useState('');
 
-  const handleCadastro = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/cadastro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nome, cpf, telefone,
-            rua, numero, cidade, estado, cep, ilha, senha
-        })
-      });
+const handleCadastro = async () => {
+  try {
+    const response = await fetch('http://172.16.6.231:8000/api/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome, cpf, telefone, rua, numero, cidade, estado, cep, ilha, senha
+      })
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        Alert.alert('Sucesso', data.message, [
-          { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
+    if (response.ok) {
+        if (Platform.OS === 'web') {
+        window.alert('Cadastro realizado com sucesso!');
+        navigation.navigate('Login');
+        } else {
+        Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
+            { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
         ]);
-      } else {
-        Alert.alert('Erro', data.error || 'Erro ao cadastrar');
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Erro', 'Erro de rede');
+        }
+
+      // Limpa os campos após sucesso
+      setNome('');
+      setCpf('');
+      setTeelfone('');
+      setSenha('');
+      setRua('');
+      setNumero('');
+      setCidade('');
+      setEstado('');
+      setCep('');
+      setIlha('');
+    } else {
+        if (Platform.OS === 'web') {
+            window.alert('Erro de validação: ' + JSON.stringify(data));
+            navigation.navigate('Login');
+        } else {
+            Alert.alert('Erro', data.error || 'Erro ao cadastrar');
+        }
     }
-  };
+  } catch (error) {
+    console.error(error);
+    Alert.alert('Erro', 'Erro de rede');
+  }
+};
 
   return (
     <View style={styles.container}>

@@ -57,7 +57,8 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS=True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.4']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.4', '172.16.6.231']
+
 
 
 ROOT_URLCONF = 'backend.urls'
