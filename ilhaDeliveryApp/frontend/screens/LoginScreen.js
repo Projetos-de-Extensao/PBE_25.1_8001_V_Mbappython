@@ -21,7 +21,6 @@ export default function LoginScreen({ navigation }) {
   index: 0,
   routes: [{ name: 'AppTabs' }],
 });
-// ou qualquer tela após o login
       } else {
         Alert.alert('Erro', data.error || 'Falha ao fazer login');
       }
@@ -40,6 +39,11 @@ export default function LoginScreen({ navigation }) {
       <Text style={styles.label}>Senha:</Text>
       <TextInput style={styles.input} value={senha} onChangeText={setSenha} />
       <Button title="Entrar" onPress={handleLogin} />
+
+      <Text style={{ color: 'blue', marginTop: 20 }} onPress={() => navigation.navigate('Cadastro')}>
+        Não tem conta? Cadastre-se
+      </Text>
+
     </View>
   );
 }

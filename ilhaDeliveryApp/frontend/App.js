@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScren'; // sua tela principal
 import GestaoClientes from './screens/gestaoClientes';
 import PerfilScreen from './screens/PerfilScreen';
 import Icon from 'react-native-vector-icons/Feather'; // ou MaterialIcons, Ionicons, etc.
+import CadastroScreen from './screens/CadastroScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -71,6 +72,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Cadastro" component={CadastroScreen} />
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="AppTabs" component={AppTabs} />
       </Stack.Navigator>
