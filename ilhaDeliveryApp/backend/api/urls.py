@@ -12,6 +12,7 @@
 from django.urls import path
 from api.viewss.cliente_views import getClientes, addCliente
 from api.viewss.auth_views import LoginView, LogoutView,  CadastroClienteView
+from api.viewss.cliente_views import CriarPedidoView
 
 urlpatterns = [
     path('verClientes', getClientes, name='verProduto'),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('cadastro', CadastroClienteView.as_view(), name='cadastro'),
+    path('pedidos', CriarPedidoView.as_view(), name='criar-pedido'),
 ]
 

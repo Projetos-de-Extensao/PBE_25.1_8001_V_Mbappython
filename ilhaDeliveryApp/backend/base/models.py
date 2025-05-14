@@ -8,6 +8,9 @@ from django.contrib.contenttypes.models import ContentType
 
 class StatusPedido(models.TextChoices):
     SOLICITADO = 'SOL', 'Solicitado'
+    AGUARDANDO_CONFIRMACAO = 'AC', 'Aguardando Confirmação'
+    COTACAO_ENVIADA = 'CE', 'Cotação enviada'
+    PAGAMENTO_APROVADO = 'PA', 'Pagamento Aprovados'
     EM_ANDAMENTO = 'AND', 'Em Andamento'
     ENTREGUE = 'ENT', 'Entregue'
     CANCELADO = 'CAN', 'Cancelado'
