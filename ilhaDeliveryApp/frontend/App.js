@@ -3,8 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
-
-// Suas telas
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScren'; // sua tela principal
 import GestaoClientes from './screens/gestaoClientes';

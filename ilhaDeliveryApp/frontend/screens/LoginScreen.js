@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
-  const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleLogin = async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, cpf }),
+        body: JSON.stringify({ cpf, senha }),
       });
 
       const data = await response.json();
@@ -33,12 +33,12 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Nome:</Text>
-      <TextInput style={styles.input} value={nome} onChangeText={setNome} />
-
+    
       <Text style={styles.label}>CPF:</Text>
       <TextInput style={styles.input} value={cpf} onChangeText={setCpf} secureTextEntry />
-
+      
+      <Text style={styles.label}>Senha:</Text>
+      <TextInput style={styles.input} value={senha} onChangeText={setSenha} />
       <Button title="Entrar" onPress={handleLogin} />
     </View>
   );
