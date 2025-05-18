@@ -26,7 +26,6 @@
     "react-native-screens": "~4.10.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "^0.20.0",
-    "undefined": "react-native-picker/picker",
     "@react-native-picker/picker": "2.11.0"
   },
   "devDependencies": {

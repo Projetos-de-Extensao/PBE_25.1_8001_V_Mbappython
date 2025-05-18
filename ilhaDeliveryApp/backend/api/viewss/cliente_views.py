@@ -23,10 +23,3 @@ def addCliente(request):
     print("Erro de validação:", serializer.errors)
     return Response(serializer.errors, status=400)
 
-class CriarPedidoView(APIView):
-    def post(self, request):
-        serializer = PedidoSerializer(data=request.data)
-        if serializer.is_valid():
-            pedido = serializer.save()
-            return Response({'message': 'Pedido criado com sucesso!', 'pedido_id': pedido.id}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

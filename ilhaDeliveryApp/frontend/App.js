@@ -47,6 +47,8 @@ function AppTabs() {
               iconName = 'user';
             } else if (route.name === 'Perfil') {
               iconName = 'settings';
+            } else if (route.name == 'Pedido'){
+              iconName = 'plus';
             }
 
             return (
@@ -61,7 +63,7 @@ function AppTabs() {
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Clientes" component={GestaoClientes} />
-        <Tab.Screen name="Pedidos" component={PedidoScreen} />
+        <Tab.Screen name="Pedido" component={PedidoScreen} />
         <Tab.Screen name="Perfil" component={PerfilScreen} />
       </Tab.Navigator>
     </View>

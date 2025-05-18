@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS=True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.4', '172.16.6.231']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.4', '172.16.6.231', '192.168.15.2']
 
 
 
@@ -133,3 +133,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
