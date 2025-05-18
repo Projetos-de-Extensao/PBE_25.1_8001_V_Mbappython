@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-(=j47&_-&an1p=#nu)$s%nh16&n^j3*h&2@6ra(skfotfkehk*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 
 # Application definition
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'base',
     'api',
     'corsheaders',

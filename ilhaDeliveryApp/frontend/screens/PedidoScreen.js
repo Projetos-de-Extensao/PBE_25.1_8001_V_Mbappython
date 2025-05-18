@@ -1,64 +1,78 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
+
 
 export default function CriarPedido() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [link, setLink] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [origem, setOrigem] = useState('');
   const [carregando, setCarregando] = useState(false);
+  
 
   const handleCriarPedido = async () => {
-    if (!nome || !quantidade || !link || !descricao) {
-      Alert.alert('Erro', 'Preencha todos os campos.');
+  if (!nome || !quantidade || !link) {
+    Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
+    return;
+  }
+
+  try {
+    setCarregando(true);
+
+    // Recupera o cliente_id salvo no AsyncStorage (após login)
+    const cliente_id = await AsyncStorage.getItem('cliente_id');
+
+    if (!cliente_id) {
+      Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
+      setCarregando(false);
       return;
     }
 
+    if (origem == 'Amazon'){
+      setOrigem == 'AMAZON'
+    }
+
     const payload = {
-      origem: 'app',
+      cliente: cliente_id,  // Aqui está o UUID do cliente
+      origem: origem,        // Ou o valor que preferir (ex: AMAZON)
       produtos: [
         {
-          nome,
-          quantidade,
+          nome_produto: nome,
+          quantidade: parseInt(quantidade),
           link,
           descricao,
         },
       ],
     };
 
-    try {
-      setCarregando(true);
+    const response = await fetch('http://192.168.0.4:8000/api/pedidos/criar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
-      const response = await fetch('http://192.168.0.4:8000/api/pedidos/criar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Authorization': 'Token SEU_TOKEN_DO_CLIENTE', // se estiver usando autenticação
-        },
-        body: JSON.stringify(payload),
-      });
+    const data = await response.json();
 
-      const data = await response.json();
-
-      if (response.ok) {
-        Alert.alert('Sucesso', 'Pedido criado com sucesso!');
-        // Limpar campos
-        setNome('');
-        setQuantidade('');
-        setLink('');
-        setDescricao('');
-      } else {
-        console.log(data);
-        Alert.alert('Erro', 'Erro ao criar pedido. Verifique os dados.');
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Erro', 'Erro ao conectar com o servidor.');
-    } finally {
-      setCarregando(false);
+    if (response.ok) {
+      Alert.alert('Sucesso', 'Pedido criado com sucesso!');
+      setNome('');
+      setQuantidade('');
+      setLink('');
+      setDescricao('');
+    } else {
+      console.log(data);
+      Alert.alert('Erro', 'Erro ao criar pedido. Verifique os dados.');
     }
-  };
-
+  } catch (error) {
+    console.error(error);
+    Alert.alert('Erro', 'Erro ao conectar com o servidor.');
+  } finally {
+    setCarregando(false);
+  }
+};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Novo Pedido</Text>
@@ -92,6 +106,12 @@ export default function CriarPedido() {
         onChangeText={setDescricao}
         multiline
       />
+      <Picker selectedValue={origem} onValueChange={setOrigem}>
+        <Picker.Item label="iFood" value="IFOOD" />
+        <Picker.Item label="Amazon" value="AMAZON" />
+        <Picker.Item label="Mercado Livre" value="ML" />
+        <Picker.Item label="Outro" value="OUTRO" />
+      </Picker>
 
       <Button
         title={carregando ? 'Enviando...' : 'Criar Pedido'}

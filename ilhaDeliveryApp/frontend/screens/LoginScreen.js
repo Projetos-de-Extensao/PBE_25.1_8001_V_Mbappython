@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [cpf, setCpf] = useState('');
@@ -15,13 +16,15 @@ export default function LoginScreen({ navigation }) {
 
       const data = await response.json();
 
-      if (response.ok) {
-        Alert.alert('Sucesso', data.message);
-        navigation.reset({
-  index: 0,
-  routes: [{ name: 'AppTabs' }],
-});
-      } else {
+if (response.ok) {
+  Alert.alert('Sucesso', data.message);
+  await AsyncStorage.setItem('cliente_id', data.cliente_id);
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'AppTabs' }],
+  });
+}
+ else {
         Alert.alert('Erro', data.error || 'Falha ao fazer login');
       }
     } catch (error) {
