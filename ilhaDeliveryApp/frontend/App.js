@@ -4,13 +4,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScren'; // sua tela principal
+import HomeScreen from './screens/HomeScren'; 
 import GestaoClientes from './screens/gestaoClientes';
 import PerfilScreen from './screens/PerfilScreen';
-import Icon from 'react-native-vector-icons/Feather'; // ou MaterialIcons, Ionicons, etc.
+import Icon from 'react-native-vector-icons/Feather'; 
 import CadastroScreen from './screens/CadastroScreen';
 import PedidoScreen from './screens/PedidoScreen';
-
+import PedidosScreeen from './screens/PedidosScreen'
+import DetalhesPedido from './screens/DetalhesPedidoScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,7 +29,7 @@ function AppTabs() {
             bottom: 20,
             left: 20,
             right: 20,
-            backgroundColor: '#99d6ff', // azul claro
+            backgroundColor: '#99d6ff', 
             borderRadius: 30,
             height: 70,
             borderTopWidth: 0,
@@ -49,7 +50,10 @@ function AppTabs() {
               iconName = 'settings';
             } else if (route.name == 'Pedido'){
               iconName = 'plus';
+            } else if (route.name == 'Pedidos'){
+              iconName = 'calendar';
             }
+
 
             return (
               <Icon
@@ -62,7 +66,7 @@ function AppTabs() {
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Clientes" component={GestaoClientes} />
+        <Tab.Screen name="Pedidos" component={PedidosScreeen} />
         <Tab.Screen name="Pedido" component={PedidoScreen} />
         <Tab.Screen name="Perfil" component={PerfilScreen} />
       </Tab.Navigator>
@@ -77,6 +81,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Cadastro" component={CadastroScreen} />
+        <Stack.Screen name="DetalhesPedido" component={DetalhesPedido} />
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="AppTabs" component={AppTabs} />
       </Stack.Navigator>

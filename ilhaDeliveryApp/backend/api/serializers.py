@@ -43,6 +43,28 @@ class EnderecoSerializer(serializers.ModelSerializer):
     
 
 
+# class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ProdutoSolicitado
+#         fields = ['nome_produto', 'descricao', 'link', 'quantidade']
+
+# class PedidoSerializer(serializers.ModelSerializer):
+#     produtos = ProdutoSolicitadoSerializer(many=True)
+    
+#     class Meta:
+#         model = Pedido
+#         fields = ['id', 'cliente', 'origem', 'produtos']
+#         read_only_fields = ['cliente']  # agora não é obrigatório no corpo do request
+
+#     def create(self, validated_data):
+#         produtos_data = validated_data.pop('produtos')
+#         cliente = self.context['cliente']  # obtém o cliente do context
+#         pedido = Pedido.objects.create(cliente=cliente, **validated_data)
+#         for produto_data in produtos_data:
+#             ProdutoSolicitado.objects.create(pedido=pedido, **produto_data)
+#         return pedido
+
+
 class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProdutoSolicitado
@@ -50,16 +72,14 @@ class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
 
 class PedidoSerializer(serializers.ModelSerializer):
     produtos = ProdutoSolicitadoSerializer(many=True)
-    
+
     class Meta:
         model = Pedido
         fields = ['id', 'cliente', 'origem', 'produtos']
-        read_only_fields = ['cliente']  # agora não é obrigatório no corpo do request
 
     def create(self, validated_data):
         produtos_data = validated_data.pop('produtos')
-        cliente = self.context['cliente']  # obtém o cliente do context
-        pedido = Pedido.objects.create(cliente=cliente, **validated_data)
+        pedido = Pedido.objects.create(**validated_data)
         for produto_data in produtos_data:
             ProdutoSolicitado.objects.create(pedido=pedido, **produto_data)
         return pedido

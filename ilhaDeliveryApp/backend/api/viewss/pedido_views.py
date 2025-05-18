@@ -7,28 +7,36 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 
+# class CriarPedidoAPIView(APIView):
+#     def post(self, request):
+#         cliente_id = request.data.get('cliente')
+#         if not cliente_id:
+#             return Response({'erro': 'ID do cliente não enviado'}, status=400)
+        
+#         try:
+#             cliente = Cliente.objects.get(id=cliente_id)
+#         except Cliente.DoesNotExist:
+#             return Response({'erro': 'Cliente não encontrado'}, status=404)
+
+#         dados = request.data.copy()
+#         dados['cliente'] = str(cliente.id)  # Certifique-se que é string para o UUIDField
+
+#         serializer = PedidoSerializer(data=dados)
+#         if serializer.is_valid():
+#             pedido = serializer.save()
+#             return Response(PedidoSerializer(pedido).data, status=201)
+#         else:
+#             # Retorna os erros detalhados
+#             return Response(serializer.errors, status=400)
+
+
 class CriarPedidoAPIView(APIView):
     def post(self, request):
-        cliente_id = request.data.get('cliente')
-        if not cliente_id:
-            return Response({'erro': 'ID do cliente não enviado'}, status=400)
-        
-        try:
-            cliente = Cliente.objects.get(id=cliente_id)
-        except Cliente.DoesNotExist:
-            return Response({'erro': 'Cliente não encontrado'}, status=404)
-
-        dados = request.data.copy()
-        dados['cliente'] = str(cliente.id)  # Certifique-se que é string para o UUIDField
-
-        serializer = PedidoSerializer(data=dados)
+        serializer = PedidoSerializer(data=request.data)
         if serializer.is_valid():
             pedido = serializer.save()
-            return Response(PedidoSerializer(pedido).data, status=201)
-        else:
-            # Retorna os erros detalhados
-            return Response(serializer.errors, status=400)
-
+            return Response(PedidoSerializer(pedido).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -98,4 +106,11 @@ class ListarPedidosAPIView(APIView):
     def get(self, request):
         pedidos = Pedido.objects.all().order_by('-id')
         serializer = PedidoSerializer(pedidos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class DetalhesPedidoAPIView(APIView):
+    def get(self, request, pedido_id):
+        pedido = get_object_or_404(Pedido, id=pedido_id)
+        serializer = PedidoSerializer(pedido)
         return Response(serializer.data, status=status.HTTP_200_OK)
