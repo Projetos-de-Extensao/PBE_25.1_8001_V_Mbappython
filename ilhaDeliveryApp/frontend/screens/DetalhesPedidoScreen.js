@@ -31,32 +31,37 @@ export default function DetalhesPedido({ route }) {
 
   if (!pedido) return <Text style={styles.container}>Nenhum pedido encontrado.</Text>;
 
-  return (
-     <ScrollView style={styles.container}>
-      {/* Botão Voltar no topo */}
-      <View style={{ marginBottom: 10 }}>
-        <Button title="Voltar" onPress={() => navigation.navigate('AppTabs', { screen: 'Pedidos' })} />
-      </View>
+return (
+  <ScrollView style={styles.container}>
+    <View style={{ marginBottom: 10 }}>
+      <Button title="Voltar" onPress={() => navigation.navigate('AppTabs', { screen: 'Pedidos' })} />
+    </View>
 
-      <Text style={styles.title}>Pedido #{pedido.id}</Text>
-      <Text style={styles.subTitle}>Cliente: {pedido.cliente.nome}</Text>
-      <Text>Status: {pedido.status}</Text>
-      <Text>Data do pedido: {new Date(pedido.created_at).toLocaleString()}</Text>
+    <Text style={styles.title}>Pedido #{pedido.id}</Text>
+    {/* Como cliente é só um id, exibir como está */}
+    <Text style={styles.subTitle}>Cliente ID: {pedido.cliente}</Text>
+    {/* Status e created_at não existem, então pode remover ou mostrar um texto padrão */}
+    <Text>Status: {pedido.status ?? 'Não informado'}</Text>
+    <Text>Data do pedido: {pedido.created_at ? new Date(pedido.created_at).toLocaleString() : 'Não informado'}</Text>
 
-      <Text style={styles.sectionTitle}>Produtos Solicitados:</Text>
-      {pedido.produtos_solicitados && pedido.produtos_solicitados.length > 0 ? (
-        pedido.produtos_solicitados.map((produto, index) => (
-          <View key={index} style={styles.produto}>
-            <Text>Produto: {produto.nome}</Text>
-            <Text>Quantidade: {produto.quantidade}</Text>
-            <Text>Preço Unitário: R$ {produto.preco_unitario}</Text>
-          </View>
-        ))
-      ) : (
-        <Text>Nenhum produto solicitado.</Text>
-      )}
-    </ScrollView>
-  );
+    <Text style={styles.sectionTitle}>Produtos Solicitados:</Text>
+    {pedido.produtos && pedido.produtos.length > 0 ? (
+      pedido.produtos.map((produto, index) => (
+        <View key={index} style={styles.produto}>
+          <Text>Produto: {produto.nome_produto}</Text>
+          <Text>Quantidade: {produto.quantidade}</Text>
+          {/* Preço não existe na API, então não exibe ou exibe um placeholder */}
+          <Text>Preço Unitário: {produto.preco_unitario ? `R$ ${produto.preco_unitario}` : 'Não informado'}</Text>
+          {/* Pode mostrar mais dados se quiser */}
+          <Text>Descrição: {produto.descricao}</Text>
+          <Text>Link: {produto.link}</Text>
+        </View>
+      ))
+    ) : (
+      <Text>Nenhum produto solicitado.</Text>
+    )}
+  </ScrollView>
+);
 }
 
 const styles = StyleSheet.create({
