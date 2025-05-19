@@ -40,3 +40,31 @@ Adicione 1 ou mais vídeos com a execução do projeto final.
 
 ## Outros 
 Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+
+## ✅ Passos para desenvolvedores rodarem o projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython
+cd seu-projeto
+```
+
+### 2. Backend (Python)
+
+```bash
+cd backend
+python -m venv venv
+source venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 3. Frontend (React Native)
+
+```bash
+cd ../frontend
+npm install  
+npm start
+```
+
+
