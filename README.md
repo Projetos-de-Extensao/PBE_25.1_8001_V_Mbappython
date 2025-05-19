@@ -47,7 +47,8 @@ Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
 
 ```bash
 git clone https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython
-cd seu-projeto
+cd PBE_25.1_8001_V_Mbappython
+cd ilhaDeliveryApp
 ```
 
 ### 2. Backend (Python)
