@@ -8,24 +8,29 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://172.16.6.231:8000/api/login', {
+      const response = await fetch('http://172.16.6.231:8000/api/token/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cpf, senha }),
+        body: JSON.stringify({ cpf, password: senha }),
       });
-
-      const data = await response.json();
-
-if (response.ok) {
-  Alert.alert('Sucesso', data.message);
-  await AsyncStorage.setItem('cliente_id', data.cliente_id);
-  navigation.reset({
-    index: 0,
-    routes: [{ name: 'AppTabs' }],
-  });
-}
- else {
-        Alert.alert('Erro', data.error || 'Falha ao fazer login');
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (e) {
+        // Se não for JSON, ignora e mostra erro genérico
+        Alert.alert('Erro', 'Resposta inesperada do servidor.');
+        return;
+      }
+      if (response.ok && data.access) {
+        await AsyncStorage.setItem('access', data.access);
+        await AsyncStorage.setItem('cliente_id', data.cliente_id);
+        Alert.alert('Sucesso', 'Login realizado com sucesso!');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'AppTabs' }],
+        });
+      } else {
+        Alert.alert('Erro', data.detail || data.error || 'Falha ao fazer login');
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);

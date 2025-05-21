@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.contrib.auth.hashers import make_password, check_password
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -31,6 +32,13 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=15)
     senha = models.CharField(max_length=255, default="senha123")
+
+    def set_password(self, raw_password):
+        self.senha = make_password(raw_password)
+        self.save(update_fields=["senha"])
+
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.senha)
 
     class Meta:
         abstract = True
