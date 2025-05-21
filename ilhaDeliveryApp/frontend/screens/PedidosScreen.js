@@ -36,7 +36,7 @@ export default function ListarPedidos({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pedidos</Text>
+      <Text style={styles.title}>Seus Pedidos</Text>
       <FlatList
         data={pedidos}
         keyExtractor={(item) => item.id.toString()}

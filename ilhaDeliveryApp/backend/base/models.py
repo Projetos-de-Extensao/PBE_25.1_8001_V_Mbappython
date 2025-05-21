@@ -68,6 +68,7 @@ class ProdutoSolicitado(models.Model):
     descricao = models.TextField(blank=True)
     link = models.URLField()
     quantidade = models.PositiveIntegerField(default=1)
+    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # NOVO CAMPO
 
 class Pagamento(models.Model):
     pedido = models.OneToOneField(Pedido, on_delete=models.CASCADE)

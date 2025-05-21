@@ -68,7 +68,7 @@ class EnderecoSerializer(serializers.ModelSerializer):
 class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProdutoSolicitado
-        fields = ['nome_produto', 'descricao', 'link', 'quantidade']
+        fields = ['nome_produto', 'descricao', 'link', 'quantidade', 'preco_unitario']  # Adiciona preco_unitario
 
 class PedidoSerializer(serializers.ModelSerializer):
     produtos = ProdutoSolicitadoSerializer(many=True)
