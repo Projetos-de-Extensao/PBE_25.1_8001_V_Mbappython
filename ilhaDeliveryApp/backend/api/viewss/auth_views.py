@@ -4,6 +4,7 @@ from rest_framework import status
 from base.models import Cliente, Endereco
 from api.serializers import ClienteSerializer
 from django.db import transaction
+from django.contrib.auth.hashers import make_password
 
 class LoginView(APIView):
     def post(self, request):
@@ -11,10 +12,13 @@ class LoginView(APIView):
         senha = request.data.get('senha')
 
         try:
-            cliente = Cliente.objects.get(senha=senha, cpf=cpf)
-            return Response({'message': 'Login bem-sucedido', 'cliente_id': cliente.id}, status=status.HTTP_200_OK)
+            cliente = Cliente.objects.get(cpf=cpf)
+            if cliente.check_password(senha):
+                return Response({'message': 'Login bem-sucedido', 'cliente_id': cliente.id}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Senha inválida'}, status=status.HTTP_401_UNAUTHORIZED)
         except Cliente.DoesNotExist:
-            return Response({'error': 'Nome ou CPF inválido'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'CPF não encontrado'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(APIView):
     def post(self, request):
@@ -49,7 +53,7 @@ class CadastroClienteView(APIView):
                     nome=nome,
                     cpf=cpf,
                     telefone=telefone,
-                    senha=senha  
+                    senha=make_password(senha)
                 )
 
                 Endereco.objects.create(

@@ -5,6 +5,7 @@ from base.models import Pedido, ProdutoSolicitado, Cliente
 from api.serializers import PedidoSerializer, ProdutoSolicitadoSerializer, Pagamento, StatusPedido
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from rest_framework.permissions import IsAuthenticated
 
 
 # class CriarPedidoAPIView(APIView):
@@ -103,8 +104,19 @@ class CancelarPedidoAPIView(APIView):
 
 
 class ListarPedidosAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
-        pedidos = Pedido.objects.all().order_by('-id')
+        user = request.user
+        # Se JWT, user pode ser Anonymous, então pega o id do token
+        cliente_id = None
+        if hasattr(user, 'id') and user.id:
+            cliente_id = user.id
+        elif hasattr(request, 'auth') and request.auth:
+            # SimpleJWT: request.user pode ser Anonymous, mas request.auth tem o payload
+            cliente_id = request.auth.get('cliente_id')
+        if not cliente_id:
+            return Response({'erro': 'Usuário não autenticado'}, status=401)
+        pedidos = Pedido.objects.filter(cliente_id=cliente_id).order_by('-id')
         serializer = PedidoSerializer(pedidos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

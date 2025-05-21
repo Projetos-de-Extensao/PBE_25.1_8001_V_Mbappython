@@ -23,18 +23,17 @@ const handleCadastro = async () => {
       })
     });
 
-    const data = await response.json();
+    let data = {};
+    try {
+      data = await response.json();
+    } catch (e) {
+      // Se não for JSON, ignora
+    }
 
     if (response.ok) {
-        if (Platform.OS === 'web') {
-        window.alert('Cadastro realizado com sucesso!');
-        navigation.navigate('Login');
-        } else {
-        Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
-            { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
-        ]);
-        }
-
+      Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
+        { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
+      ]);
       // Limpa os campos após sucesso
       setNome('');
       setCpf('');
@@ -47,12 +46,7 @@ const handleCadastro = async () => {
       setCep('');
       setIlha('');
     } else {
-        if (Platform.OS === 'web') {
-            window.alert('Erro de validação: ' + JSON.stringify(data));
-            navigation.navigate('Login');
-        } else {
-            Alert.alert('Erro', data.error || 'Erro ao cadastrar');
-        }
+      Alert.alert('Erro', data.error || 'Erro ao cadastrar');
     }
   } catch (error) {
     console.error(error);

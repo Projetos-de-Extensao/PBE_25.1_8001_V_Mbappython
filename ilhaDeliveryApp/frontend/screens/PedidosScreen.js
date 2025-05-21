@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL = 'http://172.16.6.231:8000/api';
 
@@ -11,7 +12,12 @@ export default function ListarPedidos({ navigation }) {
   const buscarPedidos = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/pedidos`);
+      const token = await AsyncStorage.getItem('access');
+      const response = await axios.get(`${API_URL}/pedidos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setPedidos(response.data);
     } catch (error) {
       Alert.alert('Erro ao buscar pedidos');
