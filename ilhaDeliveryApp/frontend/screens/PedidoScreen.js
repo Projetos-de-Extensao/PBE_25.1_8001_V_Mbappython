@@ -10,11 +10,12 @@ export default function CriarPedido() {
   const [link, setLink] = useState('');
   const [descricao, setDescricao] = useState('');
   const [origem, setOrigem] = useState('');
+  const [preco, setPreco] = useState('');
   const [carregando, setCarregando] = useState(false);
   
 
   const handleCriarPedido = async () => {
-  if (!nome || !quantidade || !link) {
+  if (!nome || !quantidade || !link || !preco) {
     Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
     return;
   }
@@ -44,6 +45,7 @@ export default function CriarPedido() {
           quantidade: parseInt(quantidade),
           link,
           descricao,
+          preco_unitario: parseFloat(preco), // NOVO CAMPO
         },
       ],
     };
@@ -62,6 +64,7 @@ export default function CriarPedido() {
       setQuantidade('');
       setLink('');
       setDescricao('');
+      setPreco('');
     } else {
       console.log(data);
       Alert.alert('Erro', 'Erro ao criar pedido. Verifique os dados.');
@@ -112,6 +115,14 @@ export default function CriarPedido() {
         <Picker.Item label="Mercado Livre" value="ML" />
         <Picker.Item label="Outro" value="OUTRO" />
       </Picker>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Preço do produto (R$)"
+        keyboardType="decimal-pad"
+        value={preco}
+        onChangeText={setPreco}
+      />
 
       <Button
         title={carregando ? 'Enviando...' : 'Criar Pedido'}
