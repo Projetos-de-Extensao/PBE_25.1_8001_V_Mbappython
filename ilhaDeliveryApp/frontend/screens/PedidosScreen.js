@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.0.4:8000/api';
+const API_URL = 'http://172.16.6.231:8000/api';
 
 export default function ListarPedidos({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
