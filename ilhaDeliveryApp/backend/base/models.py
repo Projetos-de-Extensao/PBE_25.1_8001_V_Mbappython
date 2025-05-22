@@ -38,12 +38,45 @@ class Usuario(models.Model):
 
     def check_password(self, raw_password):
         return check_password(raw_password, self.senha)
+        
+    @property
+    def is_authenticated(self):
+        """
+        Sempre retorna True para o DRF identificar que este usuário está autenticado
+        """
+        return True
+        
+    @property
+    def is_anonymous(self):
+        """
+        Sempre retorna False para o DRF identificar que este usuário não é anônimo
+        """
+        return False
 
     class Meta:
         abstract = True
 
 class Cliente(Usuario):
     cpf = models.CharField(max_length=14, unique=True)
+    
+    @classmethod
+    def buscar_por_cpf(cls, cpf):
+        """
+        Busca um cliente pelo CPF, removendo caracteres não numéricos
+        """
+        # Remove caracteres não numéricos do CPF
+        cpf_limpo = ''.join(filter(str.isdigit, str(cpf)))
+        
+        # Busca todos os clientes
+        clientes = cls.objects.all()
+        
+        # Compara CPF limpo com CPF limpo do banco
+        for cliente in clientes:
+            cpf_db_limpo = ''.join(filter(str.isdigit, cliente.cpf))
+            if cpf_limpo == cpf_db_limpo:
+                return cliente
+        
+        return None
 
 class Operador(Usuario):
     turno = models.CharField(max_length=50)
