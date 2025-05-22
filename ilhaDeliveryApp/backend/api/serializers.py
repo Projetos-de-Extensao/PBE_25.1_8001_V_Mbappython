@@ -76,6 +76,17 @@ class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
             data = data.copy()
             data['preco_unitario'] = str(data['preco_unitario'])
         return super().to_internal_value(data)
+    
+    def to_representation(self, instance):
+        # Converte preco_unitario de volta para float quando enviado ao frontend
+        ret = super().to_representation(instance)
+        if 'preco_unitario' in ret and ret['preco_unitario'] is not None:
+            try:
+                ret['preco_unitario'] = float(ret['preco_unitario'])
+            except (ValueError, TypeError):
+                # Mantém como está se não puder converter
+                pass
+        return ret
 
 class PedidoSerializer(serializers.ModelSerializer):
     produtos = ProdutoSolicitadoSerializer(many=True)

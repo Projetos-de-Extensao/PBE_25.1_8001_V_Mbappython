@@ -112,11 +112,29 @@ export default function DetalhesPedido({ route }) {
       <View style={styles.infoCard}>
         <Text style={styles.sectionTitle}>Produtos</Text>
         {pedido.produtos && pedido.produtos.length > 0 ? (
-          pedido.produtos.map((produto, index) => (
-            <View key={index} style={styles.produto}>
+          pedido.produtos.map((produto, index) => (            <View key={index} style={styles.produto}>
               <Text style={styles.produtoTitle}>{produto.nome_produto}</Text>
-              <Text>Quantidade: {produto.quantidade}</Text>
-              <Text>Preço: {produto.preco_unitario ? `R$ ${produto.preco_unitario.toFixed(2)}` : 'N/A'}</Text>
+              <Text>Quantidade: {produto.quantidade}</Text>              <Text>Preço: {(() => {
+                if (!produto.preco_unitario) return 'N/A';
+                
+                let preco = produto.preco_unitario;
+                try {
+                  // Se não for um número, tenta converter
+                  if (typeof preco !== 'number') {
+                    preco = parseFloat(preco);
+                  }
+                  
+                  // Verifica se é um número válido após a conversão
+                  if (!isNaN(preco)) {
+                    return `R$ ${preco.toFixed(2)}`;
+                  } else {
+                    return `R$ ${produto.preco_unitario}`;
+                  }
+                } catch (e) {
+                  console.log('Erro ao formatar preço:', e);
+                  return `R$ ${produto.preco_unitario}`;
+                }
+              })()}</Text>
               <Text style={styles.produtoDesc}>{produto.descricao}</Text>
               <Text style={styles.produtoLink}>{produto.link}</Text>
             </View>
