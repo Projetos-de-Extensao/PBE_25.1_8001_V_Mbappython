@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 const API_URL = 'http://192.168.0.4:8000/api';
 
 export default function HomeScreen() {
-  const navigation = useNavigation();  const [ultimosPedidos, setUltimosPedidos] = useState([]);
+  const navigation = useNavigation();
+  const [ultimosPedidos, setUltimosPedidos] = useState([]);
   const [carregandoPedidos, setCarregandoPedidos] = useState(true);
   const [nomeUsuario, setNomeUsuario] = useState('');
-  const [enderecoUsuario, setEnderecoUsuario] = useState('Rua 1, número 2 - ilha primeira');
 
   const buscarPedidos = async () => {
     setCarregandoPedidos(true);
@@ -49,52 +49,21 @@ export default function HomeScreen() {
     } finally {
       setCarregandoPedidos(false);
     }
-  };  const buscarUsuario = async () => {
+  };
+
+  const buscarUsuario = async () => {
     try {
-      // Obtém o token do AsyncStorage
-      const token = await AsyncStorage.getItem('access');
-      
-      if (!token) {
-        console.log('Token não encontrado');
-        setNomeUsuario('Cliente');
-        return;
-      }
-      
-      // Usa o novo endpoint para buscar dados do cliente logado
-      const response = await fetch(`${API_URL}/cliente`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (response.ok) {
-        const userData = await response.json();
-        console.log('Dados do cliente recebidos:', userData);
-        
-        // Define o nome do usuário
-        if (userData && userData.nome) {
-          setNomeUsuario(userData.nome);
-          console.log('Nome do usuário definido:', userData.nome);
-        } else {
-          setNomeUsuario('Cliente');
-        }
-        
-        // Define o endereço do usuário
-        if (userData && userData.endereco && userData.endereco.endereco_completo) {
-          setEnderecoUsuario(userData.endereco.endereco_completo);
-          console.log('Endereço do usuário definido:', userData.endereco.endereco_completo);
-        }
-      } else {
-        console.log('Erro ao buscar dados do usuário:', response.status);
+      const cliente_id = await AsyncStorage.getItem('cliente_id');
+      if (cliente_id) {
+        // Aqui você poderia fazer uma chamada API para buscar o nome do cliente
+        // Por enquanto, vamos apenas definir um nome fictício
         setNomeUsuario('Cliente');
       }
     } catch (error) {
       console.error('Erro ao buscar dados do usuário:', error);
-      setNomeUsuario('Cliente');
     }
   };
+
   useEffect(() => {
     buscarPedidos();
     buscarUsuario();
@@ -102,7 +71,6 @@ export default function HomeScreen() {
     // Recarregar quando a tela receber foco
     const unsubscribe = navigation.addListener('focus', () => {
       buscarPedidos();
-      buscarUsuario(); // Busca o nome do usuário também quando a tela recebe foco
     });
     
     return unsubscribe;
@@ -138,19 +106,22 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>      {/* Topo com saudação e endereço */}
+    <View style={styles.container}>
+      {/* Topo com saudação e endereço */}
       <View style={styles.header}>
         <Text style={styles.greeting}>Olá <Text style={{ fontWeight: 'bold' }}>{nomeUsuario}</Text></Text>
-        <Text style={styles.address}>{enderecoUsuario}</Text>
+        <Text style={styles.address}>Rua 1, número 2 - ilha primeira</Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content}>        {/* Pedido atual */}
+      <ScrollView contentContainerStyle={styles.content}>
+
+        {/* Pedido atual */}
         <Text style={styles.sectionTitle}>Pedido atual</Text>
         <View style={styles.mapCard}>
-          <View style={styles.placeholderMap}>
-            <Text style={styles.placeholderMapText}>Mapa de Entrega</Text>
-            <Ionicons name="map-outline" size={50} color="#aaa" />
-          </View>
+          <Image
+            source={{ uri: 'https://maps.googleapis.com/maps/api/staticmap?center=-23.000,-43.365&zoom=13&size=300x200&key=SUA_API_KEY' }}
+            style={styles.mapImage}
+          />
           <View style={styles.etaContainer}>
             <Text>Chegada estimada</Text>
             <Text style={styles.etaText}>12min - 15min</Text>
@@ -231,6 +202,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: '600',
   },
+
   mapCard: {
     borderRadius: 15,
     overflow: 'hidden',
@@ -238,17 +210,9 @@ const styles = StyleSheet.create({
     elevation: 2,
     marginBottom: 30,
   },
-  placeholderMap: {
+  mapImage: {
     width: '100%',
     height: 150,
-    backgroundColor: '#e1e1e1',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderMapText: {
-    fontSize: 16,
-    color: '#888',
-    marginBottom: 10,
   },
   etaContainer: {
     flexDirection: 'row',
@@ -323,28 +287,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   }
 });
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-//   title: { fontSize: 24, marginBottom: 20 }
-// });
-
-// import React from 'react';
-// import { View, Text, Button, StyleSheet } from 'react-native';
-// import { useAuth } from '../context/AuthContext';
-
-// export default function HomeScreen() {
-//   const { logout } = useAuth();
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Bem-vindo à Home!</Text>
-//       <Button title="Sair" onPress={logout} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-//   title: { fontSize: 24, marginBottom: 20 }
-// });

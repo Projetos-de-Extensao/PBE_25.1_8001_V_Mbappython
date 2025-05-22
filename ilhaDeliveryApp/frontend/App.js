@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import CadastroScreen from './screens/CadastroScreen';
 import PedidoScreen from './screens/PedidoScreen';
 import PedidosScreeen from './screens/PedidosScreen'
-import DetalhesPedido from './screens/DetalhesPedidoScreen';
+import DetalhesPedido from './screens/DetalhesPedidoScreen_new';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

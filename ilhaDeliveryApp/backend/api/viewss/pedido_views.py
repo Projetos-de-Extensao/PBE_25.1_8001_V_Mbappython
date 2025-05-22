@@ -6,6 +6,9 @@ from api.serializers import PedidoSerializer, ProdutoSolicitadoSerializer, Pagam
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # class CriarPedidoAPIView(APIView):
@@ -35,26 +38,32 @@ class CriarPedidoAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
+        # Log de debug para ver o que está chegando
+        logger.info(f"Headers: {request.headers}")
+        logger.info(f"Request user: {request.user}")
+        
         user = request.user
-        # Obter cliente_id do usuário autenticado
-        cliente_id = None
-        if hasattr(user, 'id') and user.id:
-            cliente_id = user.id
-        elif hasattr(request, 'auth') and request.auth:
-            # SimpleJWT: request.user pode ser Anonymous, mas request.auth tem o payload
-            cliente_id = request.auth.get('cliente_id')
+        
+        # Verificar se o user é um Cliente (seu modelo personalizado)
+        if not isinstance(user, Cliente):
+            logger.error(f"Usuário não é uma instância de Cliente: {type(user)}")
+            return Response({'erro': 'Usuário não autenticado corretamente'}, status=401)
             
-        if not cliente_id:
-            return Response({'erro': 'Usuário não autenticado'}, status=401)
+        logger.info(f"Cliente autenticado: {user.id} - {user.nome}")
             
         # Adicionar cliente ao request.data
         data = request.data.copy()
-        data['cliente'] = cliente_id
+        data['cliente'] = user.id
+        
+        logger.info(f"Dados para criação do pedido: {data}")
         
         serializer = PedidoSerializer(data=data)
         if serializer.is_valid():
             pedido = serializer.save()
+            logger.info(f"Pedido criado com sucesso: {pedido.id}")
             return Response(PedidoSerializer(pedido).data, status=status.HTTP_201_CREATED)
+        
+        logger.error(f"Erro na validação do serializer: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -125,22 +134,28 @@ class ListarPedidosAPIView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
-        # Se JWT, user pode ser Anonymous, então pega o id do token
-        cliente_id = None
-        if hasattr(user, 'id') and user.id:
-            cliente_id = user.id
-        elif hasattr(request, 'auth') and request.auth:
-            # SimpleJWT: request.user pode ser Anonymous, mas request.auth tem o payload
-            cliente_id = request.auth.get('cliente_id')
-        if not cliente_id:
-            return Response({'erro': 'Usuário não autenticado'}, status=401)
-        pedidos = Pedido.objects.filter(cliente_id=cliente_id).order_by('-id')
+        # Verificar se o user é um Cliente (seu modelo personalizado)
+        if not isinstance(user, Cliente):
+            return Response({'erro': 'Usuário não autenticado corretamente'}, status=401)
+        
+        pedidos = Pedido.objects.filter(cliente_id=user.id).order_by('-id')
         serializer = PedidoSerializer(pedidos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 class DetalhesPedidoAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, pedido_id):
+        user = request.user
+        # Verificar se o user é um Cliente
+        if not isinstance(user, Cliente):
+            return Response({'erro': 'Usuário não autenticado corretamente'}, status=401)
+            
+        # Verificar se o pedido pertence ao cliente logado
         pedido = get_object_or_404(Pedido, id=pedido_id)
+        if pedido.cliente.id != user.id:
+            return Response({'erro': 'Acesso não autorizado a este pedido'}, status=403)
+            
         serializer = PedidoSerializer(pedido)
         return Response(serializer.data, status=status.HTTP_200_OK)

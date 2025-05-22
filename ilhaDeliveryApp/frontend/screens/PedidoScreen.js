@@ -18,12 +18,12 @@ export default function CriarPedido() {
     if (!nome || !quantidade || !link || !preco) {
       Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
       return;
-    }
-
-    try {
+    }    try {
       setCarregando(true);
       
       const token = await AsyncStorage.getItem('access');
+      console.log("Token recuperado:", token ? "Existe" : "Não existe");
+      
       if (!token) {
         Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
         setCarregando(false);
@@ -41,7 +41,11 @@ export default function CriarPedido() {
             preco_unitario: parseFloat(preco),
           },
         ],
-      };      const response = await fetch('http://192.168.0.4:8000/api/pedidos/criar', {
+      };
+      console.log("Enviando payload:", JSON.stringify(payload));
+      console.log("Authorization header:", `Bearer ${token}`);
+      
+      const response = await fetch('http://192.168.0.4:8000/api/pedidos/criar', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
