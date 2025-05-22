@@ -5,10 +5,34 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = '__all__'
+
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
         fields = '__all__'
+
+class ClienteComEnderecoSerializer(serializers.ModelSerializer):
+    endereco = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Cliente
+        fields = ['id', 'nome', 'cpf', 'telefone', 'endereco']
+    
+    def get_endereco(self, obj):
+        # Tenta obter o endereço do cliente
+        try:
+            endereco = Endereco.objects.get(cliente=obj)
+            return {
+                'rua': endereco.rua,
+                'numero': endereco.numero,
+                'cidade': endereco.cidade,
+                'estado': endereco.estado,
+                'cep': endereco.cep,
+                'ilha': endereco.ilha,
+                'endereco_completo': f"{endereco.rua}, {endereco.numero} - {endereco.ilha}"
+            }
+        except Endereco.DoesNotExist:
+            return None
 
 # class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
 #     class Meta:
