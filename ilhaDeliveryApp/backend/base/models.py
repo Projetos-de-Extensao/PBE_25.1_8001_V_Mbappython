@@ -28,7 +28,6 @@ class StatusPagamento(models.TextChoices):
     NAO_REALIZADO = 'NR', 'Não Realizado'
 
 class Usuario(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=15)
     senha = models.CharField(max_length=255, default="senha123")
