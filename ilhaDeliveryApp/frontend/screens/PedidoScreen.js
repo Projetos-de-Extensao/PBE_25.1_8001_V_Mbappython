@@ -9,73 +9,68 @@ export default function CriarPedido() {
   const [quantidade, setQuantidade] = useState('');
   const [link, setLink] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [origem, setOrigem] = useState('');
+  const [origem, setOrigem] = useState('IFOOD');
   const [preco, setPreco] = useState('');
   const [carregando, setCarregando] = useState(false);
   
 
   const handleCriarPedido = async () => {
-  if (!nome || !quantidade || !link || !preco) {
-    Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
-    return;
-  }
-
-  try {
-    setCarregando(true);
-
-    // Recupera o cliente_id salvo no AsyncStorage (após login)
-    const cliente_id = await AsyncStorage.getItem('cliente_id');
-
-    if (!cliente_id) {
-      Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
-      setCarregando(false);
+    if (!nome || !quantidade || !link || !preco) {
+      Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
       return;
     }
 
-    if (origem == 'Amazon'){
-      setOrigem == 'AMAZON'
-    }
+    try {
+      setCarregando(true);
+      
+      const token = await AsyncStorage.getItem('access');
+      if (!token) {
+        Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
+        setCarregando(false);
+        return;
+      }
 
-    const payload = {
-      cliente: cliente_id,  // Aqui está o UUID do cliente
-      origem: origem,        // Ou o valor que preferir (ex: AMAZON)
-      produtos: [
-        {
-          nome_produto: nome,
-          quantidade: parseInt(quantidade),
-          link,
-          descricao,
-          preco_unitario: parseFloat(preco), // NOVO CAMPO
+      const payload = {
+        origem: origem,
+        produtos: [
+          {
+            nome_produto: nome,
+            quantidade: parseInt(quantidade),
+            link,
+            descricao,
+            preco_unitario: parseFloat(preco),
+          },
+        ],
+      };      const response = await fetch('http://192.168.0.4:8000/api/pedidos/criar', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-      ],
-    };
+        body: JSON.stringify(payload),
+      });
 
-    const response = await fetch('http://172.16.6.231:8000/api/pedidos/criar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+      const data = await response.json();
 
-    const data = await response.json();
-
-    if (response.ok) {
-      Alert.alert('Sucesso', 'Pedido criado com sucesso!');
-      setNome('');
-      setQuantidade('');
-      setLink('');
-      setDescricao('');
-      setPreco('');
-    } else {
-      console.log(data);
-      Alert.alert('Erro', 'Erro ao criar pedido. Verifique os dados.');
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Pedido criado com sucesso!');
+        setNome('');
+        setQuantidade('');
+        setLink('');
+        setDescricao('');
+        setPreco('');
+      } else {
+        console.log(data);
+        Alert.alert('Erro', data.erro || 'Erro ao criar pedido. Verifique os dados.');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro', 'Erro ao conectar com o servidor.');
+    } finally {
+      setCarregando(false);
     }
-  } catch (error) {
-    console.error(error);
-    Alert.alert('Erro', 'Erro ao conectar com o servidor.');
-  } finally {
-    setCarregando(false);
-  }
-};
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Novo Pedido</Text>
@@ -109,7 +104,11 @@ export default function CriarPedido() {
         onChangeText={setDescricao}
         multiline
       />
-      <Picker selectedValue={origem} onValueChange={setOrigem}>
+      
+      <Picker
+        selectedValue={origem}
+        onValueChange={setOrigem}
+        style={styles.input}>
         <Picker.Item label="iFood" value="IFOOD" />
         <Picker.Item label="Amazon" value="AMAZON" />
         <Picker.Item label="Mercado Livre" value="ML" />

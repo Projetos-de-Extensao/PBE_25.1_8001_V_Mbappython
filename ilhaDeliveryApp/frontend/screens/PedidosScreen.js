@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://172.16.6.231:8000/api';
+const API_URL = 'http://192.168.0.4:8000/api';
 
 export default function ListarPedidos({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
@@ -13,14 +12,61 @@ export default function ListarPedidos({ navigation }) {
     setLoading(true);
     try {
       const token = await AsyncStorage.getItem('access');
-      const response = await axios.get(`${API_URL}/pedidos`, {
+      if (!token) {
+        Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
+        return;
+      }      console.log("Buscando pedidos com token:", token);
+        // Faz a requisição para a API
+      const response = await fetch(`${API_URL}/pedidos`, {
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       });
-      setPedidos(response.data);
+      
+      // Verifica se a resposta foi bem-sucedida
+      if (!response.ok) {
+        console.log("Erro na resposta:", response.status, response.statusText);
+        
+        // Tenta novamente sem a barra final se a primeira tentativa falhar
+        if (response.status === 404) {
+          console.log("Tentando novamente sem a barra final...");
+          const retryResponse = await fetch(`${API_URL}/pedidos`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          
+          if (!retryResponse.ok) {
+            console.log("Segunda tentativa também falhou:", retryResponse.status);
+            throw new Error(`Erro na requisição: ${retryResponse.status}`);
+          }
+          
+          const retryData = await retryResponse.json();
+          console.log("Pedidos recebidos na segunda tentativa:", retryData);
+          setPedidos(retryData);
+          return;
+        }
+        
+        throw new Error(`Erro na requisição: ${response.status}`);
+      }
+      
+      // Converte a resposta para JSON
+      const data = await response.json();
+      console.log("Pedidos recebidos:", data);
+      
+      // Atualiza o estado com os pedidos
+      setPedidos(data);
     } catch (error) {
-      Alert.alert('Erro ao buscar pedidos');
+      console.error('Erro ao buscar pedidos:', error);
+      Alert.alert('Erro', 'Não foi possível carregar seus pedidos. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -28,15 +74,24 @@ export default function ListarPedidos({ navigation }) {
 
   useEffect(() => {
     buscarPedidos();
-  }, []);
+    
+    // Configura um refresh dos pedidos quando a tela receber foco
+    const unsubscribe = navigation.addListener('focus', () => {
+      buscarPedidos();
+    });
+    
+    return unsubscribe;
+  }, [navigation]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.pedidoButton}
       onPress={() => navigation.navigate('DetalhesPedido', { pedidoId: item.id })}
     >
-      <Text style={styles.pedidoText}>Pedido #{item.id} - Cliente: {item.cliente.nome}</Text>
+      <Text style={styles.pedidoText}>Pedido #{item.id}</Text>
       <Text>Status: {item.status}</Text>
+      <Text>Origem: {item.origem}</Text>
+      <Text>Produtos: {item.produtos?.length || 0}</Text>
     </TouchableOpacity>
   );
 
@@ -49,19 +104,48 @@ export default function ListarPedidos({ navigation }) {
         renderItem={renderItem}
         refreshing={loading}
         onRefresh={buscarPedidos}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>
+            {loading ? 'Carregando pedidos...' : 'Você ainda não tem pedidos.'}
+          </Text>
+        }
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 10 },
+  container: { 
+    flex: 1, 
+    padding: 20,
+    backgroundColor: '#fff'
+  },
+  title: { 
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    marginBottom: 20,
+    textAlign: 'center'
+  },
   pedidoButton: {
     padding: 15,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  pedidoText: { fontWeight: 'bold', fontSize: 16 },
+  pedidoText: { 
+    fontWeight: 'bold', 
+    fontSize: 18,
+    marginBottom: 5 
+  },
+  emptyText: {
+    textAlign: 'center',
+    color: '#666',
+    marginTop: 30,
+    fontSize: 16
+  }
 });

@@ -32,8 +32,26 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class CriarPedidoAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request):
-        serializer = PedidoSerializer(data=request.data)
+        user = request.user
+        # Obter cliente_id do usuário autenticado
+        cliente_id = None
+        if hasattr(user, 'id') and user.id:
+            cliente_id = user.id
+        elif hasattr(request, 'auth') and request.auth:
+            # SimpleJWT: request.user pode ser Anonymous, mas request.auth tem o payload
+            cliente_id = request.auth.get('cliente_id')
+            
+        if not cliente_id:
+            return Response({'erro': 'Usuário não autenticado'}, status=401)
+            
+        # Adicionar cliente ao request.data
+        data = request.data.copy()
+        data['cliente'] = cliente_id
+        
+        serializer = PedidoSerializer(data=data)
         if serializer.is_valid():
             pedido = serializer.save()
             return Response(PedidoSerializer(pedido).data, status=status.HTTP_201_CREATED)

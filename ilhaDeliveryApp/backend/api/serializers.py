@@ -69,9 +69,17 @@ class ProdutoSolicitadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProdutoSolicitado
         fields = ['nome_produto', 'descricao', 'link', 'quantidade', 'preco_unitario']  # Adiciona preco_unitario
+    
+    def to_internal_value(self, data):
+        # Converte preco_unitario para string se for número
+        if 'preco_unitario' in data and (isinstance(data['preco_unitario'], int) or isinstance(data['preco_unitario'], float)):
+            data = data.copy()
+            data['preco_unitario'] = str(data['preco_unitario'])
+        return super().to_internal_value(data)
 
 class PedidoSerializer(serializers.ModelSerializer):
     produtos = ProdutoSolicitadoSerializer(many=True)
+    cliente = serializers.PrimaryKeyRelatedField(queryset=Cliente.objects.all(), required=False)
 
     class Meta:
         model = Pedido

@@ -61,7 +61,6 @@ class Endereco(models.Model):
     ilha = models.CharField(max_length=50)
 
 class Pedido(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
     operador = models.ForeignKey(Operador, null=True, blank=True, on_delete=models.SET_NULL)
     data_criacao = models.DateTimeField(auto_now_add=True)
