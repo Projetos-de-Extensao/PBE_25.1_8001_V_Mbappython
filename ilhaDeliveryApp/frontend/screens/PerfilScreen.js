@@ -4,7 +4,7 @@ import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 export default function PerfilScreen({ navigation }) {
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://192.168.0.4:8000/api/logout', {
+      const response = await fetch('192.168.15.3:8000/api/logout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
