@@ -94,7 +94,7 @@ class PedidoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pedido
-        fields = ['id', 'cliente', 'origem', 'produtos']
+        fields = ['id', 'cliente', 'origem', 'produtos', 'status', 'data_criacao', 'data_entrega_estimada', 'operador']
 
     def create(self, validated_data):
         produtos_data = validated_data.pop('produtos')
