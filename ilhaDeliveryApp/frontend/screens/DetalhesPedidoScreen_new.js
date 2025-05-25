@@ -169,6 +169,7 @@ export default function DetalhesPedido({ route }) {
         <Text>Origem: {pedido.origem}</Text>
         <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
         <Text>Data Estimada de Entrega: {pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text>
+        <Text>Data de Entrega Efetiva: {pedido.data_entrega_efetiva ? new Date(pedido.data_entrega_efetiva).toLocaleString() : 'Não entregue'}</Text>
         {pedido.preco_final !== null && pedido.preco_final !== undefined && (
           <Text style={{fontWeight:'bold', color:'#0077b6', marginTop:8}}>
             Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}

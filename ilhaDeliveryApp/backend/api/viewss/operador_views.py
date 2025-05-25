@@ -110,6 +110,16 @@ class FinalizarPedidoAPIView(APIView):
     def post(self, request, pedido_id):
         pedido = get_object_or_404(Pedido, id=pedido_id)
 
+        # Se receber data_entrega, salva como data_entrega_estimada
+        data_entrega = request.data.get('data_entrega')
+        from datetime import datetime
+        if data_entrega:
+            try:
+                pedido.data_entrega_estimada = datetime.fromisoformat(data_entrega.replace('Z', '+00:00'))
+            except Exception:
+                pass  # Se der erro, ignora e não altera
+        # Sempre salva a data de entrega efetiva como agora
+        pedido.data_entrega_efetiva = datetime.now()
         pedido.status = StatusPedido.ENTREGUE
         pedido.save()
 
