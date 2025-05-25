@@ -6,12 +6,15 @@ const API_URL = 'http://192.168.0.4:8000/api';
 
 export default function OperadorPedidosScreen({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
+  const [filtroTodos, setFiltroTodos] = useState(false);
 
   const buscarPedidos = async () => {
     try {
       const token = await AsyncStorage.getItem('operador_access');
-      console.log('Token operador:', token);
-      const response = await fetch(`${API_URL}/operador/pedidos/pendentes/`, {
+      let url = filtroTodos
+        ? `${API_URL}/operador/pedidos/`
+        : `${API_URL}/operador/pedidos/pendentes/`;
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +32,7 @@ export default function OperadorPedidosScreen({ navigation }) {
 
   useEffect(() => {
     buscarPedidos();
-  }, []);
+  }, [filtroTodos]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -43,23 +46,45 @@ export default function OperadorPedidosScreen({ navigation }) {
   );
 
   return (
-  <View style={styles.container}>
-    {pedidos.length === 0 ? (
-       <Text style={{ textAlign: 'center', marginTop: 20, color: '#666' }}>
-            Nenhum pedido pendente no momento.
+    <View style={styles.container}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 10 }}>
+        <Text
+          style={{
+            marginRight: 16,
+            color: !filtroTodos ? '#007bff' : '#888',
+            fontWeight: !filtroTodos ? 'bold' : 'normal',
+            textDecorationLine: !filtroTodos ? 'underline' : 'none',
+          }}
+          onPress={() => setFiltroTodos(false)}
+        >
+          Apenas abertos
         </Text>
-    ) : (
-      <FlatList
-        data={pedidos}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        refreshing={false}
-        onRefresh={buscarPedidos}
-      />
-    )}
-  </View>
-);
-
+        <Text
+          style={{
+            color: filtroTodos ? '#007bff' : '#888',
+            fontWeight: filtroTodos ? 'bold' : 'normal',
+            textDecorationLine: filtroTodos ? 'underline' : 'none',
+          }}
+          onPress={() => setFiltroTodos(true)}
+        >
+          Todos
+        </Text>
+      </View>
+      {pedidos.length === 0 ? (
+         <Text style={{ textAlign: 'center', marginTop: 20, color: '#666' }}>
+              Nenhum pedido pendente no momento.
+          </Text>
+      ) : (
+        <FlatList
+          data={pedidos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          refreshing={false}
+          onRefresh={buscarPedidos}
+        />
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

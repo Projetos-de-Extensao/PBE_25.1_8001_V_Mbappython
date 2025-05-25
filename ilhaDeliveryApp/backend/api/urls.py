@@ -18,7 +18,8 @@ from api.viewss.operador_views import (
     EnviarCotacaoAPIView,
     AtualizarStatusAPIView,
     FinalizarPedidoAPIView,
-    NotificarAPIView
+    NotificarAPIView,
+    PedidosOperadorAPIView,
 )
 from api.views_jwt import CustomTokenObtainPairView
 from api.views_jwt_operador import OperadorTokenObtainPairView
@@ -44,6 +45,7 @@ urlpatterns = [
     path('operador/pedido/<int:pedido_id>/finalizar/', FinalizarPedidoAPIView.as_view(), name='finalizar_pedido'),
     path('operador/pedido/<int:pedido_id>/notificar/', NotificarAPIView.as_view(), name='notificar'),
     path('operador/pedido/<int:pedido_id>/detalhes/', DetalhesPedidoOperadorAPIView.as_view(), name='detalhes_pedido_operador'),
+    path('operador/pedidos/', PedidosOperadorAPIView.as_view(), name='pedidos_operador'),
 ]
 
 

@@ -6,7 +6,7 @@ from api.authentication_operador import OperadorJWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-
+from api.serializers import PedidoSerializer
 
 class PedidosPendentesAPIView(APIView):
     authentication_classes = [OperadorJWTAuthentication]
@@ -105,3 +105,17 @@ class NotificarAPIView(APIView):
         )
 
         return Response({'mensagem': 'Notificação enviada.'})
+
+
+class PedidosOperadorAPIView(APIView):
+    authentication_classes = [OperadorJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        status_filtro = request.query_params.get('status')
+        if status_filtro:
+            pedidos = Pedido.objects.filter(status=status_filtro)
+        else:
+            pedidos = Pedido.objects.all()
+        serializer = PedidoSerializer(pedidos, many=True)
+        return Response(serializer.data)
