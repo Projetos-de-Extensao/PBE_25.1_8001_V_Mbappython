@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Alert, ActivityIndicator, Button } 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const API_URL = 'http://192.168.15.3:8000/api';
+const API_URL = 'http://192.168.0.4:8000/api';
 
 export default function DetalhesPedido({ route }) {
   const navigation = useNavigation();
@@ -85,6 +85,30 @@ export default function DetalhesPedido({ route }) {
     return unsubscribe;
   }, [navigation, pedidoId]);
 
+  // Função para aceitar cotação
+  const aceitarCotacao = async () => {
+    try {
+      const token = await AsyncStorage.getItem('access');
+      const response = await fetch(`${API_URL}/pedidos/${pedidoId}/confirmar-pagamento/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+      });
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Cotação aceita e pagamento confirmado!');
+        buscarPedido();
+      } else {
+        const data = await response.json();
+        Alert.alert('Erro', data.erro || 'Erro ao aceitar cotação.');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao conectar com o servidor.');
+    }
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -145,7 +169,20 @@ export default function DetalhesPedido({ route }) {
         <Text>Origem: {pedido.origem}</Text>
         <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
         <Text>Data Estimada de Entrega: {pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text>
-        
+        <Text>Data de Entrega Efetiva: {pedido.data_entrega_efetiva ? new Date(pedido.data_entrega_efetiva).toLocaleString() : 'Não entregue'}</Text>
+        {pedido.preco_final !== null && pedido.preco_final !== undefined && (
+          <Text style={{fontWeight:'bold', color:'#0077b6', marginTop:8}}>
+            Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}
+          </Text>
+        )}
+        {/* Botão para aceitar cotação, só aparece se status for 'CE' (Cotação Enviada) */}
+        {pedido.status === 'CE' && (
+          <Button
+            title="Aceitar Cotação"
+            color="#4CAF50"
+            onPress={aceitarCotacao}
+          />
+        )}
         <View style={styles.refreshButtonContainer}>
           <Button 
             title="Atualizar Dados" 

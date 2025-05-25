@@ -6,7 +6,8 @@ from api.authentication_operador import OperadorJWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-
+from api.serializers import PedidoSerializer
+from datetime import datetime
 
 class PedidosPendentesAPIView(APIView):
     authentication_classes = [OperadorJWTAuthentication]
@@ -34,10 +35,41 @@ class EnviarCotacaoAPIView(APIView):
         if pedido.status != StatusPedido.SOLICITADO:
             return Response({'erro': 'Pedido não está em estado solicitando cotação.'}, status=400)
 
+        preco_final = request.data.get('preco_final')
+        if not preco_final:
+            return Response({'erro': 'Preço final é obrigatório.'}, status=400)
+        try:
+            pedido.preco_final = float(preco_final)
+        except Exception:
+            return Response({'erro': 'Preço final inválido.'}, status=400)
+
+        data_entrega = request.data.get('data_entrega')
+        if data_entrega:
+            try:
+                # Aceita formatos: 'DD/MM/YYYY', 'DD/MM/YYYY HH:MM', 'YYYY-MM-DD', etc
+                for fmt in ("%d/%m/%Y", "%d/%m/%Y %H:%M", "%Y-%m-%d", "%Y-%m-%d %H:%M", "%Y-%m-%dT%H:%M:%S"):
+                    try:
+                        pedido.data_entrega_estimada = datetime.strptime(data_entrega, fmt)
+                        break
+                    except ValueError:
+                        continue
+                else:
+                    return Response({'erro': 'Formato de data inválido. Use DD/MM/YYYY ou YYYY-MM-DD.'}, status=400)
+            except Exception:
+                return Response({'erro': 'Erro ao processar a data.'}, status=400)
+
         pedido.operador = request.user
         pedido.status = StatusPedido.COTACAO_ENVIADA
-        pedido.data_entrega_estimada = request.data.get('data_entrega')
         pedido.save()
+
+        # Cria o pagamento se ainda não existir
+        from base.models import Pagamento, StatusPagamento
+        if not hasattr(pedido, 'pagamento'):
+            Pagamento.objects.create(
+                pedido=pedido,
+                tipo='pix',
+                status=StatusPagamento.PENDENTE
+            )
 
         Notificacao.objects.create(
             usuario=pedido.cliente,
@@ -78,6 +110,16 @@ class FinalizarPedidoAPIView(APIView):
     def post(self, request, pedido_id):
         pedido = get_object_or_404(Pedido, id=pedido_id)
 
+        # Se receber data_entrega, salva como data_entrega_estimada
+        data_entrega = request.data.get('data_entrega')
+        from datetime import datetime
+        if data_entrega:
+            try:
+                pedido.data_entrega_estimada = datetime.fromisoformat(data_entrega.replace('Z', '+00:00'))
+            except Exception:
+                pass  # Se der erro, ignora e não altera
+        # Sempre salva a data de entrega efetiva como agora
+        pedido.data_entrega_efetiva = datetime.now()
         pedido.status = StatusPedido.ENTREGUE
         pedido.save()
 
@@ -105,3 +147,17 @@ class NotificarAPIView(APIView):
         )
 
         return Response({'mensagem': 'Notificação enviada.'})
+
+
+class PedidosOperadorAPIView(APIView):
+    authentication_classes = [OperadorJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        status_filtro = request.query_params.get('status')
+        if status_filtro:
+            pedidos = Pedido.objects.filter(status=status_filtro)
+        else:
+            pedidos = Pedido.objects.all()
+        serializer = PedidoSerializer(pedidos, many=True)
+        return Response(serializer.data)

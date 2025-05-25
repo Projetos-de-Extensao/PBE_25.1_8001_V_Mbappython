@@ -12,13 +12,14 @@
 from django.urls import path
 from api.viewss.cliente_views import getClientes, addCliente, cliente_logado
 from api.viewss.auth_views_new import LoginView, LogoutView, CadastroClienteView
-from api.viewss.pedido_views import CriarPedidoAPIView, ListarPedidosAPIView, DetalhesPedidoAPIView
+from api.viewss.pedido_views import CriarPedidoAPIView, ListarPedidosAPIView, DetalhesPedidoAPIView, DetalhesPedidoOperadorAPIView, ConfirmarPagamentoAPIView
 from api.viewss.operador_views import (
     PedidosPendentesAPIView,
     EnviarCotacaoAPIView,
     AtualizarStatusAPIView,
     FinalizarPedidoAPIView,
-    NotificarAPIView
+    NotificarAPIView,
+    PedidosOperadorAPIView,
 )
 from api.views_jwt import CustomTokenObtainPairView
 from api.views_jwt_operador import OperadorTokenObtainPairView
@@ -43,6 +44,9 @@ urlpatterns = [
     path('operador/pedido/<int:pedido_id>/atualizar-status/', AtualizarStatusAPIView.as_view(), name='atualizar_status'),
     path('operador/pedido/<int:pedido_id>/finalizar/', FinalizarPedidoAPIView.as_view(), name='finalizar_pedido'),
     path('operador/pedido/<int:pedido_id>/notificar/', NotificarAPIView.as_view(), name='notificar'),
+    path('operador/pedido/<int:pedido_id>/detalhes/', DetalhesPedidoOperadorAPIView.as_view(), name='detalhes_pedido_operador'),
+    path('operador/pedidos/', PedidosOperadorAPIView.as_view(), name='pedidos_operador'),
+    path('pedidos/<int:pedido_id>/confirmar-pagamento/', ConfirmarPagamentoAPIView.as_view(), name='confirmar_pagamento'),
 ]
 
 
