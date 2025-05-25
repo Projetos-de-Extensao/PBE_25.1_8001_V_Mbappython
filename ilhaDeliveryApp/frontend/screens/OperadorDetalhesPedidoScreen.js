@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.15.3:8000/api';
+const API_URL = 'http://192.168.0.4:8000/api';
 
 export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   const { pedidoId } = route.params;
