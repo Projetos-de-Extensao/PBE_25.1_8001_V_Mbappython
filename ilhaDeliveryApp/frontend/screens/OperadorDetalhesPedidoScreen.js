@@ -103,7 +103,12 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Pedido #{pedidoId}</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Pedido #{pedidoId}</Text>
+        {pedido && (
+          <Text style={[styles.statusBadge, getStatusColor(pedido.status)]}>{pedido.status}</Text>
+        )}
+      </View>
       <Button
         title="← Voltar para pedidos"
         color="#007bff"
@@ -112,11 +117,10 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
       {pedido && (
         <View style={styles.infoCard}>
           <Text style={styles.sectionTitle}>Informações do Pedido</Text>
-          <Text>Status: {pedido.status}</Text>
-          <Text>Origem: {pedido.origem}</Text>
-          <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
-          <Text>Data Estimada de Entrega: {pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text>
-          <Text>Cliente: {pedido.cliente_nome || pedido.cliente || 'N/A'}</Text>
+          <Text style={styles.infoText}>Origem: <Text style={{fontWeight:'bold'}}>{pedido.origem}</Text></Text>
+          <Text style={styles.infoText}>Data de Criação: <Text style={{fontWeight:'bold'}}>{pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text></Text>
+          <Text style={styles.infoText}>Data Estimada de Entrega: <Text style={{fontWeight:'bold'}}>{pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text></Text>
+          <Text style={styles.infoText}>Cliente: <Text style={{fontWeight:'bold'}}>{pedido.cliente_nome || pedido.cliente || 'N/A'}</Text></Text>
         </View>
       )}
       {pedido && pedido.produtos && pedido.produtos.length > 0 && (
@@ -125,8 +129,8 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
           {pedido.produtos.map((produto, index) => (
             <View key={index} style={styles.produto}>
               <Text style={styles.produtoTitle}>{produto.nome_produto}</Text>
-              <Text>Quantidade: {produto.quantidade}</Text>
-              <Text>Preço: {produto.preco_unitario ? `R$ ${parseFloat(produto.preco_unitario).toFixed(2)}` : 'N/A'}</Text>
+              <Text style={styles.produtoInfo}>Quantidade: <Text style={{fontWeight:'bold'}}>{produto.quantidade}</Text></Text>
+              <Text style={styles.produtoInfo}>Preço: <Text style={{fontWeight:'bold'}}>{produto.preco_unitario ? `R$ ${parseFloat(produto.preco_unitario).toFixed(2)}` : 'N/A'}</Text></Text>
               <Text style={styles.produtoDesc}>{produto.descricao}</Text>
               <Text style={styles.produtoLink}>{produto.link}</Text>
             </View>
@@ -149,17 +153,60 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   );
 }
 
+function getStatusColor(status) {
+  switch (status) {
+    case 'SOL': return { backgroundColor: '#ff9800', color: '#fff' };
+    case 'AND': return { backgroundColor: '#2196f3', color: '#fff' };
+    case 'ENT': return { backgroundColor: '#4caf50', color: '#fff' };
+    case 'CAN': return { backgroundColor: '#f44336', color: '#fff' };
+    default: return { backgroundColor: '#eee', color: '#333' };
+  }
+}
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5', padding: 20 },
-  title: { fontSize: 22, marginBottom: 20, fontWeight: 'bold', color: '#333' },
+  container: { flex: 1, backgroundColor: '#f4f6fb', padding: 0 },
+  header: {
+    backgroundColor: '#fff',
+    padding: 18,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    marginBottom: 8,
+    elevation: 2,
+  },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#222' },
+  statusBadge: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    paddingVertical: 3,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    overflow: 'hidden',
+    textTransform: 'uppercase',
+  },
+  infoCard: {
+    backgroundColor: '#fff',
+    margin: 10,
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+    marginBottom: 10,
+  },
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: '#333' },
+  infoText: { fontSize: 15, color: '#555', marginBottom: 2 },
+  produto: { backgroundColor: '#f9f9f9', padding: 12, borderRadius: 8, marginBottom: 10, borderLeftWidth: 4, borderLeftColor: '#0066cc' },
+  produtoTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
+  produtoInfo: { fontSize: 14, color: '#444' },
+  produtoDesc: { marginTop: 5, color: '#666' },
+  produtoLink: { marginTop: 5, color: '#0066cc', fontSize: 12 },
   input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 10, borderRadius: 5 },
   divider: { marginVertical: 10 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f5f5' },
   loadingText: { marginTop: 10, fontSize: 16, color: '#666' },
-  infoCard: { backgroundColor: '#fff', margin: 10, padding: 15, borderRadius: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 3, elevation: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: '#333' },
-  produto: { backgroundColor: '#f9f9f9', padding: 12, borderRadius: 8, marginBottom: 10, borderLeftWidth: 4, borderLeftColor: '#0066cc' },
-  produtoTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
-  produtoDesc: { marginTop: 5, color: '#666' },
-  produtoLink: { marginTop: 5, color: '#0066cc', fontSize: 12 },
 });

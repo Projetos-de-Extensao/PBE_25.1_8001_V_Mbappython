@@ -34,68 +34,150 @@ export default function OperadorPedidosScreen({ navigation }) {
     buscarPedidos();
   }, [filtroTodos]);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate('OperadorDetalhesPedido', { pedidoId: item.id })}
-    >
-      <Text style={styles.title}>Pedido #{item.id}</Text>
-      <Text>Origem: {item.origem}</Text>
-      <Text>Status: {item.status}</Text>
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 10 }}>
-        <Text
-          style={{
-            marginRight: 16,
-            color: !filtroTodos ? '#007bff' : '#888',
-            fontWeight: !filtroTodos ? 'bold' : 'normal',
-            textDecorationLine: !filtroTodos ? 'underline' : 'none',
-          }}
+      <View style={styles.filterBar}>
+        <TouchableOpacity
+          style={[styles.filterButton, !filtroTodos && styles.filterButtonActive]}
           onPress={() => setFiltroTodos(false)}
         >
-          Apenas abertos
-        </Text>
-        <Text
-          style={{
-            color: filtroTodos ? '#007bff' : '#888',
-            fontWeight: filtroTodos ? 'bold' : 'normal',
-            textDecorationLine: filtroTodos ? 'underline' : 'none',
-          }}
+          <Text style={[styles.filterText, !filtroTodos && styles.filterTextActive]}>Abertos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.filterButton, filtroTodos && styles.filterButtonActive]}
           onPress={() => setFiltroTodos(true)}
         >
-          Todos
-        </Text>
+          <Text style={[styles.filterText, filtroTodos && styles.filterTextActive]}>Todos</Text>
+        </TouchableOpacity>
       </View>
       {pedidos.length === 0 ? (
-         <Text style={{ textAlign: 'center', marginTop: 20, color: '#666' }}>
-              Nenhum pedido pendente no momento.
+        <View style={styles.emptyBox}>
+          <Text style={styles.emptyText}>
+            Nenhum pedido {filtroTodos ? 'encontrado' : 'pendente no momento'}.
           </Text>
+        </View>
       ) : (
         <FlatList
           data={pedidos}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => navigation.navigate('OperadorDetalhesPedido', { pedidoId: item.id })}
+              activeOpacity={0.85}
+            >
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardTitle}>Pedido #{item.id}</Text>
+                <Text style={[styles.statusBadge, getStatusColor(item.status)]}>{item.status}</Text>
+              </View>
+              <Text style={styles.cardSubtitle}>Origem: <Text style={{fontWeight:'bold'}}>{item.origem}</Text></Text>
+              <Text style={styles.cardSubtitle}>Cliente: <Text style={{fontWeight:'bold'}}>{item.cliente}</Text></Text>
+              <Text style={styles.cardDate}>{item.data_criacao ? new Date(item.data_criacao).toLocaleString() : 'N/A'}</Text>
+            </TouchableOpacity>
+          )}
           refreshing={false}
           onRefresh={buscarPedidos}
+          contentContainerStyle={{ paddingBottom: 30 }}
         />
       )}
     </View>
   );
 }
 
+function getStatusColor(status) {
+  switch (status) {
+    case 'SOL': return { backgroundColor: '#ff9800', color: '#fff' };
+    case 'AND': return { backgroundColor: '#2196f3', color: '#fff' };
+    case 'ENT': return { backgroundColor: '#4caf50', color: '#fff' };
+    case 'CAN': return { backgroundColor: '#f44336', color: '#fff' };
+    default: return { backgroundColor: '#eee', color: '#333' };
+  }
+}
+
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#007bff',
+  container: { flex: 1, padding: 0, backgroundColor: '#f4f6fb' },
+  filterBar: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    elevation: 2,
   },
-  title: { fontSize: 18, fontWeight: 'bold' },
+  filterButton: {
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginHorizontal: 4,
+    backgroundColor: '#f0f0f0',
+  },
+  filterButtonActive: {
+    backgroundColor: '#007bff',
+  },
+  filterText: {
+    fontSize: 16,
+    color: '#888',
+    fontWeight: '500',
+  },
+  filterTextActive: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: 18,
+    marginHorizontal: 16,
+    marginBottom: 14,
+    borderRadius: 14,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#222',
+  },
+  statusBadge: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    paddingVertical: 3,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    overflow: 'hidden',
+    textTransform: 'uppercase',
+  },
+  cardSubtitle: {
+    fontSize: 15,
+    color: '#555',
+    marginBottom: 2,
+  },
+  cardDate: {
+    fontSize: 13,
+    color: '#aaa',
+    marginTop: 4,
+    textAlign: 'right',
+  },
+  emptyBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 60,
+  },
+  emptyText: {
+    fontSize: 17,
+    color: '#888',
+    textAlign: 'center',
+  },
 });

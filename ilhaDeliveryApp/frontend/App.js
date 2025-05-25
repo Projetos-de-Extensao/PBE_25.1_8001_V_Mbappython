@@ -111,6 +111,7 @@ import DetalhesPedido from './screens/DetalhesPedidoScreen_new';
 import OperadorLoginScreen from './screens/OperadorLoginScreen';
 import OperadorPedidosScreen from './screens/OperadorPedidosScreen';
 import OperadorDetalhesPedidoScreen from './screens/OperadorDetalhesPedidoScreen';
+import OperadorPerfilScreen from './screens/OperadorPerfilScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -163,10 +164,54 @@ function AppTabs() {
   );
 }
 
+function OperadorTabs() {
+  return (
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: 20,
+            left: 20,
+            right: 20,
+            backgroundColor: '#99d6ff',
+            borderRadius: 30,
+            height: 70,
+            borderTopWidth: 0,
+            elevation: 5,
+            shadowColor: '#000',
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 5 },
+            shadowRadius: 10,
+          },
+          tabBarIcon: ({ focused }) => {
+            let iconName;
+            if (route.name === 'OperadorPedidos') iconName = 'calendar';
+            else if (route.name === 'OperadorPerfil') iconName = 'user';
+
+            return (
+              <Icon
+                name={iconName}
+                size={24}
+                color={focused ? '#fff' : '#2c3e50'}
+              />
+            );
+          },
+        })}
+      >
+        <Tab.Screen name="OperadorPedidos" component={OperadorPedidosScreen} />
+        <Tab.Screen name="OperadorPerfil" component={OperadorPerfilScreen} />
+      </Tab.Navigator>
+    </View>
+  );
+}
+
 function OperadorStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="OperadorPedidos" component={OperadorPedidosScreen} />
+      <Stack.Screen name="OperadorTabs" component={OperadorTabs} />
       <Stack.Screen name="OperadorDetalhesPedido" component={OperadorDetalhesPedidoScreen} />
     </Stack.Navigator>
   );
