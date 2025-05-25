@@ -225,6 +225,7 @@ function TelaInicial({ navigation }) {
       <View style={{ height: 20 }} />
       <Button title="Entrar como Operador" onPress={() => navigation.navigate('OperadorLogin')} />
     </View>
+    
   );
 }
 

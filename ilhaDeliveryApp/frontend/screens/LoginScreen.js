@@ -71,6 +71,13 @@ export default function LoginScreen({ navigation }) {
       />
       <Button title="Entrar" onPress={handleLogin} />
 
+      <Text
+        style={{ color: 'blue', marginTop: 15, textAlign: 'center', textDecorationLine: 'underline' }}
+        onPress={() => navigation.navigate('Inicio')}
+      >
+        Voltar para início
+      </Text>
+
       <Text style={{ color: 'blue', marginTop: 20 }} onPress={() => navigation.navigate('Cadastro')}>
         Não tem conta? Cadastre-se
       </Text>

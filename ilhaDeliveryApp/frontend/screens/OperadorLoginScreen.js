@@ -51,6 +51,13 @@ export default function OperadorLoginScreen({ navigation }) {
         secureTextEntry
       />
       <Button title="Entrar" onPress={handleLogin} />
+
+      <Text
+        style={{ color: 'blue', marginTop: 15, textAlign: 'center', textDecorationLine: 'underline' }}
+        onPress={() => navigation.navigate('Inicio')}
+      >
+        Voltar para início
+      </Text>
     </View>
   );
 }
