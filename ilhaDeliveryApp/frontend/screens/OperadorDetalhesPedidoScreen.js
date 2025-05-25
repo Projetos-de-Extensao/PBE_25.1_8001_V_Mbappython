@@ -126,6 +126,9 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
           <Text style={styles.infoText}>Data de Criação: <Text style={{fontWeight:'bold'}}>{pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text></Text>
           <Text style={styles.infoText}>Data Estimada de Entrega: <Text style={{fontWeight:'bold'}}>{pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text></Text>
           <Text style={styles.infoText}>Cliente: <Text style={{fontWeight:'bold'}}>{pedido.cliente_nome || pedido.cliente || 'N/A'}</Text></Text>
+          {pedido.preco_final !== null && pedido.preco_final !== undefined && (
+            <Text style={[styles.infoText, {fontWeight:'bold', color:'#0077b6', marginTop:8}]}>Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}</Text>
+          )}
         </View>
       )}
       {pedido && pedido.produtos && pedido.produtos.length > 0 && (
