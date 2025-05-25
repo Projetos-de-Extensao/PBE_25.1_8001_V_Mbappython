@@ -100,6 +100,7 @@ class Pedido(models.Model):
     status = models.CharField(max_length=3, choices=StatusPedido.choices, default=StatusPedido.SOLICITADO)
     origem = models.CharField(max_length=10, choices=OrigemPedido.choices)
     data_entrega_estimada = models.DateTimeField(null=True, blank=True)
+    preco_final = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # Valor total cotado (produto + frete)
 
 class ProdutoSolicitado(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='produtos')

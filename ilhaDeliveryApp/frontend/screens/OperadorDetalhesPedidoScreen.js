@@ -7,6 +7,7 @@ const API_URL = 'http://192.168.0.4:8000/api';
 export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   const { pedidoId } = route.params;
   const [dataEntrega, setDataEntrega] = useState('');
+  const [precoFinal, setPrecoFinal] = useState('');
   const [pedido, setPedido] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +39,10 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   }, [navigation, pedidoId]);
 
   const enviarCotacao = async () => {
+    if (!precoFinal || isNaN(Number(precoFinal))) {
+      Alert.alert('Erro', 'Informe o preço final (produto + frete) corretamente.');
+      return;
+    }
     const token = await AsyncStorage.getItem('operador_access');
     const response = await fetch(`${API_URL}/operador/pedido/${pedidoId}/enviar-cotacao/`, {
       method: 'POST',
@@ -45,7 +50,7 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ data_entrega: dataEntrega }),
+      body: JSON.stringify({ data_entrega: dataEntrega, preco_final: precoFinal }),
     });
 
     if (response.ok) {
@@ -137,6 +142,13 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
           ))}
         </View>
       )}
+      <TextInput
+        style={styles.input}
+        placeholder="Preço final (produto + frete) em R$"
+        value={precoFinal}
+        onChangeText={setPrecoFinal}
+        keyboardType="decimal-pad"
+      />
       <TextInput
         style={styles.input}
         placeholder="Data estimada entrega (opcional)"
