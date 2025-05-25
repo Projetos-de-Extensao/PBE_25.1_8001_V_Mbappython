@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 import logging
+from api.authentication_operador import OperadorJWTAuthentication
 
 logger = logging.getLogger(__name__)
 
@@ -157,5 +158,15 @@ class DetalhesPedidoAPIView(APIView):
         if pedido.cliente.id != user.id:
             return Response({'erro': 'Acesso não autorizado a este pedido'}, status=403)
             
+        serializer = PedidoSerializer(pedido)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class DetalhesPedidoOperadorAPIView(APIView):
+    authentication_classes = [OperadorJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pedido_id):
+        pedido = get_object_or_404(Pedido, id=pedido_id)
         serializer = PedidoSerializer(pedido)
         return Response(serializer.data, status=status.HTTP_200_OK)
