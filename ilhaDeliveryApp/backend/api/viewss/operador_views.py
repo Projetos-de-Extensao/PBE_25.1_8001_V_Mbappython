@@ -79,6 +79,7 @@ class FinalizarPedidoAPIView(APIView):
         pedido = get_object_or_404(Pedido, id=pedido_id)
 
         pedido.status = StatusPedido.ENTREGUE
+        pedido.data_entrega_real = timezone.now() 
         pedido.save()
 
         Notificacao.objects.create(

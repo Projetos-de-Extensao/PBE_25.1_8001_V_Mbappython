@@ -22,51 +22,26 @@ export default function DetalhesPedido({ route }) {
           routes: [{ name: 'Login' }],
         });
         return;
-      }      
-      console.log(`Buscando detalhes do pedido ${pedidoId}`);
-      
+      }
+
       const response = await fetch(`${API_URL}/pedidos/${pedidoId}/`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-      
-      if (!response.ok) {
-        console.log("Erro na resposta:", response.status, response.statusText);
-        
-        // Tenta novamente sem a barra final se a primeira tentativa falhar
-        if (response.status === 404) {
-          console.log("Tentando novamente sem a barra final...");
-          const retryResponse = await fetch(`${API_URL}/pedidos/${pedidoId}`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          });
-          
-          if (!retryResponse.ok) {
-            console.log("Segunda tentativa também falhou:", retryResponse.status);
-            throw new Error(`Erro na requisição: ${retryResponse.status}`);
-          }
-          
-          const retryData = await retryResponse.json();
-          console.log("Detalhes do pedido na segunda tentativa:", retryData);
-          setPedido(retryData);
-          return;
-        }
-        
-        throw new Error(`Erro na requisição: ${response.status}`);
-      }
-      
+
       const data = await response.json();
-      console.log("Detalhes do pedido:", data);
-      setPedido(data);
+
+      if (response.ok) {
+        setPedido(data);
+      } else {
+        Alert.alert('Erro', 'Não foi possível carregar os detalhes do pedido.');
+      }
     } catch (error) {
       console.error('Erro ao buscar detalhes do pedido:', error);
-      Alert.alert('Erro', 'Não foi possível carregar os detalhes do pedido.');
+      Alert.alert('Erro', 'Erro na conexão');
     } finally {
       setLoading(false);
     }
@@ -74,16 +49,32 @@ export default function DetalhesPedido({ route }) {
 
   useEffect(() => {
     buscarPedido();
-    
-    // Adiciona um listener para recarregar os dados quando a tela receber foco
-    const unsubscribe = navigation.addListener('focus', () => {
-      console.log('Tela de detalhes recebeu foco, recarregando dados...');
+
+    // 🔄 Adicionando o intervalo para atualizar automaticamente
+    const interval = setInterval(() => {
       buscarPedido();
-    });
-    
-    // Limpa o listener quando o componente é desmontado
-    return unsubscribe;
+    }, 5000); // Atualiza a cada 5 segundos
+
+    const unsubscribe = navigation.addListener('focus', buscarPedido);
+
+    return () => {
+      clearInterval(interval);
+      unsubscribe();
+    };
   }, [navigation, pedidoId]);
+
+  const formatarStatus = (status) => {
+    const statusMap = {
+      SOL: 'Solicitado',
+      AC: 'Aguardando Confirmação',
+      CE: 'Cotação Enviada',
+      PA: 'Pagamento Aprovado',
+      AND: 'Em Andamento',
+      ENT: 'Entregue',
+      CAN: 'Cancelado',
+    };
+    return statusMap[status] || status;
+  };
 
   if (loading) {
     return (
@@ -98,44 +89,41 @@ export default function DetalhesPedido({ route }) {
     return (
       <View style={styles.container}>
         <Text style={styles.errorText}>Pedido não encontrado</Text>
-        <Button 
-          title="Voltar para Pedidos" 
-          onPress={() => navigation.navigate('AppTabs', { screen: 'Pedidos' })} 
-        />
+        <Button title="Voltar" onPress={() => navigation.goBack()} />
       </View>
     );
   }
 
-  // Função auxiliar para formatar o status do pedido
-  const formatarStatus = (status) => {
-    const statusMap = {
-      'SOL': 'Solicitado',
-      'AC': 'Aguardando Confirmação',
-      'CE': 'Cotação Enviada',
-      'PA': 'Pagamento Aprovado',
-      'AND': 'Em Andamento',
-      'ENT': 'Entregue',
-      'CAN': 'Cancelado'
-    };
-    
-    return statusMap[status] || status || 'Sem status';
-  };
+  const totalProdutos = pedido.produtos
+    ? pedido.produtos.reduce(
+        (total, p) => total + p.preco_unitario * p.quantidade,
+        0
+      )
+    : 0;
+  const frete = pedido.frete || 0;
+  const totalGeral = totalProdutos + frete;
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Pedido #{pedido.id}</Text>
-        <Text style={[
-          styles.statusBadge, 
-          { backgroundColor: 
-            pedido.status === 'ENT' ? '#4CAF50' : 
-            pedido.status === 'CAN' ? '#f44336' : 
-            '#fff' 
-          },
-          { color: 
-            (pedido.status === 'ENT' || pedido.status === 'CAN') ? '#fff' : '#333' 
-          }
-        ]}>
+        <Text
+          style={[
+            styles.statusBadge,
+            {
+              backgroundColor:
+                pedido.status === 'ENT'
+                  ? '#4CAF50'
+                  : pedido.status === 'CAN'
+                  ? '#f44336'
+                  : '#fff',
+              color:
+                pedido.status === 'ENT' || pedido.status === 'CAN'
+                  ? '#fff'
+                  : '#333',
+            },
+          ]}
+        >
           {formatarStatus(pedido.status)}
         </Text>
       </View>
@@ -143,16 +131,27 @@ export default function DetalhesPedido({ route }) {
       <View style={styles.infoCard}>
         <Text style={styles.sectionTitle}>Informações do Pedido</Text>
         <Text>Origem: {pedido.origem}</Text>
-        <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
-        <Text>Data Estimada de Entrega: {pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text>
-        
-        <View style={styles.refreshButtonContainer}>
-          <Button 
-            title="Atualizar Dados" 
-            onPress={buscarPedido} 
-            color="#4CAF50"
-          />
-        </View>
+        <Text>
+          Data de Criação:{' '}
+          {pedido.data_criacao
+            ? new Date(pedido.data_criacao).toLocaleString()
+            : 'N/A'}
+        </Text>
+        <Text>
+          Data Estimada de Entrega:{' '}
+          {pedido.data_entrega_estimada
+            ? new Date(pedido.data_entrega_estimada).toLocaleString()
+            : 'Não definida'}
+        </Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.sectionTitle}>Custos</Text>
+        <Text>Total dos Produtos: R$ {totalProdutos.toFixed(2)}</Text>
+        <Text>Frete: R$ {frete.toFixed(2)}</Text>
+        <Text style={{ fontWeight: 'bold', marginTop: 5 }}>
+          Total Geral: R$ {totalGeral.toFixed(2)}
+        </Text>
       </View>
 
       <View style={styles.infoCard}>
@@ -162,27 +161,12 @@ export default function DetalhesPedido({ route }) {
             <View key={index} style={styles.produto}>
               <Text style={styles.produtoTitle}>{produto.nome_produto}</Text>
               <Text>Quantidade: {produto.quantidade}</Text>
-              <Text>Preço: {(() => {
-                if (!produto.preco_unitario) return 'N/A';
-                
-                let preco = produto.preco_unitario;
-                try {
-                  // Se não for um número, tenta converter
-                  if (typeof preco !== 'number') {
-                    preco = parseFloat(preco);
-                  }
-                  
-                  // Verifica se é um número válido após a conversão
-                  if (!isNaN(preco)) {
-                    return `R$ ${preco.toFixed(2)}`;
-                  } else {
-                    return `R$ ${produto.preco_unitario}`;
-                  }
-                } catch (e) {
-                  console.log('Erro ao formatar preço:', e);
-                  return `R$ ${produto.preco_unitario}`;
-                }
-              })()}</Text>
+              <Text>
+                Preço Unitário: R${' '}
+                {produto.preco_unitario
+                  ? produto.preco_unitario.toFixed(2)
+                  : 'N/A'}
+              </Text>
               <Text style={styles.produtoDesc}>{produto.descricao}</Text>
               <Text style={styles.produtoLink}>{produto.link}</Text>
             </View>
@@ -193,9 +177,9 @@ export default function DetalhesPedido({ route }) {
       </View>
 
       <View style={styles.actions}>
-        <Button 
-          title="Voltar para Pedidos" 
-          onPress={() => navigation.navigate('AppTabs', { screen: 'Pedidos' })} 
+        <Button
+          title="Voltar para Pedidos"
+          onPress={() => navigation.navigate('AppTabs', { screen: 'Pedidos' })}
         />
       </View>
     </ScrollView>
@@ -211,7 +195,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
   },
   loadingText: {
     marginTop: 10,
@@ -284,10 +267,5 @@ const styles = StyleSheet.create({
   },
   actions: {
     margin: 20,
-  },
-  refreshButtonContainer: {
-    marginTop: 15,
-    alignSelf: 'center',
-    width: '100%',
   },
 });

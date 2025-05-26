@@ -1,72 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const API_URL = 'http://192.168.15.3:8000/api';
 
-export default function ListarPedidos({ navigation }) {
+export default function PedidosScreen() {
+  const navigation = useNavigation();
   const [pedidos, setPedidos] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const buscarPedidos = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const token = await AsyncStorage.getItem('access');
-      if (!token) {
-        Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Login' }],
-        });
-        return;
-      }      console.log("Buscando pedidos com token:", token);
-        // Faz a requisição para a API
       const response = await fetch(`${API_URL}/pedidos`, {
-        method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
-      
-      // Verifica se a resposta foi bem-sucedida
-      if (!response.ok) {
-        console.log("Erro na resposta:", response.status, response.statusText);
-        
-        // Tenta novamente sem a barra final se a primeira tentativa falhar
-        if (response.status === 404) {
-          console.log("Tentando novamente sem a barra final...");
-          const retryResponse = await fetch(`${API_URL}/pedidos`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          });
-          
-          if (!retryResponse.ok) {
-            console.log("Segunda tentativa também falhou:", retryResponse.status);
-            throw new Error(`Erro na requisição: ${retryResponse.status}`);
-          }
-          
-          const retryData = await retryResponse.json();
-          console.log("Pedidos recebidos na segunda tentativa:", retryData);
-          setPedidos(retryData);
-          return;
-        }
-        
-        throw new Error(`Erro na requisição: ${response.status}`);
-      }
-      
-      // Converte a resposta para JSON
       const data = await response.json();
-      console.log("Pedidos recebidos:", data);
-      
-      // Atualiza o estado com os pedidos
-      setPedidos(data);
+      if (response.ok) {
+        setPedidos(data);
+      } else {
+        Alert.alert('Erro', 'Erro ao buscar pedidos');
+      }
     } catch (error) {
-      console.error('Erro ao buscar pedidos:', error);
-      Alert.alert('Erro', 'Não foi possível carregar seus pedidos. Tente novamente.');
+      Alert.alert('Erro', 'Erro de conexão');
     } finally {
       setLoading(false);
     }
@@ -74,40 +34,50 @@ export default function ListarPedidos({ navigation }) {
 
   useEffect(() => {
     buscarPedidos();
-    
-    // Configura um refresh dos pedidos quando a tela receber foco
-    const unsubscribe = navigation.addListener('focus', () => {
-      buscarPedidos();
-    });
-    
+    const unsubscribe = navigation.addListener('focus', buscarPedidos);
     return unsubscribe;
   }, [navigation]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      style={styles.pedidoButton}
+      style={styles.card}
       onPress={() => navigation.navigate('DetalhesPedido', { pedidoId: item.id })}
     >
-      <Text style={styles.pedidoText}>Pedido #{item.id}</Text>
-      <Text>Status: {item.status}</Text>
+      <Text style={styles.title}>Pedido #{item.id}</Text>
       <Text>Origem: {item.origem}</Text>
-      <Text>Produtos: {item.produtos?.length || 0}</Text>
+      <Text>Status: {formatarStatus(item.status)}</Text>
+      <Text>Data de Criação: {new Date(item.data_criacao).toLocaleString()}</Text>
     </TouchableOpacity>
   );
 
+  const formatarStatus = (status) => {
+    const statusMap = {
+      SOL: 'Solicitado',
+      AC: 'Aguardando Confirmação',
+      CE: 'Cotação Enviada',
+      PA: 'Pagamento Aprovado',
+      AND: 'Em Andamento',
+      ENT: 'Entregue',
+      CAN: 'Cancelado',
+    };
+    return statusMap[status] || status;
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Seus Pedidos</Text>
       <FlatList
         data={pedidos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        refreshing={loading}
-        onRefresh={buscarPedidos}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={buscarPedidos} />
+        }
         ListEmptyComponent={
-          <Text style={styles.emptyText}>
-            {loading ? 'Carregando pedidos...' : 'Você ainda não tem pedidos.'}
-          </Text>
+          !loading && (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>Nenhum pedido encontrado.</Text>
+            </View>
+          )
         }
       />
     </View>
@@ -115,37 +85,22 @@ export default function ListarPedidos({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20,
-    backgroundColor: '#fff'
-  },
-  title: { 
-    fontSize: 24, 
-    fontWeight: 'bold', 
-    marginBottom: 20,
-    textAlign: 'center'
-  },
-  pedidoButton: {
+  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
+  card: {
+    backgroundColor: '#f9f9f9',
     padding: 15,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    marginBottom: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    marginBottom: 10,
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: '#007bff',
   },
-  pedidoText: { 
-    fontWeight: 'bold', 
-    fontSize: 18,
-    marginBottom: 5 
+  title: { fontSize: 18, fontWeight: 'bold' },
+  emptyContainer: {
+    alignItems: 'center',
+    marginTop: 50,
   },
   emptyText: {
-    textAlign: 'center',
-    color: '#666',
-    marginTop: 30,
-    fontSize: 16
-  }
+    color: '#999',
+    fontSize: 16,
+  },
 });

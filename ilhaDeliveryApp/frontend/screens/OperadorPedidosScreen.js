@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL = 'http://192.168.15.3:8000/api';
 
 export default function OperadorPedidosScreen({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const buscarPedidos = async () => {
     try {
       const token = await AsyncStorage.getItem('operador_access');
-      console.log('Token operador:', token);
       const response = await fetch(`${API_URL}/operador/pedidos/pendentes/`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -24,12 +24,25 @@ export default function OperadorPedidosScreen({ navigation }) {
       }
     } catch (error) {
       Alert.alert('Erro', 'Erro de conexão');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     buscarPedidos();
-  }, []);
+
+    const interval = setInterval(() => {
+      buscarPedidos();
+    }, 5000);
+
+    const unsubscribe = navigation.addListener('focus', buscarPedidos);
+
+    return () => {
+      clearInterval(interval);
+      unsubscribe();
+    };
+  }, [navigation]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -42,13 +55,17 @@ export default function OperadorPedidosScreen({ navigation }) {
     </TouchableOpacity>
   );
 
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#007bff" />
+        <Text>Carregando pedidos...</Text>
+      </View>
+    );
+  }
+
   return (
-  <View style={styles.container}>
-    {pedidos.length === 0 ? (
-       <Text style={{ textAlign: 'center', marginTop: 20, color: '#666' }}>
-            Nenhum pedido pendente no momento.
-        </Text>
-    ) : (
+    <View style={styles.container}>
       <FlatList
         data={pedidos}
         keyExtractor={(item) => item.id.toString()}
@@ -56,14 +73,13 @@ export default function OperadorPedidosScreen({ navigation }) {
         refreshing={false}
         onRefresh={buscarPedidos}
       />
-    )}
-  </View>
-);
-
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   card: {
     backgroundColor: '#f9f9f9',
     padding: 15,
@@ -74,3 +90,4 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 18, fontWeight: 'bold' },
 });
+
