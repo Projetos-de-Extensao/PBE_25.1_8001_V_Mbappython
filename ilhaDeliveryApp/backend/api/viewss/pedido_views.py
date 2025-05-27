@@ -149,21 +149,21 @@ class DetalhesPedidoAPIView(APIView):
     
     def get(self, request, pedido_id):
         user = request.user
-        # Verificar se o user é um Cliente
-        if not isinstance(user, Cliente):
-            return Response({'erro': 'Usuário não autenticado corretamente'}, status=401)
-            
-        # Verificar se o pedido pertence ao cliente logado
+
+        try:
+            cliente = Cliente.objects.get(user=user)
+        except Cliente.DoesNotExist:
+            return Response({'erro': 'Usuário autenticado não é um cliente'}, status=401)
+
         pedido = get_object_or_404(Pedido, id=pedido_id)
-        if pedido.cliente.id != user.id:
+        if pedido.cliente.id != cliente.id:
             return Response({'erro': 'Acesso não autorizado a este pedido'}, status=403)
-            
+        
         serializer = PedidoSerializer(pedido)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class DetalhesPedidoOperadorAPIView(APIView):
-    authentication_classes = [OperadorJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pedido_id):
