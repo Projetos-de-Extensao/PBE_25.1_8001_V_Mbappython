@@ -85,8 +85,9 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
 
   const finalizarPedido = async () => {
     const token = await AsyncStorage.getItem('operador_access');
-    // Gera data/hora atual no formato ISO
-    const dataEntregaAtual = new Date().toISOString();
+    const now = new Date();
+    // Envia a data/hora atual no formato ISO padrão, sem converter para outro fuso
+    const dataEntregaAtual = now.toISOString();
     const response = await fetch(`${API_URL}/operador/pedido/${pedidoId}/finalizar/`, {
       method: 'POST',
       headers: {
@@ -98,6 +99,7 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
 
     if (response.ok) {
       Alert.alert('Sucesso', 'Pedido finalizado');
+      console.log(dataEntregaAtual);
     } else {
       Alert.alert('Erro', 'Erro ao finalizar');
     }
@@ -131,7 +133,7 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
           <Text style={styles.infoText}>Origem: <Text style={{fontWeight:'bold'}}>{pedido.origem}</Text></Text>
           <Text style={styles.infoText}>Data de Criação: <Text style={{fontWeight:'bold'}}>{pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text></Text>
           <Text style={styles.infoText}>Data Estimada de Entrega: <Text style={{fontWeight:'bold'}}>{pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text></Text>
-          <Text style={styles.infoText}>Data de Entrega Efetiva: <Text style={{fontWeight:'bold'}}>{pedido.data_entrega_efetiva ? new Date(pedido.data_entrega_efetiva).toLocaleString() : 'Não entregue'}</Text></Text>
+          <Text style={styles.infoText}>Data de Entrega Efetiva: <Text style={{fontWeight:'bold'}}>{pedido.data_entrega_efetiva ? new Date(pedido.data_entrega_efetiva).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }) : 'Não entregue'}</Text></Text>
           <Text style={styles.infoText}>Cliente: <Text style={{fontWeight:'bold'}}>{pedido.cliente_nome || pedido.cliente || 'N/A'}</Text></Text>
           {pedido.preco_final !== null && pedido.preco_final !== undefined && (
             <Text style={[styles.infoText, {fontWeight:'bold', color:'#0077b6', marginTop:8}]}>Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}</Text>
