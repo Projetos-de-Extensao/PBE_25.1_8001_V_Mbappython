@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.0.4:8000/api';
+const API_URL = 'http://172.16.6.231:8000/api';
 
 export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   const { pedidoId } = route.params;
@@ -55,7 +55,8 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
 
     if (response.ok) {
       Alert.alert('Sucesso', 'Cotação enviada');
-      navigation.goBack();
+      setDataEntrega('');
+      setPrecoFinal('');
     } else {
       Alert.alert('Erro', 'Erro ao enviar cotação');
     }
@@ -73,8 +74,10 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
     });
 
     if (response.ok) {
+      // Atualiza o status do pedido no frontend imediatamente
+      setPedido((prev) => prev ? { ...prev, status } : prev);
       Alert.alert('Sucesso', 'Status atualizado');
-      navigation.goBack();
+      buscarPedido(); // Garante que os outros dados também sejam atualizados
     } else {
       Alert.alert('Erro', 'Erro ao atualizar status');
     }
@@ -95,7 +98,6 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
 
     if (response.ok) {
       Alert.alert('Sucesso', 'Pedido finalizado');
-      navigation.goBack();
     } else {
       Alert.alert('Erro', 'Erro ao finalizar');
     }
@@ -134,6 +136,13 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
           {pedido.preco_final !== null && pedido.preco_final !== undefined && (
             <Text style={[styles.infoText, {fontWeight:'bold', color:'#0077b6', marginTop:8}]}>Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}</Text>
           )}
+          <View style={styles.refreshButtonContainer}>
+            <Button 
+              title="Atualizar Dados" 
+              onPress={buscarPedido} 
+              color="#4CAF50"
+            />
+          </View>
         </View>
       )}
       {pedido && pedido.produtos && pedido.produtos.length > 0 && (
@@ -229,4 +238,9 @@ const styles = StyleSheet.create({
   divider: { marginVertical: 10 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f5f5' },
   loadingText: { marginTop: 10, fontSize: 16, color: '#666' },
+  refreshButtonContainer: {
+    marginTop: 15,
+    alignSelf: 'center',
+    width: '100%',
+  },
 });
