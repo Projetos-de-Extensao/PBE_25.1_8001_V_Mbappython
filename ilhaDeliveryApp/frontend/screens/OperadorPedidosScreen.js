@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, Picker } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.15.3:8000/api';
+
+const API_URL = 'http://172.16.6.231:8000/api';
+
 
 export default function OperadorPedidosScreen({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
