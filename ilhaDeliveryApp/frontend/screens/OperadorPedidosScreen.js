@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, Picker } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.0.4:8000/api';
+const API_URL = 'http://192.168.15.3:8000/api';
 
 export default function OperadorPedidosScreen({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
-  const [filtroTodos, setFiltroTodos] = useState(false);
+  const [statusFiltro, setStatusFiltro] = useState('TODOS'); // 'TODOS' mostra todos
 
   const buscarPedidos = async () => {
     try {
       const token = await AsyncStorage.getItem('operador_access');
-      let url = filtroTodos
-        ? `${API_URL}/operador/pedidos/`
-        : `${API_URL}/operador/pedidos/pendentes/`;
+      let url = `${API_URL}/operador/pedidos/`;
+      if (statusFiltro !== 'TODOS') {
+        url += `?status=${statusFiltro}`;
+      }
       const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
       if (response.ok) {
@@ -32,28 +31,33 @@ export default function OperadorPedidosScreen({ navigation }) {
 
   useEffect(() => {
     buscarPedidos();
-  }, [filtroTodos]);
+    const interval = setInterval(buscarPedidos, 5000);
+    return () => clearInterval(interval);
+  }, [statusFiltro]);
 
   return (
     <View style={styles.container}>
       <View style={styles.filterBar}>
-        <TouchableOpacity
-          style={[styles.filterButton, !filtroTodos && styles.filterButtonActive]}
-          onPress={() => setFiltroTodos(false)}
+        <Text style={styles.filterLabel}>Filtrar por Status:</Text>
+        <Picker
+          selectedValue={statusFiltro}
+          style={styles.picker}
+          onValueChange={(itemValue) => setStatusFiltro(itemValue)}
         >
-          <Text style={[styles.filterText, !filtroTodos && styles.filterTextActive]}>Abertos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.filterButton, filtroTodos && styles.filterButtonActive]}
-          onPress={() => setFiltroTodos(true)}
-        >
-          <Text style={[styles.filterText, filtroTodos && styles.filterTextActive]}>Todos</Text>
-        </TouchableOpacity>
+          <Picker.Item label="Todos" value="TODOS" />
+          <Picker.Item label="Solicitado" value="SOL" />
+          <Picker.Item label="Cotação Enviada" value="CE" />
+          <Picker.Item label="Pagamento Aprovado" value="PA" />
+          <Picker.Item label="Em Andamento" value="AND" />
+          <Picker.Item label="Entregue" value="ENT" />
+          <Picker.Item label="Cancelado" value="CAN" />
+        </Picker>
       </View>
+
       {pedidos.length === 0 ? (
         <View style={styles.emptyBox}>
           <Text style={styles.emptyText}>
-            Nenhum pedido {filtroTodos ? 'encontrado' : 'pendente no momento'}.
+            Nenhum pedido {statusFiltro === 'TODOS' ? 'encontrado' : `com status ${statusFiltro}`}.
           </Text>
         </View>
       ) : (
@@ -68,11 +72,15 @@ export default function OperadorPedidosScreen({ navigation }) {
             >
               <View style={styles.cardHeader}>
                 <Text style={styles.cardTitle}>Pedido #{item.id}</Text>
-                <Text style={[styles.statusBadge, getStatusColor(item.status)]}>{item.status}</Text>
+                <Text style={[styles.statusBadge, getStatusColor(item.status)]}>
+                  {item.status}
+                </Text>
               </View>
-              <Text style={styles.cardSubtitle}>Origem: <Text style={{fontWeight:'bold'}}>{item.origem}</Text></Text>
-              <Text style={styles.cardSubtitle}>Cliente: <Text style={{fontWeight:'bold'}}>{item.cliente}</Text></Text>
-              <Text style={styles.cardDate}>{item.data_criacao ? new Date(item.data_criacao).toLocaleString() : 'N/A'}</Text>
+              <Text style={styles.cardSubtitle}>Origem: {item.origem}</Text>
+              <Text style={styles.cardSubtitle}>Cliente: {item.cliente}</Text>
+              <Text style={styles.cardDate}>
+                {item.data_criacao ? new Date(item.data_criacao).toLocaleString() : 'N/A'}
+              </Text>
             </TouchableOpacity>
           )}
           refreshing={false}
@@ -86,46 +94,35 @@ export default function OperadorPedidosScreen({ navigation }) {
 
 function getStatusColor(status) {
   switch (status) {
-    case 'SOL': return { backgroundColor: '#ff9800', color: '#fff' };
-    case 'AND': return { backgroundColor: '#2196f3', color: '#fff' };
-    case 'ENT': return { backgroundColor: '#4caf50', color: '#fff' };
-    case 'CAN': return { backgroundColor: '#f44336', color: '#fff' };
-    default: return { backgroundColor: '#eee', color: '#333' };
+    case 'SOL':
+      return { backgroundColor: '#ff9800', color: '#fff' };
+    case 'CE':
+      return { backgroundColor: '#f39c12', color: '#fff' };
+    case 'PA':
+      return { backgroundColor: '#9b59b6', color: '#fff' };
+    case 'AND':
+      return { backgroundColor: '#2196f3', color: '#fff' };
+    case 'ENT':
+      return { backgroundColor: '#4caf50', color: '#fff' };
+    case 'CAN':
+      return { backgroundColor: '#f44336', color: '#fff' };
+    default:
+      return { backgroundColor: '#eee', color: '#333' };
   }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 0, backgroundColor: '#f4f6fb' },
+  container: { flex: 1, backgroundColor: '#f4f6fb' },
   filterBar: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#fff',
-    paddingVertical: 10,
+    padding: 10,
     marginBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    elevation: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  filterButton: {
-    paddingHorizontal: 24,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginHorizontal: 4,
-    backgroundColor: '#f0f0f0',
-  },
-  filterButtonActive: {
-    backgroundColor: '#007bff',
-  },
-  filterText: {
-    fontSize: 16,
-    color: '#888',
-    fontWeight: '500',
-  },
-  filterTextActive: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+  filterLabel: { fontSize: 16, fontWeight: 'bold', marginRight: 10 },
+  picker: { height: 50, flex: 1 },
+
   card: {
     backgroundColor: '#fff',
     padding: 18,
@@ -144,11 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 6,
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#222',
-  },
+  cardTitle: { fontSize: 18, fontWeight: 'bold', color: '#222' },
   statusBadge: {
     fontSize: 13,
     fontWeight: 'bold',
@@ -158,26 +151,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     textTransform: 'uppercase',
   },
-  cardSubtitle: {
-    fontSize: 15,
-    color: '#555',
-    marginBottom: 2,
-  },
-  cardDate: {
-    fontSize: 13,
-    color: '#aaa',
-    marginTop: 4,
-    textAlign: 'right',
-  },
-  emptyBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 60,
-  },
-  emptyText: {
-    fontSize: 17,
-    color: '#888',
-    textAlign: 'center',
-  },
+  cardSubtitle: { fontSize: 15, color: '#555', marginBottom: 2 },
+  cardDate: { fontSize: 13, color: '#aaa', marginTop: 4, textAlign: 'right' },
+  emptyBox: { flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 60 },
+  emptyText: { fontSize: 17, color: '#888', textAlign: 'center' },
 });

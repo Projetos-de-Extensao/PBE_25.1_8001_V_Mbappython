@@ -42,6 +42,13 @@ class EnviarCotacaoAPIView(APIView):
             pedido.preco_final = float(preco_final)
         except Exception:
             return Response({'erro': 'Preço final inválido.'}, status=400)
+        
+        frete = request.data.get('frete')
+        if frete:
+            try:
+                pedido.frete = float(frete)
+            except Exception:
+                return Response({'erro': 'Frete inválido.'}, status=400)
 
         data_entrega = request.data.get('data_entrega')
         if data_entrega:

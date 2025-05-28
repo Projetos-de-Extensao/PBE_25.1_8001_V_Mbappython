@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, Alert, StyleSheet, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.0.4:8000/api';
+const API_URL = 'http://192.168.15.3:8000/api';
 
 export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   const { pedidoId } = route.params;
   const [dataEntrega, setDataEntrega] = useState('');
   const [precoFinal, setPrecoFinal] = useState('');
+  const [frete, setFrete] = useState('');
   const [pedido, setPedido] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,10 +34,20 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    buscarPedido();
+    buscarPedido(); 
+
     const unsubscribe = navigation.addListener('focus', buscarPedido);
-    return unsubscribe;
+
+    const interval = setInterval(() => {
+      buscarPedido();
+    }, 20000);
+
+    return () => {
+      unsubscribe();
+      clearInterval(interval);
+    };
   }, [navigation, pedidoId]);
+
 
   const enviarCotacao = async () => {
     if (!precoFinal || isNaN(Number(precoFinal))) {
@@ -50,7 +61,7 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ data_entrega: dataEntrega, preco_final: precoFinal }),
+      body: JSON.stringify({ data_entrega: dataEntrega, preco_final: precoFinal , frete: frete}),
     });
 
     if (response.ok) {
@@ -156,6 +167,13 @@ export default function OperadorDetalhesPedidoScreen({ route, navigation }) {
         value={precoFinal}
         onChangeText={setPrecoFinal}
         keyboardType="decimal-pad"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Valor do frete"
+        value={frete}
+        onChangeText={setFrete}
+        keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
