@@ -3,7 +3,9 @@ import { View, Text, ScrollView, StyleSheet, Alert, ActivityIndicator, Button } 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
+
 const API_URL = 'http://172.16.6.231:8000/api';
+
 
 export default function DetalhesPedido({ route }) {
   const navigation = useNavigation();
@@ -74,16 +76,19 @@ export default function DetalhesPedido({ route }) {
 
   useEffect(() => {
     buscarPedido();
-    
-    // Adiciona um listener para recarregar os dados quando a tela receber foco
-    const unsubscribe = navigation.addListener('focus', () => {
-      console.log('Tela de detalhes recebeu foco, recarregando dados...');
+
+    const unsubscribe = navigation.addListener('focus', buscarPedido);
+
+    const interval = setInterval(() => {
       buscarPedido();
-    });
-    
-    // Limpa o listener quando o componente é desmontado
-    return unsubscribe;
+    }, 5000);
+
+    return () => {
+      unsubscribe();
+      clearInterval(interval);
+    };
   }, [navigation, pedidoId]);
+
 
   // Função para aceitar cotação
   const aceitarCotacao = async () => {
@@ -173,6 +178,11 @@ export default function DetalhesPedido({ route }) {
         {pedido.preco_final !== null && pedido.preco_final !== undefined && (
           <Text style={{fontWeight:'bold', color:'#0077b6', marginTop:8}}>
             Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}
+          </Text>
+        )}
+        {pedido.frete !== null && pedido.frete !== undefined && (
+          <Text style={{fontWeight:'bold', color:'#009688', marginTop:4}}>
+            Frete: R$ {parseFloat(pedido.frete).toFixed(2)}
           </Text>
         )}
         {/* Botão para aceitar cotação, só aparece se status for 'CE' (Cotação Enviada) */}

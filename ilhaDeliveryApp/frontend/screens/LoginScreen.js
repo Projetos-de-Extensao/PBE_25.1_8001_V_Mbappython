@@ -11,8 +11,9 @@ export default function LoginScreen({ navigation }) {
       // Garante que o CPF esteja no formato correto (apenas números)
       const cpfLimpo = cpf.replace(/\D/g, '');
       console.log("CPF processado para envio:", cpfLimpo);
-      
+    
       const response = await fetch('http://172.16.6.231:8000/api/token/', {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cpf: cpfLimpo, password: senha }),

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const API_URL = 'http://172.16.6.231:8000/api';
+
 
 export default function ListarPedidos({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
@@ -74,14 +76,19 @@ export default function ListarPedidos({ navigation }) {
 
   useEffect(() => {
     buscarPedidos();
-    
-    // Configura um refresh dos pedidos quando a tela receber foco
-    const unsubscribe = navigation.addListener('focus', () => {
+
+    const unsubscribe = navigation.addListener('focus', buscarPedidos);
+
+    const interval = setInterval(() => {
       buscarPedidos();
-    });
-    
-    return unsubscribe;
+    }, 5000);
+
+    return () => {
+      unsubscribe();
+      clearInterval(interval);
+    };
   }, [navigation]);
+
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
