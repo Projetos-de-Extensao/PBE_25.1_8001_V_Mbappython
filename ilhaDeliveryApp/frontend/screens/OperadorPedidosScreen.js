@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL = 'http://172.16.6.231:8000/api';
 
 export default function OperadorPedidosScreen({ navigation }) {
   const [pedidos, setPedidos] = useState([]);
+  const [pedidosOriginais, setPedidosOriginais] = useState([]); // Guarda todos os pedidos
   const [filtroTodos, setFiltroTodos] = useState(false);
+  const [filtroCliente, setFiltroCliente] = useState('');
 
   const buscarPedidos = async () => {
     try {
@@ -21,7 +23,8 @@ export default function OperadorPedidosScreen({ navigation }) {
       });
       const data = await response.json();
       if (response.ok) {
-        setPedidos(data);
+        setPedidosOriginais(data); // Salva todos os pedidos
+        setPedidos(data); // Exibe todos inicialmente
       } else {
         Alert.alert('Erro', 'Erro ao buscar pedidos');
       }
@@ -29,6 +32,23 @@ export default function OperadorPedidosScreen({ navigation }) {
       Alert.alert('Erro', 'Erro de conexão');
     }
   };
+
+  // Aplica filtro localmente sempre que filtroCliente mudar
+  useEffect(() => {
+    if (filtroCliente.trim() === '') {
+      setPedidos(pedidosOriginais);
+    } else {
+      const filtro = filtroCliente.trim().toLowerCase();
+      setPedidos(
+        pedidosOriginais.filter((pedido) => {
+          const nome = String(pedido.cliente_nome || pedido.cliente || '').toLowerCase();
+          const cpf = String(pedido.cliente_cpf || '').toLowerCase();
+          const endereco = String(pedido.origem || '').toLowerCase();
+          return nome.includes(filtro) || cpf.includes(filtro) || endereco.includes(filtro);
+        })
+      );
+    }
+  }, [filtroCliente, pedidosOriginais]);
 
   useEffect(() => {
     buscarPedidos();
@@ -50,6 +70,14 @@ export default function OperadorPedidosScreen({ navigation }) {
           <Text style={[styles.filterText, filtroTodos && styles.filterTextActive]}>Todos</Text>
         </TouchableOpacity>
       </View>
+      <TextInput
+        style={styles.input}
+        placeholder="Filtrar por nome, CPF ou endereço do cliente"
+        value={filtroCliente}
+        onChangeText={setFiltroCliente}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
       {pedidos.length === 0 ? (
         <View style={styles.emptyBox}>
           <Text style={styles.emptyText}>
@@ -71,7 +99,8 @@ export default function OperadorPedidosScreen({ navigation }) {
                 <Text style={[styles.statusBadge, getStatusColor(item.status)]}>{item.status}</Text>
               </View>
               <Text style={styles.cardSubtitle}>Origem: <Text style={{fontWeight:'bold'}}>{item.origem}</Text></Text>
-              <Text style={styles.cardSubtitle}>Cliente: <Text style={{fontWeight:'bold'}}>{item.cliente}</Text></Text>
+              <Text style={styles.cardSubtitle}>Cliente: <Text style={{fontWeight:'bold'}}>{(item.cliente_id ? `#${item.cliente_id} - ` : '')}{item.cliente_nome || item.cliente || '-'}</Text></Text>
+              <Text style={styles.cardSubtitle}>CPF: <Text style={{fontWeight:'bold'}}>{item.cliente_cpf ? item.cliente_cpf : '-'}</Text></Text>
               <Text style={styles.cardDate}>{item.data_criacao ? new Date(item.data_criacao).toLocaleString() : 'N/A'}</Text>
             </TouchableOpacity>
           )}
@@ -179,5 +208,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#888',
     textAlign: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    margin: 10,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    fontSize: 16,
   },
 });
