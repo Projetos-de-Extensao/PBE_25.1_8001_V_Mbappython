@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const API_URL = 'http://172.16.6.231:8000/api';
+const API_URL = 'http://192.168.0.38:8000/api';
 
 
 export default function ListarPedidos({ navigation }) {
@@ -95,37 +95,90 @@ export default function ListarPedidos({ navigation }) {
       style={styles.pedidoButton}
       onPress={() => navigation.navigate('DetalhesPedido', { pedidoId: item.id })}
     >
-      <Text style={styles.pedidoText}>Pedido #{item.id}</Text>
+      <View style={styles.pedidoHeader}>
+        <Text style={styles.pedidoText}>Pedido #{item.id}</Text>
+        <Text style={styles.pedidoData}>{item.data_pedido ? formatarData(item.data_pedido) : '--/--/----'}</Text>
+      </View>
       <Text>Status: {item.status}</Text>
       <Text>Origem: {item.origem}</Text>
       <Text>Produtos: {item.produtos?.length || 0}</Text>
     </TouchableOpacity>
   );
 
+  function formatarData(dataIso) {
+    if (!dataIso) return '';
+    const d = new Date(dataIso);
+    if (isNaN(d)) return dataIso;
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const ano = d.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Seus Pedidos</Text>
-      <FlatList
-        data={pedidos}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        refreshing={loading}
-        onRefresh={buscarPedidos}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>
-            {loading ? 'Carregando pedidos...' : 'Você ainda não tem pedidos.'}
-          </Text>
-        }
-      />
+    <View style={styles.background}>
+      <View style={styles.topBar}>
+        <Image
+          source={require('../assets/logodelivery.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.logoText}>ILHA PRIMEIRA DELIVERY</Text>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Seus Pedidos</Text>
+        <FlatList
+          data={pedidos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          refreshing={loading}
+          onRefresh={buscarPedidos}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>
+              {loading ? 'Carregando pedidos...' : 'Você ainda não tem pedidos.'}
+            </Text>
+          }
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
+  background: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  topBar: {
+    width: '100%',
+    height: 110,
+    backgroundColor: '#77cbff',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    paddingBottom: 10,
+    marginBottom: 10,
+    position: 'relative',
+  },
+  logo: {
+    width: 90,
+    height: 90,
+    marginRight: 10,
+    marginTop: 10,
+  },
+  logoText: {
+    color: '#003366',
+    fontWeight: 'bold',
+    fontSize: 18,
+    letterSpacing: 1,
+    marginTop: 10,
+  },
+  container: {
+    flex: 1,
     padding: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   title: { 
     fontSize: 24, 
@@ -134,20 +187,34 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   pedidoButton: {
-    padding: 15,
     backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    marginBottom: 15,
+    borderRadius: 25,
+    borderWidth: 1.5,
+    borderColor: '#000', // Borda preta
+    padding: 18,
+    marginBottom: 22,
+    marginHorizontal: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowRadius: 3,
     elevation: 2,
   },
-  pedidoText: { 
-    fontWeight: 'bold', 
-    fontSize: 18,
-    marginBottom: 5 
+  pedidoHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  pedidoText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 2,
+  },
+  pedidoData: {
+    fontSize: 14,
+    color: '#333',
+    fontWeight: '500',
   },
   emptyText: {
     textAlign: 'center',

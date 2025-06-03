@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from 'react-native';
 
 export default function CadastroScreen({ navigation }) {
   const [nome, setNome] = useState('');
@@ -16,7 +16,7 @@ export default function CadastroScreen({ navigation }) {
 const handleCadastro = async () => {
   try {
 
-    const response = await fetch('http://172.16.6.231:8000/api/cadastro', {
+    const response = await fetch('http://192.168.0.38:8000/api/cadastro', {
 
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -57,82 +57,140 @@ const handleCadastro = async () => {
 };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cadastro</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        value={nome}
-        onChangeText={setNome}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="CPF"
-        value={cpf}
-        onChangeText={setCpf}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="telefone"
-        value={telefone}
-        onChangeText={setTeelfone}
-        keyboardType="numeric"
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="rua"
-      value={rua}
-      onChangeText={setRua}
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="numero"
-      value={numero}
-      onChangeText={setNumero}
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="cidade"
-      value={cidade}
-      onChangeText={setCidade}
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="estado"
-      value={estado}
-      onChangeText={setEstado}
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="cep"
-      value={cep}
-      onChangeText={setCep}
-      />
-      <TextInput
-      style={styles.input}
-      placeholder="ilha"
-      value={ilha}
-      onChangeText={setIlha}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="senha"
-        value={senha}
-        onChangeText={setSenha}
-      />
-
-      <Button title="Cadastrar" onPress={handleCadastro} />
-      <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
-        Já tem conta? Faça login
-      </Text>
+    <View style={styles.background}>
+      <View style={styles.topBar}>
+        <Image
+          source={require('../assets/logodelivery.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.logoText}>ILHA PRIMEIRA DELIVERY</Text>
+      </View>
+      <View style={styles.formWrapper}>
+        <Text style={styles.sectionTitle}>DADOS PESSOAIS</Text>
+        <TextInput style={styles.input} placeholder="Nome Completo" value={nome} onChangeText={setNome} />
+        <TextInput style={styles.input} placeholder="CPF" value={cpf} onChangeText={setCpf} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={setTeelfone} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Senha" value={senha} onChangeText={setSenha} secureTextEntry />
+        <View style={styles.fotoContainer}>
+          <View style={styles.fotoCircle}>
+            {/* Aqui pode ir um ícone de usuário */}
+          </View>
+          <Text style={styles.fotoText}>ADICIONAR FOTO</Text>
+        </View>
+        <TextInput style={styles.input} placeholder="Rua" value={rua} onChangeText={setRua} />
+        <TextInput style={styles.input} placeholder="Número" value={numero} onChangeText={setNumero} />
+        <TextInput style={styles.input} placeholder="Cidade" value={cidade} onChangeText={setCidade} />
+        <TextInput style={styles.input} placeholder="Estado" value={estado} onChangeText={setEstado} />
+        <TextInput style={styles.input} placeholder="CEP" value={cep} onChangeText={setCep} />
+        <TextInput style={styles.input} placeholder="Ilha" value={ilha} onChangeText={setIlha} />
+        <View style={styles.buttonWrapper}>
+          <Button title="CADASTRAR" color="#4DB6FF" onPress={handleCadastro} />
+        </View>
+        <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
+          Já tem conta? Faça login
+        </Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 28, marginBottom: 20, textAlign: 'center' },
-  input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 10, borderRadius: 5 },
-  loginLink: { marginTop: 20, textAlign: 'center', color: 'blue' },
+  background: {
+    flex: 1,
+    backgroundColor: '#fff', // Fundo branco
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 0,
+  },
+  topBar: {
+    width: '100%',
+    height: 110,
+    backgroundColor: '#77cbff',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    paddingBottom: 10,
+    marginBottom: 10,
+    position: 'relative',
+  },
+  logo: {
+    width: 70,
+    height: 70,
+    marginRight: 10,
+    marginTop: 10,
+  },
+  logoText: {
+    color: '#003366',
+    fontWeight: 'bold',
+    fontSize: 18,
+    letterSpacing: 1,
+    marginTop: 10,
+  },
+  formWrapper: {
+    backgroundColor: '#f4f4f4', // Cinza claro para o card de formulário
+    borderRadius: 20,
+    padding: 18,
+    width: '92%',
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#b3e0ff',
+  },
+  sectionTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 8,
+    color: '#222',
+    alignSelf: 'flex-start',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#b3e0ff',
+    borderRadius: 20,
+    padding: 12,
+    marginBottom: 12,
+    backgroundColor: '#fff', // Inputs brancos
+    width: '100%',
+    fontSize: 15,
+  },
+  fotoContainer: {
+    alignItems: 'center',
+    marginVertical: 18,
+  },
+  fotoCircle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#e3f2fd',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 6,
+    borderWidth: 2,
+    borderColor: '#b3e0ff',
+  },
+  fotoText: {
+    fontSize: 15,
+    color: '#222',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  buttonWrapper: {
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  loginLink: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: '#1976D2',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
 });
