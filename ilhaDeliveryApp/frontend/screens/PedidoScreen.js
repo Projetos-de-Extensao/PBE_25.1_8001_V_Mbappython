@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 
@@ -79,81 +79,117 @@ export default function CriarPedido() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Novo Pedido</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Nome do produto"
-        value={nome}
-        onChangeText={setNome}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Quantidade"
-        keyboardType="numeric"
-        value={quantidade}
-        onChangeText={setQuantidade}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Link do produto"
-        value={link}
-        onChangeText={setLink}
-      />
-
-      <TextInput
-        style={[styles.input, { height: 80 }]}
-        placeholder="Descrição"
-        value={descricao}
-        onChangeText={setDescricao}
-        multiline
-      />
-      
-      <Picker
-        selectedValue={origem}
-        onValueChange={setOrigem}
-        style={styles.input}>
-        <Picker.Item label="iFood" value="IFOOD" />
-        <Picker.Item label="Amazon" value="AMAZON" />
-        <Picker.Item label="Mercado Livre" value="ML" />
-        <Picker.Item label="Outro" value="OUTRO" />
-      </Picker>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Preço do produto (R$)"
-        keyboardType="decimal-pad"
-        value={preco}
-        onChangeText={setPreco}
-      />
-
-      <Button
-        title={carregando ? 'Enviando...' : 'Criar Pedido'}
-        onPress={handleCriarPedido}
-        disabled={carregando}
-      />
+      {/* Topo azul com logo */}
+      <View style={styles.topoAzul}>
+        <Image source={require('../assets/logodelivery.png')} style={styles.logoGrande} resizeMode="contain" />
+        <Text style={styles.nomeApp}>Ilha Delivery</Text>
+      </View>
+      <View style={styles.formCard}>
+        <Text style={styles.title}>Novo Pedido</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome do produto"
+          value={nome}
+          onChangeText={setNome}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Quantidade"
+          keyboardType="numeric"
+          value={quantidade}
+          onChangeText={setQuantidade}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Link do produto"
+          value={link}
+          onChangeText={setLink}
+        />
+        <TextInput
+          style={[styles.input, { height: 80 }]}
+          placeholder="Descrição"
+          value={descricao}
+          onChangeText={setDescricao}
+          multiline
+        />
+        <Picker
+          selectedValue={origem}
+          onValueChange={setOrigem}
+          style={styles.input}>
+          <Picker.Item label="iFood" value="IFOOD" />
+          <Picker.Item label="Amazon" value="AMAZON" />
+          <Picker.Item label="Mercado Livre" value="ML" />
+          <Picker.Item label="Outro" value="OUTRO" />
+        </Picker>
+        <TextInput
+          style={styles.input}
+          placeholder="Preço do produto (R$)"
+          keyboardType="decimal-pad"
+          value={preco}
+          onChangeText={setPreco}
+        />
+        <Button
+          title={carregando ? 'Enviando...' : 'Criar Pedido'}
+          onPress={handleCriarPedido}
+          disabled={carregando}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  topoAzul: {
+    backgroundColor: '#77cbff',
+    paddingTop: 40,
+    paddingBottom: 18,
+    alignItems: 'center',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    marginBottom: 0,
+  },
+  logoGrande: {
+    width: 90,
+    height: 90,
+    marginBottom: 2,
+  },
+  nomeApp: {
+    fontSize: 26,
     fontWeight: 'bold',
+    color: '#fff',
+    letterSpacing: 1,
+    marginBottom: 2,
+  },
+  formCard: {
+    backgroundColor: '#f6f6f6',
+    borderRadius: 18,
+    margin: 18,
+    marginTop: 0,
+    padding: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.10,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 22,
+    marginBottom: 18,
+    fontWeight: 'bold',
+    color: '#222',
+    textAlign: 'center',
   },
   input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderColor: '#b3e0ff',
+    borderWidth: 1.2,
     padding: 12,
-    borderRadius: 6,
+    borderRadius: 10,
     marginBottom: 15,
+    backgroundColor: '#fff',
+    fontSize: 15,
   },
 });
