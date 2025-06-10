@@ -1,6 +1,30 @@
 site_name: Projeto Backend 2025-1 V
 repo_url: https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython
 
+nav:
+  - Home: index.md
+  - Tutorial de Uso: tutorial.md
+  - API: api.md
+  - Documentação:
+    - Iniciação:
+      - _Iniciação/documento_de_visao.md
+      - _Iniciação/requisitos.md
+      - _Iniciação/5w2h.md
+      - _Iniciação/Brainstorm.md
+      - _Iniciação/mapa_mental.md
+      - _Iniciação/metodologia.md
+      - _Iniciação/pesquisa.md
+      - _Iniciação/prototipo_alta_fidelidade.md
+      - _Iniciação/entrevista.md
+    - Elaboração:
+      - Modelagem: 
+        - __Elaboração/modelagem/index.md
+        - Diagrama de Classes: __Elaboração/modelagem/diagrama_de_classes.md
+        - Diagrama de Análise de Sistema: __Elaboração/modelagem/das.md
+    - Construção: ___Construção/index.md
+    - Transição: ____Transição/index.md
+    - Iteração: _____Iteração/interacao1.md
+
 theme:
   name: material
   palette:
