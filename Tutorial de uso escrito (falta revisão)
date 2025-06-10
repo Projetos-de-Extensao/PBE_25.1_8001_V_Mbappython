@@ -1,0 +1,82 @@
+---
+id: tutorial
+title: Tutorial de Uso
+---
+
+# Tutorial de Uso: Ilha Delivery
+
+Este tutorial guia os usuários **Clientes** e **Operadores** através das principais funcionalidades do aplicativo Ilha Delivery.
+
+## 1. Guia para Clientes
+
+### 1.1. Cadastro e Login
+
+Qualquer usuário pode se cadastrar e efetuar o login no aplicativo para começar a usar.
+
+- **Cadastro**: Na tela inicial, clique em **"Não tem conta? Cadastre-se"**. Você precisará fornecer seus dados pessoais (Nome, CPF, Telefone, Senha) e seu endereço completo. É fundamental que o endereço esteja correto para garantir as entregas.
+- **Login**: Na tela de login, insira seu CPF e senha para acessar a tela principal do aplicativo.
+
+### 1.2. Tela Principal (Home)
+
+Após o login, você verá:
+
+- Uma saudação com seu nome e o endereço de entrega cadastrado.
+- **Últimos Pedidos**: Uma lista com seus três pedidos mais recentes, mostrando o ID, a origem (ex: IFOOD, AMAZON) e o status atual de cada um.
+
+### 1.3. Criando um Novo Pedido
+
+Para solicitar a entrega de um produto que você comprou:
+
+1.  Navegue até a aba **"Pedido"** (ícone de `+`).
+2.  Preencha o formulário com as informações do produto:
+    * Nome do produto
+    * Quantidade
+    * Link de onde o produto foi comprado
+    * Preço unitário
+    * Descrição (opcional)
+    * Origem da compra (iFood, Amazon, Mercado Livre, etc.)
+3.  Clique em **"Criar Pedido"**. Seu pedido será enviado para cotação.
+
+### 1.4. Acompanhando Seus Pedidos
+
+1.  Acesse a aba **"Pedidos"** (ícone de `calendário`) para ver o histórico completo de todos os seus pedidos.
+2.  Clique em qualquer pedido da lista para ver os **detalhes**, como status, produtos, valores e datas.
+3.  **Aprovar a Cotação**: Quando o status de um pedido for **"Cotação Enviada"**, um botão **"Aceitar Cotação"** aparecerá. Você deve clicar nele para confirmar o pagamento e aprovar a entrega.
+
+### 1.5. Perfil e Logout
+
+Na aba **"Perfil"** (ícone de `settings`), você pode sair do aplicativo de forma segura clicando no botão **"Sair"**.
+
+---
+
+## 2. Guia para Operadores
+
+### 2.1. Login do Operador
+
+1.  Na tela inicial, selecione **"Entrar como Operador"**.
+2.  Faça o login usando seu **Turno** (ex: `manha`) e **senha**.
+
+### 2.2. Visualizando e Gerenciando Pedidos
+
+- Ao logar, você acessa a tela de pedidos, onde pode ver todas as solicitações.
+- Utilize o filtro na parte superior para listar pedidos por status (ex: `Solicitado`, `Em Andamento`, `Entregue`).
+
+### 2.3. Detalhes e Ações do Pedido
+
+Ao selecionar um pedido da lista, você pode realizar as seguintes ações:
+
+1.  **Enviar Cotação**:
+    * Se o pedido tiver o status **"SOL"** (Solicitado), preencha os campos `Preço final`, `Valor do frete` e `Data estimada de entrega`.
+    * Clique em **"Enviar Cotação"**. O status do pedido mudará para **"CE"** (Cotação Enviada), e o cliente será notificado para aprovar.
+
+2.  **Atualizar Status**:
+    * Após a aprovação do cliente, você pode atualizar o andamento do pedido.
+    * Use o botão **"Atualizar para ANDAMENTO"** assim que a compra do produto for iniciada.
+    * Se necessário, o pedido pode ser cancelado com o botão **"Atualizar para CANCELADO"**.
+
+3.  **Finalizar Entrega**:
+    * Quando a entrega for concluída, clique em **"Finalizar Pedido (ENTREGUE)"**. Isso registrará a data e hora da conclusão e notificará o cliente.
+
+### 2.4. Perfil e Logout
+
+Na aba **"OperadorPerfil"** (ícone de `user`), clique em **"Sair"** para fazer o logout da sua conta.

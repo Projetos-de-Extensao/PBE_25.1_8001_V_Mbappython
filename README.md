@@ -70,5 +70,7 @@ cd ../frontend
 npm install  
 npm start
 ```
-
+## Vídeos
+- Instalação do projeto: [Link](https://youtu.be/_Bc3TPKPEBo)
+- Demonstração: [Link](https://youtu.be/TCxq6m7jjgc)
 
