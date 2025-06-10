@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
-const API_URL = 'http://192.168.0.38:8000/api';
+const API_URL = 'http://192.168.0.8:8000/api';
 
 
 export default function DetalhesPedido({ route }) {
@@ -174,20 +174,9 @@ export default function DetalhesPedido({ route }) {
 
       <View style={styles.infoCard}>
         <Text style={styles.sectionTitle}>Informações do Pedido</Text>
-        <Text>Origem: {pedido.origem}</Text>
-        <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
+        <Text>Origem: {pedido.origem}</Text>        <Text>Data de Criação: {pedido.data_criacao ? new Date(pedido.data_criacao).toLocaleString() : 'N/A'}</Text>
         <Text>Data Estimada de Entrega: {pedido.data_entrega_estimada ? new Date(pedido.data_entrega_estimada).toLocaleString() : 'Não definida'}</Text>
         <Text>Data de Entrega Efetiva: {pedido.data_entrega_efetiva ? new Date(pedido.data_entrega_efetiva).toLocaleString() : 'Não entregue'}</Text>
-        {pedido.preco_final !== null && pedido.preco_final !== undefined && (
-          <Text style={{fontWeight:'bold', color:'#0077b6', marginTop:8}}>
-            Valor da Cotação: R$ {parseFloat(pedido.preco_final).toFixed(2)}
-          </Text>
-        )}
-        {pedido.frete !== null && pedido.frete !== undefined && (
-          <Text style={{fontWeight:'bold', color:'#009688', marginTop:4}}>
-            Frete: R$ {parseFloat(pedido.frete).toFixed(2)}
-          </Text>
-        )}
         {/* Produtos dentro do card de informações */}
         <Text style={styles.sectionTitle}>Produtos</Text>
         {pedido.produtos && pedido.produtos.length > 0 ? (
@@ -220,25 +209,70 @@ export default function DetalhesPedido({ route }) {
           ))
         ) : (
           <Text>Nenhum produto neste pedido</Text>
-        )}
-
-        {/* Bloco de resumo financeiro (apenas texto, não funcional) */}
+        )}        {/* Bloco de resumo financeiro */}
         <View style={styles.resumoContainer}>
+          {/* Calculando o subtotal dos produtos */}
           <View style={styles.resumoLinha}>
             <Text style={styles.resumoLabel}>Subtotal</Text>
-            <Text style={styles.resumoValor}>R$ ...</Text>
+            <Text style={styles.resumoValor}>
+              {pedido.produtos && pedido.produtos.length > 0 
+                ? `R$ ${pedido.produtos.reduce((total, produto) => {
+                    const preco = typeof produto.preco_unitario === 'number' 
+                      ? produto.preco_unitario 
+                      : parseFloat(produto.preco_unitario || 0);
+                    return total + (preco * produto.quantidade);
+                  }, 0).toFixed(2)}`
+                : 'R$ 0.00'
+              }
+            </Text>
           </View>
+          
+          {/* Taxa de entrega (frete) */}
           <View style={styles.resumoLinha}>
             <Text style={styles.resumoLabel}>Taxa De Entrega</Text>
-            <Text style={styles.resumoGratis}>Grátis</Text>
+            {pedido.frete !== null && pedido.frete !== undefined ? (
+              <Text style={styles.resumoValor}>R$ {parseFloat(pedido.frete).toFixed(2)}</Text>
+            ) : (
+              <Text style={styles.resumoGratis}>Grátis</Text>
+            )}
           </View>
+          
+          {/* Taxa de serviço - assumindo ser a diferença entre o preço final e o subtotal+frete */}
           <View style={styles.resumoLinha}>
             <Text style={styles.resumoLabel}>Taxa De Serviço</Text>
-            <Text style={styles.resumoValor}>R$ ...</Text>
+            <Text style={styles.resumoValor}>
+              {(() => {
+                if (pedido.preco_final !== null && pedido.preco_final !== undefined) {
+                  const subtotal = pedido.produtos ? pedido.produtos.reduce((total, produto) => {
+                    const preco = typeof produto.preco_unitario === 'number' 
+                      ? produto.preco_unitario 
+                      : parseFloat(produto.preco_unitario || 0);
+                    return total + (preco * produto.quantidade);
+                  }, 0) : 0;
+                  
+                  const frete = pedido.frete !== null && pedido.frete !== undefined 
+                    ? parseFloat(pedido.frete) 
+                    : 0;
+                  
+                  const precoFinal = parseFloat(pedido.preco_final);
+                  const taxaServico = precoFinal - subtotal - frete;
+                  
+                  return `R$ ${Math.max(0, taxaServico).toFixed(2)}`;
+                }
+                return 'R$ 0.00';
+              })()}
+            </Text>
           </View>
+          
+          {/* Total (valor da cotação) */}
           <View style={styles.resumoLinha}>
             <Text style={styles.resumoTotalLabel}>Total</Text>
-            <Text style={styles.resumoTotalValor}>R$ ....</Text>
+            <Text style={styles.resumoTotalValor}>
+              {pedido.preco_final !== null && pedido.preco_final !== undefined
+                ? `R$ ${parseFloat(pedido.preco_final).toFixed(2)}`
+                : 'Aguardando cotação'
+              }
+            </Text>
           </View>
         </View>
         {/* Botão para aceitar cotação, só aparece se status for 'CE' (Cotação Enviada) */}
