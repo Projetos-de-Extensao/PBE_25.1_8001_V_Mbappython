@@ -5,6 +5,17 @@ nav:
   - Home: index.md
   - Tutorial de Uso: tutorial.md
   - API: api.md
+  - Instalação:
+    - Backend: instalacao_backend.md
+    - Frontend: instalacao_frontend.md
+  - Técnico:
+    - Arquitetura: arquitetura.md
+    - Segurança: seguranca.md
+    - Configurações: configuracoes.md
+    - Releases: releases.md
+  - FAQ: faq.md
+  - Equipe: equipe.md
+  - Contribuir: contribuir.md
   - Documentação:
     - Iniciação:
       - _Iniciação/documento_de_visao.md

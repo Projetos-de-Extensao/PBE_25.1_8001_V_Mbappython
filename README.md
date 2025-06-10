@@ -1,7 +1,8 @@
-# Mbappython
+# Ilha Delivery
 
 **Número do Grupo**: 5<br>
 **Código da Disciplina**: FGA0208-T01<br>
+**Semestre**: 2025.1
 
 ## Alunos
 |Matrícula | Aluno |
@@ -13,12 +14,63 @@
 | 202402630776  |  Lucca Barcelos Cravo |
 | 202307539783  |  Maria Claudia Freitas |
 
-
-
 ## Sobre 
-**JetEntregas** é uma plataforma que atua como intermediadora logística especializada em entregas para regiões de difícil acesso — como a Ilha Primeira.
+**Ilha Delivery** é uma plataforma que atua como intermediadora logística especializada em entregas para regiões de difícil acesso — como a Ilha Primeira. O sistema integra um aplicativo móvel para clientes, um painel administrativo para operadores, e um sistema físico de lockers com entregadores utilizando jet skis.
 
-O cliente faz um pedido normalmente em plataformas como **iFood, Amazon, Mercado Livre**, etc., com **endereço de entrega registrado para a Ilha Primeira**. O sistema do JetEntregas reconhece esse pedido ao **cruzar os dados de endereço** com os cadastros da plataforma e **vincula automaticamente ao perfil do cliente** no app da JetEntregas.s.
+O cliente faz seus pedidos diretamente no aplicativo Ilha Delivery, especificando a origem e os produtos desejados. O sistema notifica os operadores, que preparam cotações e gerenciam todo o processo de entrega, utilizando nosso sistema de jet skis para garantir entregas rápidas e eficientes entre o continente e a ilha.
+
+## Documentação
+
+A documentação completa do projeto está disponível em nosso site MkDocs. Para visualizá-la, existem duas opções:
+
+### Visualização Online
+
+A documentação está disponível online em: [https://projetos-de-extensao.github.io/PBE_25.1_8001_V_Mbappython/](https://projetos-de-extensao.github.io/PBE_25.1_8001_V_Mbappython/)
+
+### Executar Localmente
+
+Para executar a documentação localmente:
+
+1. Instale as dependências:
+```bash
+pip install mkdocs mkdocs-material
+```
+
+2. Execute o servidor MkDocs:
+```bash
+mkdocs serve
+```
+
+3. Acesse a documentação em `http://localhost:8000`
+
+## Estrutura do Projeto
+
+O projeto está organizado da seguinte forma:
+
+```
+PBE_25.1_8001_V_Mbappython/
+├── docs/                # Documentação do projeto (MkDocs)
+├── ilhaDeliveryApp/     # Código-fonte do aplicativo
+│   ├── backend/         # Backend Django 
+│   └── frontend/        # Frontend React Native
+└── site/                # Site gerado pelo MkDocs (não editar diretamente)
+```
+
+## Instalação e Uso
+
+Para instruções detalhadas de instalação e uso, consulte:
+
+- [Instalação do Backend](docs/instalacao_backend.md)
+- [Instalação do Frontend](docs/instalacao_frontend.md)
+- [Tutorial de Uso](docs/tutorial.md)
+
+## Contribuição
+
+Interessado em contribuir? Confira nosso [Guia de Contribuição](docs/contribuir.md).
+
+## Licença
+
+Este projeto está licenciado sob os termos da licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em termos de interface e funcionamento.
