@@ -1,0 +1,103 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Enumerations
+enum StatusPedido {
+  Solicitado
+  EmAndamento
+  Entregue
+  Cancelado
+}
+
+enum OrigemPedido {
+  iFood
+  Amazon
+  MercadoLivre
+  Outro
+}
+
+enum StatusPagamento {
+  Pendente
+  Concluido
+  NaoRealizado
+}
+
+' Classes base
+abstract class Usuario {
+  +id: UUID
+  +nome: String
+  +telefone: String
+}
+
+class Cliente {
+  +cpf: String
+}
+
+class Operador {
+  +turno: String
+}
+
+class Administrador {
+  +email: String
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Operador
+Usuario <|-- Administrador
+
+' Pedido e Produto
+class Pedido {
+  +id: UUID
+  +dataCriacao: DateTime
+  +status: StatusPedido
+  +origem: OrigemPedido
+  +dataEntregaEstimada: DateTime
+}
+
+class ProdutoSolicitado {
+  +nomeProduto: String
+  +descricao: String
+  +link: URL
+  +quantidade: int
+}
+
+Pedido "1" --> "*" ProdutoSolicitado
+
+' Endereço
+class Endereco {
+  +rua: String
+  +numero: String
+  +bairro: String
+  +cidade: String
+  +estado: String
+  +cep: String
+}
+
+Cliente "1" *-- "1" Endereco
+
+' Relacionamentos
+Cliente "1" --> "*" Pedido : cria
+Operador "1" --> "*" Pedido : atualiza
+Administrador "1" --> "*" Pedido : visualiza
+
+' Pagamento
+class Pagamento {
+  +tipo: String <<pix>>
+  +status: StatusPagamento
+  +dataPagamento: DateTime
+  +comprovante: String
+}
+
+Pedido "1" --> "1" Pagamento
+
+' Notificação
+class Notificacao {
+  +id: UUID
+  +mensagem: String
+  +dataEnvio: DateTime
+  +tipo: String
+}
+
+Notificacao --> Usuario : enviada para
+
+@enduml

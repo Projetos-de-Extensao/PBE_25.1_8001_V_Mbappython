@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../__Elabora%C3%A7%C3%A3o/modelagem/das/">
+        <link rel="prev" href="../arquitetura/">
       
       
-        <link rel="next" href="../____Transi%C3%A7%C3%A3o/">
+        <link rel="next" href="../configuracoes/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Construção - Projeto Backend 2025-1 V</title>
+        <title>Segurança - Projeto Backend 2025-1 V</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#construcao" class="md-skip">
+        <a href="#seguranca-ilha-delivery" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Construção
+              Segurança
             
           </span>
         </div>
@@ -260,10 +260,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../arquitetura/" class="md-tabs__link">
           
   
@@ -337,8 +339,6 @@
   
   
   
-    
-  
   
     
     
@@ -346,12 +346,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../_Inicia%C3%A7%C3%A3o/documento_de_visao/" class="md-tabs__link">
           
   
@@ -582,24 +580,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -612,7 +615,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Técnico
@@ -646,10 +649,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../seguranca/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Segurança
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -660,6 +685,299 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modelo-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo de Segurança
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-e-autorizacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação e Autorização
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autenticação e Autorização">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sistema-de-autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistema de Autenticação JWT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processo-de-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processo de Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controle-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Controle de Acesso
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protecao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proteção de Dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proteção de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dados-sensiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dados Sensíveis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medidas-de-protecao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medidas de Proteção
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comunicacao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comunicação Segura
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigacao-de-vulnerabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigação de Vulnerabilidades
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mitigação de Vulnerabilidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#injecao-de-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Injeção de SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-scripting-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Site Scripting (XSS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-request-forgery-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Site Request Forgery (CSRF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposicao-de-dados-sensiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposição de Dados Sensíveis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoramento-e-resposta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoramento e Resposta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoramento e Resposta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging de Segurança
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-de-alertas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistema de Alertas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plano-de-resposta-a-incidentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plano de Resposta a Incidentes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#melhores-praticas-implementadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Melhores Práticas Implementadas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Melhores Práticas Implementadas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento-seguro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento Seguro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração Segura
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atualizacoes-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Atualizações de Segurança
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#politica-de-divulgacao-responsavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Política de Divulgação Responsável
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contato" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contato
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificacoes-e-conformidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Certificações e Conformidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumo-dos-controles-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resumo dos Controles de Segurança
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-atualizacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histórico de Atualizações
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -788,29 +1106,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -823,7 +1136,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Documentação
@@ -1257,19 +1570,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../___Constru%C3%A7%C3%A3o/" class="md-nav__link">
         
   
   
@@ -1280,7 +1584,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1359,6 +1662,287 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modelo-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modelo de Segurança
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-e-autorizacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação e Autorização
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autenticação e Autorização">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sistema-de-autenticacao-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistema de Autenticação JWT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processo-de-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processo de Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controle-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Controle de Acesso
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protecao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proteção de Dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proteção de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dados-sensiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dados Sensíveis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medidas-de-protecao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medidas de Proteção
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comunicacao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comunicação Segura
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigacao-de-vulnerabilidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigação de Vulnerabilidades
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mitigação de Vulnerabilidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#injecao-de-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Injeção de SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-scripting-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Site Scripting (XSS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-request-forgery-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Site Request Forgery (CSRF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposicao-de-dados-sensiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposição de Dados Sensíveis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoramento-e-resposta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoramento e Resposta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoramento e Resposta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging de Segurança
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-de-alertas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sistema de Alertas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plano-de-resposta-a-incidentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plano de Resposta a Incidentes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#melhores-praticas-implementadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Melhores Práticas Implementadas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Melhores Práticas Implementadas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento-seguro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento Seguro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracao-segura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração Segura
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atualizacoes-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Atualizações de Segurança
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#politica-de-divulgacao-responsavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Política de Divulgação Responsável
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contato" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contato
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificacoes-e-conformidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Certificações e Conformidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumo-dos-controles-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resumo dos Controles de Segurança
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-atualizacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histórico de Atualizações
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1376,31 +1960,201 @@
   
 
 
-<h1 id="construcao">Construção</h1>
-<blockquote>
-<p>Objetivo: Construir o sistema com base na arquitetura definida.</p>
-</blockquote>
-<h1 id="principais-atividades">Principais atividades</h1>
+<h1 id="seguranca-ilha-delivery">Segurança - Ilha Delivery</h1>
+<p>Este documento detalha as práticas de segurança implementadas no projeto Ilha Delivery, incluindo autenticação, proteção de dados, políticas e melhores práticas.</p>
+<h2 id="modelo-de-seguranca">Modelo de Segurança</h2>
+<p>O Ilha Delivery implementa um modelo de segurança em camadas para proteger dados e funcionalidades:</p>
+<ol>
+<li><strong>Segurança de Rede</strong>: Proteção na camada de transporte</li>
+<li><strong>Segurança de Aplicação</strong>: Validação de entrada e controle de acesso</li>
+<li><strong>Segurança de Dados</strong>: Proteção de informações sensíveis</li>
+<li><strong>Segurança de Usuário</strong>: Autenticação forte e recuperação de contas</li>
+</ol>
+<h2 id="autenticacao-e-autorizacao">Autenticação e Autorização</h2>
+<h3 id="sistema-de-autenticacao-jwt">Sistema de Autenticação JWT</h3>
+<p>O Ilha Delivery utiliza JSON Web Tokens (JWT) para autenticação, que oferece:</p>
 <ul>
-<li>
-<p>Desenvolver os componentes e funcionalidades do sistema.</p>
-</li>
-<li>
-<p>Realizar testes de integração e sistema.</p>
-</li>
-<li>
-<p>Iterações para entregar versões parciais e funcionais do software.</p>
-</li>
-<li>
-<p>Produto principal: Software em funcionamento, pronto para ser entregue.</p>
-</li>
+<li><strong>Tokens sem estado</strong>: Não há necessidade de armazenar sessões no servidor</li>
+<li><strong>Expiração automática</strong>: Tokens de acesso de curta duração (5 minutos por padrão)</li>
+<li><strong>Refresh tokens</strong>: Permitem renovar o acesso sem nova autenticação</li>
+<li><strong>Revogação</strong>: Possibilidade de invalidar tokens em caso de comprometimento</li>
 </ul>
+<h3 id="processo-de-autenticacao">Processo de Autenticação</h3>
+<ol>
+<li>O usuário fornece credenciais (CPF/senha para clientes ou turno/senha para operadores)</li>
+<li>O backend verifica as credenciais e gera um par de tokens (acesso e refresh)</li>
+<li>O cliente armazena os tokens de forma segura</li>
+<li>Requisições à API incluem o token de acesso no cabeçalho de autorização</li>
+<li>Quando o token de acesso expira, o token de refresh é usado para obter um novo par</li>
+</ol>
+<h3 id="controle-de-acesso">Controle de Acesso</h3>
+<p>O sistema implementa autorização baseada em papéis (RBAC):</p>
+<ul>
+<li><strong>Clientes</strong>: Acesso apenas aos próprios pedidos e dados pessoais</li>
+<li><strong>Operadores</strong>: Acesso a todos os pedidos, mas com restrições específicas por função</li>
+<li><strong>Administradores</strong>: Acesso completo ao sistema</li>
+</ul>
+<h2 id="protecao-de-dados">Proteção de Dados</h2>
+<h3 id="dados-sensiveis">Dados Sensíveis</h3>
+<p>O Ilha Delivery trata os seguintes dados como sensíveis:</p>
+<ul>
+<li>Senhas de usuários</li>
+<li>Dados pessoais (CPF, endereço, telefone)</li>
+<li>Informações de pagamento</li>
+<li>Histórico de pedidos</li>
+</ul>
+<h3 id="medidas-de-protecao">Medidas de Proteção</h3>
+<ol>
+<li><strong>Senhas</strong>: Armazenadas usando algoritmo de hash bcrypt com salt único</li>
+<li><strong>Dados Pessoais</strong>: Armazenados com controles de acesso rigorosos</li>
+<li><strong>Dados de Pagamento</strong>: Não armazenamos dados de cartão de crédito</li>
+<li><strong>Comprovantes de Pagamento</strong>: Armazenados em local seguro com acesso restrito</li>
+</ol>
+<h3 id="comunicacao-segura">Comunicação Segura</h3>
+<ul>
+<li><strong>HTTPS</strong>: Toda comunicação entre cliente e servidor é criptografada via TLS 1.3</li>
+<li><strong>Certificados</strong>: Utilizamos certificados válidos e atualizados</li>
+<li><strong>HSTS</strong>: Implementado para evitar ataques de downgrade</li>
+</ul>
+<h2 id="mitigacao-de-vulnerabilidades">Mitigação de Vulnerabilidades</h2>
+<h3 id="injecao-de-sql">Injeção de SQL</h3>
+<p>Prevenção através de:
+- Uso de ORM (Django ORM) que escapa automaticamente parâmetros SQL
+- Queries parametrizadas para qualquer SQL direto necessário
+- Validação de entrada em todas as APIs</p>
+<h3 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h3>
+<p>Proteção implementada através de:
+- Sanitização de toda entrada de usuário
+- Escape automático de saída HTML
+- Políticas de Content-Security-Policy</p>
+<h3 id="cross-site-request-forgery-csrf">Cross-Site Request Forgery (CSRF)</h3>
+<p>Proteção através de:
+- Tokens CSRF para formulários
+- Validação de origem das requisições
+- Same-Site cookies</p>
+<h3 id="exposicao-de-dados-sensiveis">Exposição de Dados Sensíveis</h3>
+<p>Evitada através de:
+- Implementação de HTTPS em todas as comunicações
+- Minimização de logs contendo dados sensíveis
+- Mascaramento de dados sensíveis em respostas de API</p>
+<h2 id="monitoramento-e-resposta">Monitoramento e Resposta</h2>
+<h3 id="logging-de-seguranca">Logging de Segurança</h3>
+<p>O sistema mantém logs detalhados de:
+- Tentativas de login (bem-sucedidas e falhas)
+- Alterações em dados sensíveis
+- Operações administrativas
+- Tentativas de acesso não autorizado</p>
+<h3 id="sistema-de-alertas">Sistema de Alertas</h3>
+<p>Alertas automáticos são gerados para:
+- Múltiplas tentativas de login falhas
+- Acesso a partir de localizações incomuns
+- Comportamento anômalo de usuários
+- Tentativas de violação de segurança</p>
+<h3 id="plano-de-resposta-a-incidentes">Plano de Resposta a Incidentes</h3>
+<p>Em caso de incidentes de segurança:
+1. <strong>Contenção</strong>: Isolamento do sistema afetado
+2. <strong>Investigação</strong>: Análise da causa raiz e extensão do impacto
+3. <strong>Remediação</strong>: Correção da vulnerabilidade
+4. <strong>Comunicação</strong>: Notificação às partes afetadas conforme necessário
+5. <strong>Prevenção</strong>: Implementação de medidas para evitar recorrência</p>
+<h2 id="melhores-praticas-implementadas">Melhores Práticas Implementadas</h2>
+<h3 id="desenvolvimento-seguro">Desenvolvimento Seguro</h3>
+<ul>
+<li><strong>Revisão de código</strong>: Todo código passa por revisão de segurança</li>
+<li><strong>Testes automatizados</strong>: Testes de segurança integrados ao pipeline CI/CD</li>
+<li><strong>Dependências</strong>: Monitoramento contínuo de vulnerabilidades em bibliotecas</li>
+</ul>
+<h3 id="configuracao-segura">Configuração Segura</h3>
+<ul>
+<li><strong>Princípio do menor privilégio</strong>: Contas e serviços com privilégios mínimos necessários</li>
+<li><strong>Hardening de servidor</strong>: Configurações seguras para servidores de produção</li>
+<li><strong>Firewall</strong>: Regras restritivas permitindo apenas tráfego necessário</li>
+</ul>
+<h3 id="atualizacoes-de-seguranca">Atualizações de Segurança</h3>
+<ul>
+<li><strong>Patches de segurança</strong>: Aplicados prontamente</li>
+<li><strong>Bibliotecas</strong>: Mantidas atualizadas para versões seguras</li>
+<li><strong>Framework</strong>: Django e React Native atualizados regularmente</li>
+</ul>
+<h2 id="politica-de-divulgacao-responsavel">Política de Divulgação Responsável</h2>
+<p>Para reportar vulnerabilidades de segurança:</p>
+<ol>
+<li>Envie um email para seguranca@ilhadelivery.com com detalhes da vulnerabilidade</li>
+<li>Não divulgue publicamente até que tenhamos tempo de investigar e corrigir</li>
+<li>Informe se deseja receber crédito pela descoberta</li>
+<li>Nossa equipe responderá em até 48 horas e trabalhará na correção</li>
+</ol>
+<h2 id="contato">Contato</h2>
+<p>Para questões relacionadas à segurança:
+- Email: seguranca@ilhadelivery.com
+- Responsável: Coordenador de Segurança da Informação</p>
+<h2 id="certificacoes-e-conformidade">Certificações e Conformidade</h2>
+<p>O Ilha Delivery está em processo de conformidade com:
+- Lei Geral de Proteção de Dados (LGPD)
+- Padrão PCI DSS para futuras implementações de pagamento</p>
+<h2 id="resumo-dos-controles-de-seguranca">Resumo dos Controles de Segurança</h2>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Controles Implementados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticação</td>
+<td>JWT, bcrypt, multi-fator (planejado)</td>
+</tr>
+<tr>
+<td>Autorização</td>
+<td>RBAC, verificação por recurso</td>
+</tr>
+<tr>
+<td>Proteção de Dados</td>
+<td>Criptografia, mascaramento, minimização</td>
+</tr>
+<tr>
+<td>Comunicação</td>
+<td>TLS 1.3, HSTS, CSP</td>
+</tr>
+<tr>
+<td>Monitoramento</td>
+<td>Logs de segurança, sistema de alertas</td>
+</tr>
+<tr>
+<td>Desenvolvimento</td>
+<td>Revisão de código, testes de segurança</td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-atualizacoes">Histórico de Atualizações</h2>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Versão</th>
+<th>Alterações</th>
+<th>Autor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10/06/2025</td>
+<td>1.0</td>
+<td>Documento inicial</td>
+<td>Equipe de Segurança</td>
+</tr>
+</tbody>
+</table>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -1430,7 +2184,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
         
           
-          <a href="../__Elabora%C3%A7%C3%A3o/modelagem/das/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Diagrama de Análise de Sistema">
+          <a href="../arquitetura/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Arquitetura">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1440,20 +2194,20 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                Diagrama de Análise de Sistema
+                Arquitetura
               </div>
             </div>
           </a>
         
         
           
-          <a href="../____Transi%C3%A7%C3%A3o/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Transição">
+          <a href="../configuracoes/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Configurações">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Próximo
               </span>
               <div class="md-ellipsis">
-                Transição
+                Configurações
               </div>
             </div>
             <div class="md-footer__button md-icon">

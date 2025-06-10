@@ -1,0 +1,2475 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Tutorial de Uso - Projeto Backend 2025-1 V</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="default" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-de-uso-ilha-delivery" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Projeto Backend 2025-1 V" class="md-header__button md-logo" aria-label="Projeto Backend 2025-1 V" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Projeto Backend 2025-1 V
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial de Uso
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tutorial de Uso
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../instalacao_backend/" class="md-tabs__link">
+          
+  
+  
+  Instalação
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../arquitetura/" class="md-tabs__link">
+          
+  
+  
+  Técnico
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../equipe/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Equipe
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contribuir/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribuir
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../_Inicia%C3%A7%C3%A3o/documento_de_visao/" class="md-tabs__link">
+          
+  
+  
+  Documentação
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Projeto Backend 2025-1 V" class="md-nav__button md-logo" aria-label="Projeto Backend 2025-1 V" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Projeto Backend 2025-1 V
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Projetos-de-Extensao/PBE_25.1_8001_V_Mbappython" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Tutorial de Uso
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial de Uso
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-guia-para-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Guia para Clientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Guia para Clientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-acesso-inicial-e-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Acesso Inicial e Cadastro
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1. Acesso Inicial e Cadastro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-tela-inicial" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.1. Tela Inicial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-cadastro-de-novo-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.2. Cadastro de Novo Usuário
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.3. Login
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-tela-principal-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Tela Principal (Home)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-navegacao-no-aplicativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. Navegação no Aplicativo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-criando-um-novo-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4. Criando um Novo Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-acompanhando-seus-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5. Acompanhando Seus Pedidos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5. Acompanhando Seus Pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-lista-de-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.1. Lista de Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-detalhes-do-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.2. Detalhes do Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-estados-do-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.3. Estados do Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-aprovando-uma-cotacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.4. Aprovando uma Cotação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-atualizacoes-em-tempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.5. Atualizações em Tempo Real
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-gerenciando-sua-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6. Gerenciando sua Conta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6. Gerenciando sua Conta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-perfil-e-configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6.1. Perfil e Configurações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6.2. Logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-guia-para-operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Guia para Operadores
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Guia para Operadores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-acesso-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Acesso do Operador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. Acesso do Operador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-login-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1. Login do Operador
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gerenciamento-de-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Gerenciamento de Pedidos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Gerenciamento de Pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-visualizando-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1. Visualizando Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-filtrando-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2. Filtrando Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-detalhes-do-pedido-e-acoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Detalhes do Pedido e Ações
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Detalhes do Pedido e Ações">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-visualizar-informacoes-completas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1. Visualizar Informações Completas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-enviar-cotacao-para-pedidos-com-status-sol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2. Enviar Cotação (para pedidos com status "SOL")
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-atualizar-status-para-pedidos-com-cotacao-aprovada" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3. Atualizar Status (para pedidos com cotação aprovada)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-finalizar-entrega" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.4. Finalizar Entrega
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-gerenciamento-de-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Gerenciamento de Conta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. Gerenciamento de Conta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-perfil-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1. Perfil do Operador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2. Logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-melhores-praticas-para-operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. Melhores Práticas para Operadores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Instalação
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Instalação
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacao_backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacao_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frontend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Técnico
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Técnico
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seguranca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Segurança
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuracoes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configurações
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Equipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribuir/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribuir
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Documentação
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Documentação
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_1" id="__nav_9_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Iniciação
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1">
+            <span class="md-nav__icon md-icon"></span>
+            Iniciação
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/documento_de_visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documento de Visão
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Requisitos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/5w2h/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5W2H
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/Brainstorm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Brainstorm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/mapa_mental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mapas Mentais
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/metodologia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metodologia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/pesquisa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pesquisa
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/prototipo_alta_fidelidade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Protótipo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_Inicia%C3%A7%C3%A3o/entrevista/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Entrevista
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Elaboração
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Elaboração
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modelagem
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_9_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Modelagem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../__Elabora%C3%A7%C3%A3o/modelagem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modelagem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../__Elabora%C3%A7%C3%A3o/modelagem/diagrama_de_classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama de Classes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../__Elabora%C3%A7%C3%A3o/modelagem/das/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama de Análise de Sistema
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../___Constru%C3%A7%C3%A3o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Construção
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../____Transi%C3%A7%C3%A3o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transição
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_____Itera%C3%A7%C3%A3o/interacao1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Iteração
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-guia-para-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Guia para Clientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Guia para Clientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-acesso-inicial-e-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Acesso Inicial e Cadastro
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1. Acesso Inicial e Cadastro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-tela-inicial" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.1. Tela Inicial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-cadastro-de-novo-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.2. Cadastro de Novo Usuário
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1.3. Login
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-tela-principal-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Tela Principal (Home)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-navegacao-no-aplicativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. Navegação no Aplicativo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-criando-um-novo-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4. Criando um Novo Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-acompanhando-seus-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5. Acompanhando Seus Pedidos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5. Acompanhando Seus Pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-lista-de-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.1. Lista de Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-detalhes-do-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.2. Detalhes do Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-estados-do-pedido" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.3. Estados do Pedido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-aprovando-uma-cotacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.4. Aprovando uma Cotação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-atualizacoes-em-tempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.5. Atualizações em Tempo Real
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-gerenciando-sua-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6. Gerenciando sua Conta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6. Gerenciando sua Conta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-perfil-e-configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6.1. Perfil e Configurações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6.2. Logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-guia-para-operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Guia para Operadores
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Guia para Operadores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-acesso-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Acesso do Operador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. Acesso do Operador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-login-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1. Login do Operador
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gerenciamento-de-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Gerenciamento de Pedidos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Gerenciamento de Pedidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-visualizando-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1. Visualizando Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-filtrando-pedidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2. Filtrando Pedidos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-detalhes-do-pedido-e-acoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Detalhes do Pedido e Ações
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Detalhes do Pedido e Ações">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-visualizar-informacoes-completas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1. Visualizar Informações Completas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-enviar-cotacao-para-pedidos-com-status-sol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2. Enviar Cotação (para pedidos com status "SOL")
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-atualizar-status-para-pedidos-com-cotacao-aprovada" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3. Atualizar Status (para pedidos com cotação aprovada)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-finalizar-entrega" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.4. Finalizar Entrega
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-gerenciamento-de-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Gerenciamento de Conta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. Gerenciamento de Conta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-perfil-do-operador" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1. Perfil do Operador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2. Logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-melhores-praticas-para-operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. Melhores Práticas para Operadores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tutorial-de-uso-ilha-delivery">Tutorial de Uso: Ilha Delivery</h1>
+<p>Este tutorial detalhado guia os usuários <strong>Clientes</strong> e <strong>Operadores</strong> através de todas as funcionalidades disponíveis no aplicativo Ilha Delivery, facilitando o processo de entrega de produtos para moradores da Ilha Primeira.</p>
+<h2 id="1-guia-para-clientes">1. Guia para Clientes</h2>
+<h3 id="11-acesso-inicial-e-cadastro">1.1. Acesso Inicial e Cadastro</h3>
+<h4 id="111-tela-inicial">1.1.1. Tela Inicial</h4>
+<p>Ao abrir o aplicativo pela primeira vez, você verá:
+- O logo da Ilha Delivery
+- Dois botões: <strong>"Entrar como Cliente"</strong> e <strong>"Entrar como Operador"</strong></p>
+<h4 id="112-cadastro-de-novo-usuario">1.1.2. Cadastro de Novo Usuário</h4>
+<p>Para criar uma conta:</p>
+<ol>
+<li>Na tela inicial, clique em <strong>"Entrar como Cliente"</strong></li>
+<li>Na tela de login, clique em <strong>"Não tem conta? Cadastre-se"</strong></li>
+<li>Preencha o formulário de cadastro com:</li>
+<li><strong>Dados Pessoais</strong>:<ul>
+<li>Nome completo</li>
+<li>CPF (será usado para identificação)</li>
+<li>Telefone (para contato)</li>
+<li>Senha (para acessar sua conta)</li>
+</ul>
+</li>
+<li><strong>Endereço Completo</strong>:<ul>
+<li>Rua</li>
+<li>Número</li>
+<li>Cidade</li>
+<li>Estado</li>
+<li>CEP</li>
+<li>Ilha (importante para a entrega)</li>
+</ul>
+</li>
+<li>Clique em <strong>"CADASTRAR"</strong></li>
+<li>Após confirmação, você será direcionado para a tela de login</li>
+</ol>
+<blockquote>
+<p><strong>IMPORTANTE</strong>: O endereço correto e completo é fundamental para garantir as entregas com precisão.</p>
+</blockquote>
+<h4 id="113-login">1.1.3. Login</h4>
+<p>Para acessar sua conta:
+1. Na tela de login, digite seu CPF (apenas números)
+2. Digite sua senha
+3. Clique em <strong>"ENTRAR"</strong></p>
+<h3 id="12-tela-principal-home">1.2. Tela Principal (Home)</h3>
+<p>A tela principal apresenta:</p>
+<ul>
+<li><strong>Cabeçalho de Boas-vindas</strong>: Uma saudação personalizada com seu nome</li>
+<li><strong>Endereço de Entrega</strong>: O endereço cadastrado para suas entregas</li>
+<li><strong>Mapa de Entrega</strong>: Visualização da localização aproximada do entregador e tempo estimado de chegada para pedidos em andamento</li>
+<li><strong>Últimos Pedidos</strong>: Lista com seus três pedidos mais recentes, exibindo:</li>
+<li>Número do pedido</li>
+<li>Origem (ex: IFOOD, AMAZON, Mercado Livre)</li>
+<li>Status atual do pedido (com cores diferentes para cada status)</li>
+<li>Data do pedido</li>
+<li><strong>Botão "Ver todos os pedidos"</strong>: Para acesso ao histórico completo</li>
+</ul>
+<h3 id="13-navegacao-no-aplicativo">1.3. Navegação no Aplicativo</h3>
+<p>O menu de navegação inferior contém:
+- <strong>Home</strong>: Retorna à tela principal
+- <strong>Pedidos</strong>: Lista completa de todos os seus pedidos
+- <strong>Pedido+</strong>: Criação de novos pedidos
+- <strong>Perfil</strong>: Configurações da conta e logout</p>
+<h3 id="14-criando-um-novo-pedido">1.4. Criando um Novo Pedido</h3>
+<p>Para solicitar a entrega de produtos:</p>
+<ol>
+<li>Navegue até a aba <strong>"Pedido+"</strong> (ícone de <code>+</code>)</li>
+<li>No formulário "Novo Pedido", preencha:</li>
+<li><strong>Nome do produto</strong>: Descrição clara do item</li>
+<li><strong>Quantidade</strong>: Número de unidades</li>
+<li><strong>Link do produto</strong>: URL da página da compra online</li>
+<li><strong>Descrição</strong> (opcional): Detalhes adicionais sobre o produto</li>
+<li><strong>Origem da compra</strong>: Selecione entre iFood, Amazon, Mercado Livre ou Outro</li>
+<li><strong>Preço do produto</strong>: Valor unitário em reais</li>
+<li>Clique em <strong>"Criar Pedido"</strong></li>
+<li>Confirme a criação quando solicitado</li>
+</ol>
+<p>Após a criação, seu pedido receberá o status <strong>"Solicitado"</strong> (SOL) e aguardará cotação do operador.</p>
+<h3 id="15-acompanhando-seus-pedidos">1.5. Acompanhando Seus Pedidos</h3>
+<h4 id="151-lista-de-pedidos">1.5.1. Lista de Pedidos</h4>
+<ol>
+<li>Acesse a aba <strong>"Pedidos"</strong> (ícone de calendário)</li>
+<li>Veja a lista de todos os seus pedidos, ordenados do mais recente para o mais antigo</li>
+<li>Para cada pedido, você visualiza:</li>
+<li>Número do pedido</li>
+<li>Data do pedido</li>
+<li>Status atual</li>
+<li>Origem</li>
+<li>Quantidade de produtos</li>
+<li>Puxe a tela para baixo para atualizar a lista</li>
+</ol>
+<h4 id="152-detalhes-do-pedido">1.5.2. Detalhes do Pedido</h4>
+<p>Para ver informações detalhadas:
+1. Toque em qualquer pedido da lista
+2. Na tela de detalhes, você encontrará:
+   * <strong>Informações gerais</strong>: Número do pedido e status (com código de cores)
+   * <strong>Detalhes</strong>: Origem, datas de criação, estimada e efetiva de entrega
+   * <strong>Lista de produtos</strong>: Nome, quantidade, preço unitário, descrição e link
+   * <strong>Resumo financeiro</strong>: Subtotal dos produtos, taxa de entrega, taxa de serviço e preço final</p>
+<h4 id="153-estados-do-pedido">1.5.3. Estados do Pedido</h4>
+<p>Seu pedido passará pelos seguintes estados:
+- <strong>Solicitado (SOL)</strong>: Pedido criado, aguardando cotação
+- <strong>Cotação Enviada (CE)</strong>: Operador definiu preço e frete, aguardando sua aprovação
+- <strong>Pagamento Aprovado (PA)</strong>: Você aceitou a cotação
+- <strong>Em Andamento (AND)</strong>: Pedido está sendo processado ou está em rota
+- <strong>Entregue (ENT)</strong>: Pedido já foi entregue
+- <strong>Cancelado (CAN)</strong>: Pedido foi cancelado</p>
+<h4 id="154-aprovando-uma-cotacao">1.5.4. Aprovando uma Cotação</h4>
+<p>Quando o status do pedido for <strong>"Cotação Enviada"</strong>:</p>
+<ol>
+<li>Ao acessar os detalhes do pedido, você verá um resumo com:</li>
+<li>Subtotal dos produtos</li>
+<li>Taxa de entrega</li>
+<li>Taxa de serviço (se houver)</li>
+<li>Preço final</li>
+<li>Se concordar com os valores, clique no botão <strong>"Aceitar Cotação"</strong></li>
+<li>Confirme a operação quando solicitado</li>
+<li>O status mudará para <strong>"Pagamento Aprovado"</strong> e o operador será notificado</li>
+</ol>
+<h4 id="155-atualizacoes-em-tempo-real">1.5.5. Atualizações em Tempo Real</h4>
+<ul>
+<li>O aplicativo atualiza automaticamente o status dos pedidos a cada 5-30 segundos</li>
+<li>Você pode atualizar manualmente usando o botão <strong>"Atualizar Dados"</strong> na tela de detalhes</li>
+</ul>
+<h3 id="16-gerenciando-sua-conta">1.6. Gerenciando sua Conta</h3>
+<h4 id="161-perfil-e-configuracoes">1.6.1. Perfil e Configurações</h4>
+<p>Na aba <strong>"Perfil"</strong> (ícone de configurações), você pode:
+* Visualizar seus dados cadastrais
+* Fazer logout do aplicativo</p>
+<h4 id="162-logout">1.6.2. Logout</h4>
+<p>Para sair do aplicativo com segurança:
+1. Acesse a aba <strong>"Perfil"</strong>
+2. Clique no botão <strong>"Sair"</strong>
+3. Confirme a operação quando solicitado</p>
+<hr />
+<h2 id="2-guia-para-operadores">2. Guia para Operadores</h2>
+<h3 id="21-acesso-do-operador">2.1. Acesso do Operador</h3>
+<h4 id="211-login-do-operador">2.1.1. Login do Operador</h4>
+<ol>
+<li>Na tela inicial do aplicativo, selecione <strong>"Entrar como Operador"</strong></li>
+<li>Digite seu <strong>Turno</strong> (ex: <code>manha</code>, <code>tarde</code> ou <code>noite</code>)</li>
+<li>Digite sua <strong>Senha</strong></li>
+<li>Clique em <strong>"Entrar"</strong></li>
+</ol>
+<p>O sistema validará suas credenciais e, se corretas, você será direcionado para a tela principal de gerenciamento de pedidos.</p>
+<h3 id="22-gerenciamento-de-pedidos">2.2. Gerenciamento de Pedidos</h3>
+<h4 id="221-visualizando-pedidos">2.2.1. Visualizando Pedidos</h4>
+<p>A tela principal dos operadores apresenta:</p>
+<ul>
+<li><strong>Filtro de Status</strong>: No topo da tela, permite filtrar pedidos por status</li>
+<li><strong>Lista de Pedidos</strong>: Todos os pedidos conforme o filtro selecionado</li>
+<li>Para cada pedido, você visualiza:</li>
+<li>Número do pedido</li>
+<li>Status (com código de cores)</li>
+<li>Origem (ex: IFOOD, AMAZON)</li>
+<li>Cliente associado</li>
+<li>Data e hora de criação</li>
+</ul>
+<h4 id="222-filtrando-pedidos">2.2.2. Filtrando Pedidos</h4>
+<p>Para facilitar o gerenciamento, utilize o filtro por status:
+1. Toque no seletor de filtro no topo da tela
+2. Escolha entre as opções:
+   * <strong>Todos</strong>: Visualiza todos os pedidos
+   * <strong>Solicitado (SOL)</strong>: Pedidos aguardando cotação
+   * <strong>Cotação Enviada (CE)</strong>: Cotações enviadas aguardando aprovação
+   * <strong>Pagamento Aprovado (PA)</strong>: Pedidos aprovados pelo cliente
+   * <strong>Em Andamento (AND)</strong>: Pedidos em processamento
+   * <strong>Entregue (ENT)</strong>: Pedidos já entregues
+   * <strong>Cancelado (CAN)</strong>: Pedidos cancelados</p>
+<p>A lista atualiza automaticamente a cada 5 segundos para mostrar novas solicitações.</p>
+<h3 id="23-detalhes-do-pedido-e-acoes">2.3. Detalhes do Pedido e Ações</h3>
+<p>Ao selecionar um pedido da lista, você acessa a tela de detalhes onde pode:</p>
+<h4 id="231-visualizar-informacoes-completas">2.3.1. Visualizar Informações Completas</h4>
+<ul>
+<li><strong>Informações do Pedido</strong>: Número, status, origem, datas</li>
+<li><strong>Dados do Cliente</strong>: Nome do cliente</li>
+<li><strong>Produtos</strong>: Lista detalhada com nome, quantidade, preço unitário, descrição e link</li>
+</ul>
+<h4 id="232-enviar-cotacao-para-pedidos-com-status-sol">2.3.2. Enviar Cotação (para pedidos com status "SOL")</h4>
+<ol>
+<li>No campo <strong>"Preço final (produto + frete) em R$"</strong>, digite o valor total da cotação</li>
+<li>No campo <strong>"Valor do frete"</strong>, informe o valor específico do frete</li>
+<li>Opcionalmente, no campo <strong>"Data estimada entrega"</strong>, informe a data prevista</li>
+<li>Clique em <strong>"Enviar Cotação"</strong></li>
+</ol>
+<p>Esta ação mudará o status do pedido para <strong>"CE"</strong> (Cotação Enviada) e notificará o cliente para aprovação.</p>
+<h4 id="233-atualizar-status-para-pedidos-com-cotacao-aprovada">2.3.3. Atualizar Status (para pedidos com cotação aprovada)</h4>
+<p>Após o cliente aprovar a cotação (status "PA"):</p>
+<ul>
+<li><strong>Iniciar Processamento</strong>: Clique em <strong>"Atualizar para ANDAMENTO"</strong> quando iniciar o processamento do pedido</li>
+<li><strong>Cancelar Pedido</strong>: Se necessário, clique em <strong>"Atualizar para CANCELADO"</strong></li>
+</ul>
+<h4 id="234-finalizar-entrega">2.3.4. Finalizar Entrega</h4>
+<p>Quando o pedido for entregue ao cliente:</p>
+<ol>
+<li>Clique no botão <strong>"Finalizar Pedido (ENTREGUE)"</strong></li>
+<li>O sistema registrará automaticamente a data e hora da conclusão</li>
+<li>O cliente será notificado sobre a entrega finalizada</li>
+<li>O status mudará para <strong>"ENT"</strong> (Entregue)</li>
+</ol>
+<h3 id="24-gerenciamento-de-conta">2.4. Gerenciamento de Conta</h3>
+<h4 id="241-perfil-do-operador">2.4.1. Perfil do Operador</h4>
+<p>Para acessar seu perfil:
+1. Toque na aba <strong>"OperadorPerfil"</strong> (ícone de usuário)
+2. Visualize suas informações de operador</p>
+<h4 id="242-logout">2.4.2. Logout</h4>
+<p>Para sair do aplicativo com segurança:
+1. Acesse a aba <strong>"OperadorPerfil"</strong>
+2. Clique no botão <strong>"Sair"</strong>
+3. Confirme a operação quando solicitado</p>
+<h3 id="25-melhores-praticas-para-operadores">2.5. Melhores Práticas para Operadores</h3>
+<ol>
+<li><strong>Cotações claras</strong>: Sempre detalhe corretamente os valores de produto e frete</li>
+<li><strong>Atualizações frequentes</strong>: Mantenha os status dos pedidos sempre atualizados</li>
+<li><strong>Comunicação</strong>: Use o campo de data estimada para informar expectativas realistas</li>
+<li><strong>Verificação</strong>: Confirme os dados do pedido antes de finalizar a entrega</li>
+<li><strong>Monitoramento</strong>: Verifique regularmente os pedidos com status "Solicitado" para não deixar clientes esperando</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Anterior: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../api/" class="md-footer__link md-footer__link--next" aria-label="Próximo: API">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Próximo
+              </span>
+              <div class="md-ellipsis">
+                API
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+
+<h4></h4>
+<p></p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Aceitar</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Gerenciar configurações</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.footer", "navigation.top", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

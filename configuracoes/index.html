@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../__Elabora%C3%A7%C3%A3o/modelagem/das/">
+        <link rel="prev" href="../seguranca/">
       
       
-        <link rel="next" href="../____Transi%C3%A7%C3%A3o/">
+        <link rel="next" href="../releases/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Construção - Projeto Backend 2025-1 V</title>
+        <title>Configurações do Projeto - Projeto Backend 2025-1 V</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#construcao" class="md-skip">
+        <a href="#configuracoes-do-projeto-ilha-delivery" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Construção
+              Configurações do Projeto
             
           </span>
         </div>
@@ -260,10 +260,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../arquitetura/" class="md-tabs__link">
           
   
@@ -337,8 +339,6 @@
   
   
   
-    
-  
   
     
     
@@ -346,12 +346,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../_Inicia%C3%A7%C3%A3o/documento_de_visao/" class="md-tabs__link">
           
   
@@ -582,24 +580,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -612,7 +615,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Técnico
@@ -669,10 +672,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../configuracoes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Configurações
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -683,6 +708,341 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-do-backend-django" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações do Backend (Django)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações do Backend (Django)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variáveis de Ambiente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracoes-especificas-por-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações Específicas por Ambiente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações Específicas por Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homologacaostaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Homologação/Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Produção
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-usar-configuracoes-personalizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como Usar Configurações Personalizadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-do-frontend-react-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações do Frontend (React Native)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações do Frontend (React Native)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variáveis de Ambiente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variáveis de Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#envdevelopment" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envstaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envproduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.production
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurando-o-expo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurando o Expo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracoes-para-diferentes-ambientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações para Diferentes Ambientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações para Diferentes Ambientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Produção
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-do-mkdocs-documentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração do MkDocs (Documentação)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuração do MkDocs (Documentação)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tema-e-aparencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tema e Aparência
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins Adicionais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extensoes-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extensões Markdown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-de-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações de CI/CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações de CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend CI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend CI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações de Segurança
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações de Segurança">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors-cross-origin-resource-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS (Cross-Origin Resource Sharing)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referências
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -788,29 +1148,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -823,7 +1178,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Documentação
@@ -1257,19 +1612,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../___Constru%C3%A7%C3%A3o/" class="md-nav__link">
         
   
   
@@ -1280,7 +1626,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1359,6 +1704,329 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-do-backend-django" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações do Backend (Django)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações do Backend (Django)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variáveis de Ambiente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracoes-especificas-por-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações Específicas por Ambiente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações Específicas por Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homologacaostaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Homologação/Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Produção
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-usar-configuracoes-personalizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como Usar Configurações Personalizadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-do-frontend-react-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações do Frontend (React Native)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações do Frontend (React Native)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variaveis-de-ambiente_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variáveis de Ambiente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variáveis de Ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#envdevelopment" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envstaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envproduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      .env.production
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurando-o-expo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurando o Expo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracoes-para-diferentes-ambientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações para Diferentes Ambientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações para Diferentes Ambientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desenvolvimento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desenvolvimento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producao_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Produção
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-do-mkdocs-documentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração do MkDocs (Documentação)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuração do MkDocs (Documentação)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tema-e-aparencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tema e Aparência
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins Adicionais
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extensoes-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extensões Markdown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-de-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações de CI/CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações de CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend CI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend CI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes-de-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações de Segurança
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações de Segurança">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors-cross-origin-resource-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS (Cross-Origin Resource Sharing)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referências
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1376,24 +2044,299 @@
   
 
 
-<h1 id="construcao">Construção</h1>
-<blockquote>
-<p>Objetivo: Construir o sistema com base na arquitetura definida.</p>
-</blockquote>
-<h1 id="principais-atividades">Principais atividades</h1>
+<h1 id="configuracoes-do-projeto-ilha-delivery">Configurações do Projeto Ilha Delivery</h1>
+<p>Este documento descreve as configurações utilizadas no projeto Ilha Delivery, incluindo variáveis de ambiente, configurações específicas para ambientes de desenvolvimento, homologação e produção, além de instruções para personalização.</p>
+<h2 id="configuracoes-do-backend-django">Configurações do Backend (Django)</h2>
+<h3 id="variaveis-de-ambiente">Variáveis de Ambiente</h3>
+<p>O backend do Ilha Delivery utiliza variáveis de ambiente para configurar comportamentos específicos. Crie um arquivo <code>.env</code> na pasta <code>ilhaDeliveryApp/backend/</code> com as seguintes configurações:</p>
+<pre><code># Ambiente (development, staging, production)
+DJANGO_ENV=development
+
+# Configuração de Segurança
+SECRET_KEY=sua_chave_secreta_aqui
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Banco de Dados
+DATABASE_URL=sqlite:///db.sqlite3
+# Ou para PostgreSQL:
+# DATABASE_URL=postgres://usuario:senha@localhost:5432/ilha_delivery
+
+# Configuração de Email
+EMAIL_HOST=smtp.exemplo.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=seu_email@exemplo.com
+EMAIL_HOST_PASSWORD=sua_senha
+EMAIL_USE_TLS=True
+
+# JWT Settings
+ACCESS_TOKEN_LIFETIME=5  # minutos
+REFRESH_TOKEN_LIFETIME=1  # dias
+
+# Configurações de Logging
+LOG_LEVEL=INFO
+</code></pre>
+<h3 id="configuracoes-especificas-por-ambiente">Configurações Específicas por Ambiente</h3>
+<h4 id="desenvolvimento">Desenvolvimento</h4>
+<p>Para desenvolvimento local, você pode usar as configurações padrão. O arquivo <code>settings.py</code> já está configurado para detectar o ambiente e aplicar as configurações adequadas.</p>
+<h4 id="homologacaostaging">Homologação/Staging</h4>
+<p>Para o ambiente de homologação, ajuste seu arquivo <code>.env</code>:</p>
+<pre><code>DJANGO_ENV=staging
+DEBUG=False
+ALLOWED_HOSTS=staging.ilhadelivery.com,staging-api.ilhadelivery.com
+DATABASE_URL=postgres://usuario:senha@localhost:5432/ilha_delivery_staging
+</code></pre>
+<h4 id="producao">Produção</h4>
+<p>Para o ambiente de produção, use configurações mais restritivas:</p>
+<pre><code>DJANGO_ENV=production
+DEBUG=False
+ALLOWED_HOSTS=ilhadelivery.com,api.ilhadelivery.com
+DATABASE_URL=postgres://usuario:senha@localhost:5432/ilha_delivery_prod
+LOG_LEVEL=WARNING
+
+# Configurações adicionais de segurança
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+SECURE_HSTS_SECONDS=31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+SECURE_HSTS_PRELOAD=True
+</code></pre>
+<h3 id="como-usar-configuracoes-personalizadas">Como Usar Configurações Personalizadas</h3>
+<p>Para usar configurações personalizadas, você pode:</p>
+<ol>
+<li>Modificar o arquivo <code>.env</code></li>
+<li>Definir variáveis de ambiente no sistema</li>
+<li>Passar variáveis de ambiente ao iniciar o servidor</li>
+</ol>
+<p>Exemplo utilizando variáveis de ambiente ao iniciar o servidor:</p>
+<pre><code class="language-bash">SECRET_KEY=chave_personalizada DEBUG=True python manage.py runserver
+</code></pre>
+<h2 id="configuracoes-do-frontend-react-native">Configurações do Frontend (React Native)</h2>
+<h3 id="variaveis-de-ambiente_1">Variáveis de Ambiente</h3>
+<p>O frontend do Ilha Delivery utiliza arquivos de ambiente para diferentes contextos. Crie os seguintes arquivos na pasta <code>ilhaDeliveryApp/frontend/</code>:</p>
+<h4 id="envdevelopment"><code>.env.development</code></h4>
+<pre><code>API_URL=http://localhost:8000/api
+ENVIRONMENT=development
+ENABLE_LOGGING=true
+</code></pre>
+<h4 id="envstaging"><code>.env.staging</code></h4>
+<pre><code>API_URL=https://staging-api.ilhadelivery.com/api
+ENVIRONMENT=staging
+ENABLE_LOGGING=true
+</code></pre>
+<h4 id="envproduction"><code>.env.production</code></h4>
+<pre><code>API_URL=https://api.ilhadelivery.com/api
+ENVIRONMENT=production
+ENABLE_LOGGING=false
+</code></pre>
+<h3 id="configurando-o-expo">Configurando o Expo</h3>
+<p>As configurações do Expo podem ser ajustadas no arquivo <code>app.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;expo&quot;: {
+    &quot;name&quot;: &quot;Ilha Delivery&quot;,
+    &quot;slug&quot;: &quot;ilha-delivery&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;orientation&quot;: &quot;portrait&quot;,
+    &quot;icon&quot;: &quot;./assets/icon.png&quot;,
+    &quot;splash&quot;: {
+      &quot;image&quot;: &quot;./assets/splash.png&quot;,
+      &quot;resizeMode&quot;: &quot;contain&quot;,
+      &quot;backgroundColor&quot;: &quot;#ffffff&quot;
+    },
+    &quot;updates&quot;: {
+      &quot;fallbackToCacheTimeout&quot;: 0
+    },
+    &quot;assetBundlePatterns&quot;: [
+      &quot;**/*&quot;
+    ],
+    &quot;ios&quot;: {
+      &quot;supportsTablet&quot;: true,
+      &quot;bundleIdentifier&quot;: &quot;com.ilhadelivery.app&quot;
+    },
+    &quot;android&quot;: {
+      &quot;adaptiveIcon&quot;: {
+        &quot;foregroundImage&quot;: &quot;./assets/adaptive-icon.png&quot;,
+        &quot;backgroundColor&quot;: &quot;#FFFFFF&quot;
+      },
+      &quot;package&quot;: &quot;com.ilhadelivery.app&quot;
+    },
+    &quot;web&quot;: {
+      &quot;favicon&quot;: &quot;./assets/favicon.png&quot;
+    },
+    &quot;extra&quot;: {
+      &quot;eas&quot;: {
+        &quot;projectId&quot;: &quot;seu-project-id-aqui&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3 id="configuracoes-para-diferentes-ambientes">Configurações para Diferentes Ambientes</h3>
+<p>Para construir o aplicativo para diferentes ambientes:</p>
+<h4 id="desenvolvimento_1">Desenvolvimento</h4>
+<pre><code class="language-bash">npx expo start --dev-client
+</code></pre>
+<h4 id="staging">Staging</h4>
+<pre><code class="language-bash">expo build:android --release-channel staging
+expo build:ios --release-channel staging
+</code></pre>
+<h4 id="producao_1">Produção</h4>
+<pre><code class="language-bash">expo build:android --release-channel production
+expo build:ios --release-channel production
+</code></pre>
+<h2 id="configuracao-do-mkdocs-documentacao">Configuração do MkDocs (Documentação)</h2>
+<p>O MkDocs utiliza o arquivo <code>mkdocs.yml</code> para configuração. Você pode ajustar as seguintes configurações:</p>
+<h3 id="tema-e-aparencia">Tema e Aparência</h3>
+<pre><code class="language-yaml">theme:
+  name: material
+  palette:
+    primary: blue
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+</code></pre>
+<h3 id="plugins-adicionais">Plugins Adicionais</h3>
+<pre><code class="language-yaml">plugins:
+  - search
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+  - git-revision-date-localized:
+      type: date
+  - social
+</code></pre>
+<h3 id="extensoes-markdown">Extensões Markdown</h3>
+<pre><code class="language-yaml">markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - footnotes
+  - meta
+  - def_list
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.keys
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+</code></pre>
+<h2 id="configuracoes-de-cicd">Configurações de CI/CD</h2>
+<h3 id="github-actions">GitHub Actions</h3>
+<p>O projeto utiliza GitHub Actions para integração e entrega contínuas. Configure os workflows em <code>.github/workflows/</code>:</p>
+<h4 id="backend-ci">Backend CI</h4>
+<pre><code class="language-yaml">name: Backend CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'ilhaDeliveryApp/backend/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'ilhaDeliveryApp/backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          cd ilhaDeliveryApp/backend
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run tests
+        run: |
+          cd ilhaDeliveryApp/backend
+          python manage.py test
+</code></pre>
+<h4 id="frontend-ci">Frontend CI</h4>
+<pre><code class="language-yaml">name: Frontend CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'ilhaDeliveryApp/frontend/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'ilhaDeliveryApp/frontend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+      - name: Install dependencies
+        run: |
+          cd ilhaDeliveryApp/frontend
+          npm ci
+      - name: Run tests
+        run: |
+          cd ilhaDeliveryApp/frontend
+          npm test
+</code></pre>
+<h2 id="configuracoes-de-seguranca">Configurações de Segurança</h2>
+<h3 id="autenticacao">Autenticação</h3>
+<p>O sistema utiliza JWT (JSON Web Tokens) para autenticação. As configurações podem ser ajustadas no arquivo <code>settings.py</code>:</p>
+<pre><code class="language-python">SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('ACCESS_TOKEN_LIFETIME', 5))),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=int(os.getenv('REFRESH_TOKEN_LIFETIME', 1))),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'cliente_id',
+}
+</code></pre>
+<h3 id="cors-cross-origin-resource-sharing">CORS (Cross-Origin Resource Sharing)</h3>
+<p>Configurações CORS para permitir requisições de domínios específicos:</p>
+<pre><code class="language-python">CORS_ALLOWED_ORIGINS = [
+    &quot;http://localhost:3000&quot;,
+    &quot;http://localhost:19006&quot;,
+    &quot;https://staging.ilhadelivery.com&quot;,
+    &quot;https://ilhadelivery.com&quot;,
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+</code></pre>
+<h2 id="referencias">Referências</h2>
 <ul>
-<li>
-<p>Desenvolver os componentes e funcionalidades do sistema.</p>
-</li>
-<li>
-<p>Realizar testes de integração e sistema.</p>
-</li>
-<li>
-<p>Iterações para entregar versões parciais e funcionais do software.</p>
-</li>
-<li>
-<p>Produto principal: Software em funcionamento, pronto para ser entregue.</p>
-</li>
+<li><a href="https://docs.djangoproject.com/en/4.2/topics/settings/">Django Settings Documentation</a></li>
+<li><a href="https://reactnative.dev/docs/environment-setup">React Native Environment Configuration</a></li>
+<li><a href="https://docs.expo.dev/workflow/configuration/">Expo Configuration</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/getting-started/">MkDocs Material Theme Configuration</a></li>
 </ul>
 
 
@@ -1401,6 +2344,9 @@
 
 
 
+
+  
+  
 
 
 
@@ -1430,7 +2376,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
         
           
-          <a href="../__Elabora%C3%A7%C3%A3o/modelagem/das/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Diagrama de Análise de Sistema">
+          <a href="../seguranca/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Segurança">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1440,20 +2386,20 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                Diagrama de Análise de Sistema
+                Segurança
               </div>
             </div>
           </a>
         
         
           
-          <a href="../____Transi%C3%A7%C3%A3o/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Transição">
+          <a href="../releases/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Releases">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Próximo
               </span>
               <div class="md-ellipsis">
-                Transição
+                Releases
               </div>
             </div>
             <div class="md-footer__button md-icon">
