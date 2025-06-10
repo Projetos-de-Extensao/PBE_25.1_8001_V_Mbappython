@@ -81,7 +81,7 @@ export default function DetalhesPedido({ route }) {
 
     const interval = setInterval(() => {
       buscarPedido();
-    }, 5000);
+    }, 30000); // Atualiza a cada 30 segundos
 
     return () => {
       unsubscribe();

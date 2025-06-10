@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 
@@ -78,7 +78,7 @@ export default function CriarPedido() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       {/* Topo azul com logo */}
       <View style={styles.topoAzul}>
         <Image source={require('../assets/logodelivery.png')} style={styles.logoGrande} resizeMode="contain" />
@@ -134,7 +134,7 @@ export default function CriarPedido() {
           disabled={carregando}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -142,6 +142,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  contentContainer: {
+    paddingBottom: 80, // Add padding at the bottom to ensure content doesn't hide under the bottom menu
   },
   topoAzul: {
     backgroundColor: '#77cbff',
