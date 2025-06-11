@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image, ScrollView, Platform } from 'react-native';
 
 export default function CadastroScreen({ navigation }) {
   const [nome, setNome] = useState('');
@@ -13,49 +13,46 @@ export default function CadastroScreen({ navigation }) {
   const [cep, setCep] = useState('');
   const [ilha, setIlha] = useState('');
 
-const handleCadastro = async () => {
-  try {
-
-    const response = await fetch('http://192.168.0.8:8000/api/cadastro', {
-
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nome, cpf, telefone, rua, numero, cidade, estado, cep, ilha, senha
-      })
-    });
-
-    let data = {};
+  const handleCadastro = async () => {
     try {
-      data = await response.json();
-    } catch (e) {
-      // Se não for JSON, ignora
-    }
+      const response = await fetch('http://192.168.0.8:8000/api/cadastro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome, cpf, telefone, rua, numero, cidade, estado, cep, ilha, senha
+        })
+      });
 
-    if (response.ok) {
-      Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
-        { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
-      ]);
-      // Limpa os campos após sucesso
-      setNome('');
-      setCpf('');
-      setTeelfone('');
-      setSenha('');
-      setRua('');
-      setNumero('');
-      setCidade('');
-      setEstado('');
-      setCep('');
-      setIlha('');
-    } else {
-      Alert.alert('Erro', data.error || 'Erro ao cadastrar');
-    }
-  } catch (error) {
-    console.error(error);
-    Alert.alert('Erro', 'Erro de rede');
-  }
-};
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (e) {
+        // Se não for JSON, ignora
+      }
 
+      if (response.ok) {
+        Alert.alert('Sucesso', 'Cadastro realizado com sucesso!', [
+          { text: 'Ir para Login', onPress: () => navigation.navigate('Login') },
+        ]);
+        // Limpa os campos após sucesso
+        setNome('');
+        setCpf('');
+        setTeelfone('');
+        setSenha('');
+        setRua('');
+        setNumero('');
+        setCidade('');
+        setEstado('');
+        setCep('');
+        setIlha('');
+      } else {
+        Alert.alert('Erro', data.error || 'Erro ao cadastrar');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro', 'Erro de rede');
+    }
+  };
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -66,31 +63,37 @@ const handleCadastro = async () => {
         />
         <Text style={styles.logoText}>ILHA PRIMEIRA DELIVERY</Text>
       </View>
-      <View style={styles.formWrapper}>
-        <Text style={styles.sectionTitle}>DADOS PESSOAIS</Text>
-        <TextInput style={styles.input} placeholder="Nome Completo" value={nome} onChangeText={setNome} />
-        <TextInput style={styles.input} placeholder="CPF" value={cpf} onChangeText={setCpf} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={setTeelfone} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="Senha" value={senha} onChangeText={setSenha} secureTextEntry />
-        <View style={styles.fotoContainer}>
-          <View style={styles.fotoCircle}>
-            {/* Aqui pode ir um ícone de usuário */}
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.formWrapper}>
+          <Text style={styles.sectionTitle}>DADOS PESSOAIS</Text>
+          <TextInput style={styles.input} placeholder="Nome Completo" value={nome} onChangeText={setNome} />
+          <TextInput style={styles.input} placeholder="CPF" value={cpf} onChangeText={setCpf} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={setTeelfone} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="Senha" value={senha} onChangeText={setSenha} secureTextEntry />
+          <View style={styles.fotoContainer}>
+            <View style={styles.fotoCircle}>
+              {/* Aqui pode ir um ícone de usuário */}
+            </View>
+            <Text style={styles.fotoText}>ADICIONAR FOTO</Text>
           </View>
-          <Text style={styles.fotoText}>ADICIONAR FOTO</Text>
+          <TextInput style={styles.input} placeholder="Rua" value={rua} onChangeText={setRua} />
+          <TextInput style={styles.input} placeholder="Número" value={numero} onChangeText={setNumero} />
+          <TextInput style={styles.input} placeholder="Cidade" value={cidade} onChangeText={setCidade} />
+          <TextInput style={styles.input} placeholder="Estado" value={estado} onChangeText={setEstado} />
+          <TextInput style={styles.input} placeholder="CEP" value={cep} onChangeText={setCep} />
+          <TextInput style={styles.input} placeholder="Ilha" value={ilha} onChangeText={setIlha} />
+          <View style={styles.buttonWrapper}>
+            <Button title="CADASTRAR" color="#4DB6FF" onPress={handleCadastro} />
+          </View>
+          <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
+            Já tem conta? Faça login
+          </Text>
         </View>
-        <TextInput style={styles.input} placeholder="Rua" value={rua} onChangeText={setRua} />
-        <TextInput style={styles.input} placeholder="Número" value={numero} onChangeText={setNumero} />
-        <TextInput style={styles.input} placeholder="Cidade" value={cidade} onChangeText={setCidade} />
-        <TextInput style={styles.input} placeholder="Estado" value={estado} onChangeText={setEstado} />
-        <TextInput style={styles.input} placeholder="CEP" value={cep} onChangeText={setCep} />
-        <TextInput style={styles.input} placeholder="Ilha" value={ilha} onChangeText={setIlha} />
-        <View style={styles.buttonWrapper}>
-          <Button title="CADASTRAR" color="#4DB6FF" onPress={handleCadastro} />
-        </View>
-        <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
-          Já tem conta? Faça login
-        </Text>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -115,6 +118,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginBottom: 10,
     position: 'relative',
+  },
+  scrollView: {
+    width: '100%',
+    flex: 1,
+  },
+  scrollViewContent: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingBottom: 30, // Adiciona espaço extra no final para garantir que o último elemento seja visível
   },
   logo: {
     width: 70,
