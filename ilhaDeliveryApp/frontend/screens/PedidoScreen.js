@@ -46,7 +46,7 @@ export default function CriarPedido() {
       console.log("Authorization header:", `Bearer ${token}`);
       
 
-      const response = await fetch('http://192.168.0.8:8000/api/pedidos/criar', {
+      const response = await fetch('http://172.16.6.231:8000/api/pedidos/criar', {
 
         method: 'POST',
         headers: { 

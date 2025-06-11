@@ -9,7 +9,7 @@ export default function OperadorLoginScreen({ navigation }) {
   const handleLogin = async () => {
     try {
 
-      const response = await fetch('http://192.168.0.8:8000/api/operador/token/', {
+      const response = await fetch('http://172.16.6.231:8000/api/operador/token/', {
 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

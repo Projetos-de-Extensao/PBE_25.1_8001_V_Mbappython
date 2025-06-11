@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 
 
-const API_URL = 'http://192.168.0.8:8000/api';
+const API_URL = 'http://172.16.6.231:8000/api';
 
 
 export default function OperadorPedidosScreen({ navigation }) {
